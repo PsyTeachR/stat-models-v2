@@ -1,0 +1,125 @@
+# Glossary {.unnumbered}
+
+## criterion {#criterion}
+
+The [:response variable](#response-variable), usually used in the regression context to refer to the variable whose value we are trying to predict. Conventionally, this variable appears on the left side of the regression equation. For example, in the simple regression equation
+
+$$Y_i = \beta_0 + \beta_1 X_i + e_i$$
+
+the variable $Y_i$ is the response variable.
+
+See also [:predictor variable](#predictor-variable).
+
+## dependent variable {#dependent-variable}
+
+The outcome variable, whose value we are interested in predicting and/or explaining as a function of one or more [:independent variables](#independent-variable). Often abbreviated as "DV". This term means the same as [:response variable](#response-variable), but is often only used in the context of an experiment.
+
+## integrated development environment (IDE) {#ide}
+
+An integrated development environment or IDE is software that you use to develop computer programs. In the context of data analysis we often refer to the plain text files containing the programming instructions as a "script". The IDE includes things like a script editor and features like syntax highlighting that make it easier to develop scripts.
+
+It is always important to distinguish the software that provides the programming environment (e.g., [RStudio Desktop](https://posit.co/download/rstudio-desktop/), created by the for-profit company [Posit](https://posit.co/)) from the software that performs the computations (e.g., [R](https://r-project.org), created for free by numerous volunteers). The scripts you develop are (ideally) independent of the IDE. 
+
+## independent variable {#independent-variable}
+
+A variable whose value is assumed to affect the value of a [:dependent variable](#dependent-variable), abbreviated as "IV". In a randomized experiment, the value of the IV is manipulated by the experimenter. Similar to a [:predictor variable](#predictor-variable), but usually used in the context of randomized experiments.
+
+## dependent variable {#dependent-variable}
+
+The variable in an analysis corresponding to an outcome that we are interested in, often abbreviated as "DV". The value of the DV is assumed to be related in some way to the value of an [:independent variable](#independent-variable) or set of independent variables. 
+
+Conventionally, researchers use the more general term [:response variable](#response-variable) or [:criterion](#criterion), with "dependent variable" usually referring to the response variable in an experiment.
+
+## deviation score {#deviation-score}
+
+A transformed score, where the mean is subtracted from the original score. If $X$ is a variable, then the deviation score is $X - \bar{X}$, where $\bar{X}$ is the [:mean](#mean) of $X$.
+
+## fixed factor {#fixed-factor}
+
+TODO
+
+See also [:random factor](#random-factor)
+
+## interval scale of measurement {#interval-scale}
+
+One of the four basic [:scales of measurement](#scales-of-measurement). Values measured on an interval scale are numerical, quantitative values where differences between measurements represent meaningful 'distances' on the scale. Unlike the [:ratio scale](#ratio-scale), interval scales lack a true zero corresponding to the absence of the quantity being measured. Instead, the zero point is determined by convention. A common example is temperature, where zero does not reflect an absence of temperature but is defined more arbitrarily (e.g., zero degrees Centigrade is different from zero degrees Farenheit).
+
+## linear mixed-effects model {#linear-mixed-effects-model}
+
+TODO
+
+## mean {#mean}
+
+A measure of the central tendency of a variable, calculated by summing up the values and then dividing by $N$, the number of values. The mean of a set of observations is often notated by putting a horizontal bar over the symbol for the variable; e.g., for variable $X$, the mean would be notated as $\bar{X}$. In contrast, population means are often denoted using the greek letter $\mu$ ("mu") with the variable name as a subscript, e.g., $\mu_x$.
+
+The mean is calculated using the formula:
+
+$$\bar{X} = \frac{\Sigma X}{N}$$
+
+where $N$ is the number of observations, and $\Sigma$ is an instruction to sum together all of the $X$ values.
+
+## multilevel {#multilevel}
+
+We say that a dataset is multilevel when there are multiple measurements on the dependent variable for a given sampling unit. Usually, the sampling unit is a participant in a research study.
+
+## multivariate {#multivariate}
+
+We say that a dataset is multivariate when there are multiple dependent variables rather than a single dependent variable.
+
+## nominal scale of measurement {#nominal-scale}
+
+One of the four basic [:scales of measurement](#scales-of-measurement). Values measured on a nominal scale consist of discrete, unordered categories. "Scottish political party affiliation" is an example of a nominal variable, which (in 2025) might be given the following levels: Conservative, Labour, SNP, Lib Dem, Green, Reform, Alba, Other. Note that the levels correspond to discrete categories rather than numeric values, and that there is no intrinsic ordering among them. An easy way to remember this is that "nominal" comes from the Latin "nomen" which means name. Nominal data contrasts with [:ordinal](#ordinal-scale) data, where in the later case there is an intrinsic ordering to the categories.
+
+## Nutshell {#Nutshell}
+
+[Nutshell](https://ncase.me/nutshell/) is a web tool developed by Nicky Case to make expandable, embeddable explanations within a web page, like this one. A Nutshell definition appears with a dashed underline and two dots to the upper left. When you click on the link, the definition of the term will appear embedded within the page. Click the link again (or the little X at the bottom) to remove the definition.
+
+## ordinal scale {#ordinal-scale}
+
+One of the four basic [:scales of measurement](#scales-of-measurement). Ordinal data is like [:nominal](#nominal-scale) data, except there is an intrinsic rank ordering among the categories, but the distance between the ranks may not be (psychologically) equal, unlike with [:interval](#interval-scale) data. An example would be a Likert agreement scale with five categories: Strongly Agree, Somewhat Agree, Neither Agree Nor Disagree, Somewhat Disagree, Strongly Disagree.
+
+## predictor variable {#predictor-variable}
+
+A variable in a regression whose value is used to predict the value of the [:response variable](#response-variable), often in tandem with other predictor variables. For example, in the simple regression equation
+
+$$Y_i = \beta_0 + \beta_1 X_i + e_i$$
+
+the variable $X_i$ is a predictor variable.
+
+## $p$-value {#p-value}
+
+A probability associated with a test statistic; specifically, the probability, assuming the null hypothesis is true, of obtaining a test statistic at least as extreme as, or more extreme than, the one observed.
+
+## power {#power}
+
+The probability of rejecting the null hypothesis when it is false, for a specific analysis, effect size, sample size, and significance level.
+
+## random factor {#random-factor}
+
+TODO
+
+See also [:fixed factor](#fixed-factor).
+
+## ratio scale of measurement (#ratio-scale)
+
+One of the four basic [:scales of measurement](#scales-of-measurement). Ratio data, like [:interval](#interval-scale) data is quantitative in nature and with a consistent distance between units, but unlike interval data, it has a true zero representing the absence of the quantity being measure. Response time, which is a measure of duration, is an example of ratio scale data, where 'zero' is a theoretically possible value, meaning that a response was made instantaneously (although such a fast response time is unattainable in practice).
+
+## regression coefficient {#regression-coefficient}
+
+A parameter in a regression equation, whose true (i.e., population) value is usually estimated from the sample. Each predictor in a model is weighted by an associated regression coefficient. For example, in the simple regression equation
+
+$$Y_i = \beta_0 + \beta_1 X_i + e_i$$
+
+$\beta_0$ and $\beta_1$ are both regression coefficients.
+
+## response variable {#response-variable}
+
+The outcome variable in a regression. Used interchangeably with [:criterion variable](#criterion).
+
+## scales of measurement {#scales-of-measurement}
+
+A typology introduced by @Stevens_1946 of four types of measurement scales found in psychology: [:nominal](#nominal-scale), [:interval](#interval-scale), [:ratio](#ratio-scale), and [:ordinal](#ordinal-scale).
+
+## standard deviation {#standard-deviation}
+
+A measure of variability, defined as the mean of the [:deviation scores](#deviation-scores).

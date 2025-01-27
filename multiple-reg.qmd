@@ -1,0 +1,165 @@
+# Multiple regression
+
+A matrix must have two key properties to represent a valid covariance matrix: it must be **symmetric** and **positive-definite**.
+
+The way to understand a covariance matrix is to imagine writing the names of the variables along the rows and columns of the matrix
+
+In this chapter we'll only be looking at two variables, but next chapter we'll generalize the concept to more than two variables. Let's say these variables are $X$ and $Y$. Then 
+
+matrix being "positive-definite" and "symmetric"? These are mathematical requirements about the kinds of matrices that can represent possible multivariate normal distributions. In other words, the covariance matrix you supply must represent a legal multivariate normal distribution. At this point, you don't really need to know much more about this than that.
+
+
+## Correlation matrices
+
+You may be familiar with the concept of a **correlation matrix** from reading papers in psychology. Correlation matrices are a common way of summarizing relationships between multiple measurements taken from the same individual.
+
+Let's say you've measured psychological well-being using multiple scales. One question is the extent to which these scales are measuring the same thing. Often you will look at a correlation matrix to explore all the pairwise relationships between measures.
+
+
+If you have $n$ measures, how many pairwise correlations can you compute? You can figure this out either by the formula in the info box below, or more easily you can computed it directly through the `choose(n, 2)` function in R. For instance, to get the number of possible pairwise correlations between 6 measures, you'd type `choose(6, 2)`, which tells you that you have `{r} choose(6, 2)` combinations.
+
+::: {.callout-note}
+For any $n$ measures, you can calculate $\frac{n!}{2(n - 2)!}$ pairwise correlations between measures. The $!$ symbol is called the **factorial** operator, defined as the product of all numbers from 1 to $n$. So, if you have six measurements, you have
+
+$$
+\frac{6!}{2(6-2)!} = \frac{1 \times 2 \times 3 \times 4 \times 5 \times 6}{2\left(1 \times 2 \times 3 \times 4\right)} = \frac{720}{2(24)} = 15
+$$
+:::
+
+You can create a correlation matrix in R using `base::cor()` or `corrr::correlate()`. We prefer the latter function because `cor()` requires that your data is stored in a matrix, whereas most of the data we will be working with is tabular data stored in a data frame. The `corrr::correlate()` function takes a data frame as the first argument, and provides "tidy" output, so it integrates better with tidyverse functions and pipes (`|>`).
+
+Let's create a correlation matrix to see how it works. Start by loading in the packages we will need.
+
+```{r}
+#| label: load-packages
+#| message: false
+library("tidyverse")
+library("corrr")  # install.packages("corrr") in console if missing
+```
+
+We will use the `starwars` dataset, which is a built-in dataset that becomes available after you load the tidyverse package. This dataset has information about various characters that have appeared in the Star Wars film series. Let's look at the correlation between 
+
+```{r}
+#| label: starwars-corr
+starwars |>
+  select(height, mass, birth_year) |>
+  correlate()
+```
+
+You can look up any bivariate correlation at the intersection of any given row or column. So the correlation between `height` and `mass` is .134, which you can find in row 1, column 2 or row 2, column 1; the values are the same. Note that there are only `choose(3, 2)` = `{r} choose(3, 2)` unique bivariate relationships, but each appears twice in the table. We might want to show only the unique pairs. We can do this by appending `corrr::shave()` to our pipeline.
+
+```{r}
+#| label: corrr-shave
+starwars |>
+  select(height, mass, birth_year) |>
+  correlate() |>
+  shave()
+```
+
+Now we've only got the lower triangle of the correlation matrix, but the `NA` values are ugly and so are the leading zeroes. The **`corrr`** package also provides the `fashion()` function that cleans things up (see `?corrr::fashion` for more options).
+
+```{r}
+#| label: shave-and-fashion
+starwars |>
+  select(height, mass, birth_year) |>
+  correlate() |>
+  shave() |>
+  fashion()
+```
+
+Correlations only provide a good description of the relationship if the relationship is (roughly) linear and there aren't severe outliers that are wielding too strong of an influence on the results. So it is always a good idea to visualize the correlations as well as to quantify them.  The `base::pairs()` function does this. The first argument to `pairs()` is simply of the form `~ v1 + v2 + v3 + ... + vn` where `v1`, `v2`, etc. are the names of the variables you want to correlate.
+
+```{r}
+#| label: fig-pairs
+#| fig.height: 6
+#| fig.width: 6
+#| fig.asp: 1
+#| fig.cap: "Pairwise correlations for the starwars dataset"
+pairs(~ height + mass + birth_year, starwars)
+```
+
+We can see that there is a big outlier influencing our data; in particular, there is a creature with a mass greater than 1200kg! Let's find out who this is and eliminate them from the dataset.
+
+```{r}
+#| label: massive-creature-id
+starwars |>
+  filter(mass > 1200) |>
+  select(name, mass, height, birth_year)
+```
+
+OK, let's see how the data look without this massive creature.
+
+```{r}
+#| label: fig-massive-creature
+#| fig.height: 6
+#| fig.asp: 1
+#| fig.cap: "Pairwise correlations for the starwars dataset after removing outlying value on `mass`."
+starwars2 <- starwars |>
+  filter(name != "Jabba Desilijic Tiure")
+
+pairs(~height + mass + birth_year, starwars2)
+```
+
+Better, but there's a creature with an outlying birth year that we might want to get rid of.
+
+```{r}
+#| label: year-outlier
+starwars2 |>
+  filter(birth_year > 800) |>
+  select(name, height, mass, birth_year)
+```
+
+It's Yoda. He's as old as the universe. Let's drop him and see how the plots look.
+
+```{r}
+#| label: fig-bye-yoda
+#| fig.width: 6
+#| fig.asp: 1
+#| fig.cap: "Pairwise correlations for the starwars dataset after removing outlying values on `mass` and `birth_year`."
+starwars3 <- starwars2 |>
+  filter(name != "Yoda")
+
+pairs(~height + mass + birth_year, starwars3)
+```
+
+That looks much better. Let's see how that changes our correlation matrix.
+
+```{r}
+#| label: no-yoda
+starwars3 |>
+  select(height, mass, birth_year) |>
+  correlate() |>
+  shave() |>
+  fashion()
+```
+
+Note that these values are quite different from the ones we started with.
+
+Sometimes it's not a great idea to remove outliers. Another approach to dealing with outliers is to use a robust method. The default correlation coefficient that is computed by `corrr::correlate()` is the Pearson product-moment correlation coefficient. You can also compute the Spearman correlation coefficient by changing the `method()` argument to `correlate()`. This replaces the values with ranks before computing the correlation, so that outliers will still be included, but will have dramatically less influence.
+
+```{r}
+#| label: starwars-spearman
+starwars |>
+  select(height, mass, birth_year) |>
+  correlate(method = "spearman") |>
+  shave() |>
+  fashion()
+```
+
+Incidentally, if you are generating a report from R Markdown and want your tables to be nicely formatted you can use `knitr::kable()`.
+
+```{r}
+#| label: knitr-format
+#| message: false
+starwars |>
+  select(height, mass, birth_year) |>
+  correlate(method = "spearman") |>
+  shave() |>
+  fashion() |>
+  knitr::kable()
+```
+## Exercises
+
+```{r cov-app, echo=FALSE, out.width="530px"}
+knitr::include_app("https://talklab.psy.gla.ac.uk/app/covariance-site/", height = "480px")
+```

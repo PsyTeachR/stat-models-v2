@@ -1,0 +1,56 @@
+{
+  "index.qmd": {
+    "index.html": "88a52023"
+  },
+  "intro.qmd": {
+    "intro.html": "7d87a351"
+  },
+  "corr-and-reg.qmd": {
+    "corr-and-reg.html": "5f6c0c9e"
+  },
+  "multiple-reg.qmd": {
+    "multiple-reg.html": "15c5c99b"
+  },
+  "interactions.qmd": {
+    "interactions.html": "7fae4b49"
+  },
+  "mixed-effects.qmd": {
+    "mixed-effects.html": "49de81f3"
+  },
+  "multivariate.qmd": {
+    "multivariate.html": "2f41777f"
+  },
+  "path-1.qmd": {
+    "path-1.html": "82940089"
+  },
+  "path-2.qmd": {
+    "path-2.html": "17cbe427"
+  },
+  "cfa.qmd": {
+    "cfa.html": "6fb79f54"
+  },
+  "sem.qmd": {
+    "sem.html": "d8f746b7"
+  },
+  "references.qmd": {
+    "references.html": "7da04129"
+  },
+  "glossary.qmd": {
+    "glossary.html": "e50cc56f"
+  },
+  "notation.qmd": {
+    "notation.html": "0d71fd83"
+  },
+  "intro-placeholder.qmd": {
+    "intro-placeholder.html": "2e90e69f"
+  },
+  "multiple-reg-placeholder.qmd": {
+    "multiple-reg-placeholder.html": "a09e29b8"
+  },
+  "interactions-placeholder.qmd": {
+    "interactions-placeholder.html": "3772a479"
+  },
+  "mixed-effects-placeholder.qmd": {
+    "mixed-effects-placeholder.html": "0ea918d8"
+  }
+}

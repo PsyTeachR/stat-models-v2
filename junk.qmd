@@ -1,0 +1,166 @@
+
+## Interpreting `lmer()` output and extracting estimates
+
+The call to `lmer()` returns a fitted model object of class "lmerMod". To find out more about the `lmerMod` class, which is in turn a specialized version of the `merMod` class, see `?lmerMod-class`.
+
+```{r hid-parse-output, include = FALSE}
+.mod_out <- capture.output(summary(pp_mod))
+
+.headings <- c("^Random effects:$",
+               "^Fixed effects:$",
+               "^Correlation of Fixed Effects:$")
+
+.head_ix <- map_int(.headings, grep, x = .mod_out)
+```
+
+### Fixed effects
+
+The section of the output called `Fixed effects:` should look familiar; it is similar to what you would see in the output for a simple linear model fit by `lm()`.
+
+```{r fixed-effects, echo=FALSE}
+cat(.mod_out[.head_ix[2]:(.head_ix[3] - 2L)], sep = "\n")
+```
+
+This indicates that the estimated mean reaction time for participants at Day 0 was about
+`r round(fixef(pp_mod) %>% pluck(1), 0)` milliseconds, 
+with each day of sleep deprivation adding an additional 
+`r round(fixef(pp_mod) %>% pluck(2), 0)` milliseconds 
+to the response time, on average.
+
+If we need to get the fixed effects from the model, we can extract them using `fixef()`.
+
+```{r fixef}
+fixef(pp_mod)
+```
+
+The standard errors give us estimates of the variability for these parameters due to sampling error.  You could use these to calculate the \(t\)-values or derive confidence intervals. Extract them using `vcov(pp_mod)` which gives a variance-covariance matrix (*not* the one associated with the random effects), pull out the diagonal using `diag()` and then take the square root using `sqrt()`.
+
+```{r vcov}
+sqrt(diag(vcov(pp_mod)))
+
+# OR, equivalently using pipes:
+# vcov(pp_mod) %>% diag() %>% sqrt()
+```
+
+Note that these \(t\) values do not appear with \(p\) values, as is customary in simpler modeling frameworks. There are multiple approaches for getting \(p\) values from mixed-effects models, with advantages and disadvantages to each; see @Luke_2017 for a survey of options. The \(t\) values do not appear with degrees of freedom, because the degrees of freedom in a mixed-effects model are not well-defined. Often people will treat them as Wald \(z\) values, i.e., as observations from the standard normal distribution. Because the \(t\) distribution asymptotes the standard normal distribution as the number of observations goes to infinity, this "t-as-z" practice is legitimate if you have a large enough set of observations.
+
+To calculate the Wald \(z\) values, just divide the fixed effect estimate by its standard error:
+
+```{r t-as-z}
+tvals <- fixef(pp_mod) / sqrt(diag(vcov(pp_mod)))
+
+tvals
+```
+
+You can get the associated \(p\)-values using the following formula:
+
+```{r p-values}
+2 * (1 - pnorm(abs(tvals)))
+```
+
+This gives us strong evidence against the null hypothesis \(H_0: \gamma_1 = 0\). Sleep deprivation does appear to increase response time.
+
+You can get confidence intervals for the estimates using `confint()` (this technique uses the *parametric bootstrap*).  `confint()` is a generic function, so to get help on this function, use `?confint.merMod`.
+
+```{r conf-int, cache=TRUE}
+confint(pp_mod)
+```
+
+### Random effects
+
+```{r ranfx, echo=FALSE}
+cat(.mod_out[.head_ix[1]:(.head_ix[2] - 2L)], sep = "\n")
+```
+
+The random effects part of the `summary()` output is less familiar. What you find here is a table with information about the variance components: the variance-covariance matrix (or matrices, if you have multiple random factors) and the residual variance.
+
+Let's start with the `Residual` line. This tells us that the residual variance, \(\sigma^2\), was estimated at about
+`r round(sigma(pp_mod)^2, 2)`. The value in the next column, 
+`r round(sigma(pp_mod), 3)`, is just the standard deviation, \(\sigma\), which is the square root of the variance.
+
+We extract the residual standard deviation using the `sigma()` function.
+
+```{r sigma}
+sigma(pp_mod) # residual
+```
+
+The two lines above the `Residual` line give us information about the variance-covariance matrix for the `Subject` random factor.
+
+```{r varcorr, echo = FALSE}
+cat(.mod_out[(.head_ix[1] + 1L):(.head_ix[2] - 4L)], sep = "\n")
+```
+
+The values in the `Variance` column gives us the main diagonal of the matrix, and the `Std.Dev.` values are just the square roots of these values. The `Corr` column tells us the correlation between the intercept and slope.
+
+We can extract these values from the fitted object `pp_mod` using the `VarCorr()` function. This returns a named list, with one element for each random factor. We have `Subject` as our only random factor, so the list will just be of length 1.
+
+```{r get-varcorr}
+# variance-covariance matrix for random factor Subject
+VarCorr(pp_mod)[["Subject"]] # equivalently: VarCorr(pp_mod)[[1]]
+```
+
+The first few lines are a printout of the variance covariance matrix. You can see the variances in the main diagonal. We can get these with:
+
+```{r varcorr-diag}
+diag(VarCorr(pp_mod)[["Subject"]]) # just the variances
+```
+
+We can get the correlation between the intecepts and slopes in two ways. First, by extracting the `"correlation"` attribute and then pulling out the element in row 1 column 2 (`[1, 2]`):
+
+```{r corr1}
+attr(VarCorr(pp_mod)[["Subject"]], "correlation")[1, 2] # the correlation
+```
+
+Or we can directly compute the value from the variance-covariance matrix itself.
+
+```{r corr2}
+# directly compute correlation from variance-covariance matrix
+mx <- VarCorr(pp_mod)[["Subject"]]
+
+## if cov = rho * t00 * t11, then
+## rho = cov / (t00 * t11).
+mx[1, 2] / (sqrt(mx[1, 1]) * sqrt(mx[2, 2]))
+```
+
+We can pull out the estimated random effects (BLUPS) using `ranef()`. Like `VarCorr()` , the result is a named list, with each element corresponding to a single random factor.
+
+```{r ranef}
+ranef(pp_mod)[["Subject"]]
+```
+
+There are other extractor functions that are useful. See `?merMod-class` for details.
+
+We can get fitted values from the model using `fitted()` and residuals using `residuals()`.  (These functions take into account "the conditional modes of the random effects", i.e., the BLUPS).
+ 
+```{r}
+mutate(sleep2,
+       fit = fitted(pp_mod),
+       resid = residuals(pp_mod)) %>%
+  group_by(Subject) %>%
+  slice(c(1,10)) %>%
+  print(n = +Inf)
+```
+
+Finally, we can get predictions for new data using `predict()`, as we did above. Below we use `predict()` to imagine what might have happened had we continued our study for three extra days.
+
+```{r extrapolate}
+## create the table with new predictor values
+ndat <- crossing(Subject = sleep2 %>% pull(Subject) %>% levels() %>% factor(),
+                 days_deprived = 8:10) %>%
+  mutate(Reaction = predict(pp_mod, newdata = .))
+```
+
+```{r extrap-plot, fig.cap="Data against model with extrapolation."}
+ggplot(sleep2, aes(x = days_deprived, y = Reaction)) +
+  geom_line(data = bind_rows(newdata2, ndat),
+            color = 'blue') +
+  geom_point() +
+  scale_x_continuous(breaks = 0:10) +
+  facet_wrap(~Subject) +
+  labs(y = "Reaction Time", x = "Days deprived of sleep (0 = baseline)")
+```
+
+## Multi-level app
+
+[Try out the multi-level web app](https://talklab.psy.gla.ac.uk/app/multilevel-site/){target="_blank"} to sharpen your understanding of the three different approaches to multi-level modeling.
+

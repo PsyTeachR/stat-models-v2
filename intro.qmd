@@ -1,0 +1,71 @@
+# Introduction
+
+> "All models are wrong, but some are useful." - @Box_1976
+
+> "I call it the law of the instrument, and it may be formulated as follows: Give a small boy a hammer, and he will find that everything he encounters needs pounding." - @Kaplan_1964, cited in [Wikipedia](https://en.wikipedia.org/wiki/Law_of_the_instrument)
+
+```{r}
+#| label: dummy-chunk
+#| echo: false
+```
+
+## Why models?
+
+
+
+### Models versus tests
+
+Models can be used in simulation. Having a model make s
+
+### Models of measurement
+
+observation = truth + error
+
+```{mermaid}
+%%| label: fig-happy-measurement
+%%| fig-cap: "A measurement model of happiness."
+flowchart TD
+  C(("happiness")) --> X1 & X2 & X3 & X4 & X5
+```
+
+### Assessing model fit
+
+### Comparing models
+
+This textbook takes a 'modeling' approach toward psychological/neuroscientific data. 
+
+Often a survey course on psychology will present the content as a set of recipes 
+
+This first chapter provides an overview of the textbook and an explanation of and rationale for the general approach. 
+
+## Models versus tests
+
+My approach in this course is to 
+
+## Common types of data
+
+[:dependent variable](glossary.qmd#dependent-variable)
+
+### Multilevel data
+
+Psychological data is often [:multilevel](glossary.qmd#multilevel). Blah blah blah.
+
+Here the focus is on behavioral data usually collected in the context of a planned study or experiment—response time, perceptual judgments, choices, decisions, Likert ratings, eye movements, hours of sleep, etc.
+
+## Multivariate data
+
+Psychological data is often [:multivariate](glossary.qmd#multivariate).
+
+::: {.callout-tip collapse="true"}
+## Going further: Recommended Readings
+
+- On models and the philosophy of science as it relates to psychology:
+
+  Dienes, Z. (2008). [Understanding psychology as a science: An introduction to scientific and statistical inference](https://www.bloomsbury.com/uk/understanding-psychology-as-a-science-9780230542310/). Bloomsbury.
+
+- On the use of models for simulation:
+
+  Farrell, S., & Lewandowsky, S. (2018). [Computational modeling of cognition and behavior.](https://doi.org/10.1017/CBO9781316272503) Cambridge University Press.
+  
+  Smaldino, P. (2023). [Modeling social behavior: Mathematical and agent-based models of social dynamics and cultural evolution.](https://press.princeton.edu/books/ebook/9780691224152/modeling-social-behavior) Princeton University Press.
+:::

@@ -1,0 +1,36 @@
+project:
+  type: book
+  output-dir: docs
+
+book:
+  title: "Statistical Models in Psychology and Neuroscience: A Survey"
+  author: "Dale J. Barr"
+  date: "12/24/2024"
+  chapters:
+    - index.qmd
+    - intro-placeholder.qmd
+    - corr-and-reg.qmd
+    - multiple-reg-placeholder.qmd
+    - interactions-placeholder.qmd
+    - mixed-effects-placeholder.qmd
+#    - multivariate.qmd
+#    - path-1.qmd
+#    - path-2.qmd
+#    - cfa.qmd
+#    - sem.qmd
+    - references.qmd
+    - glossary.qmd
+    - notation.qmd
+
+bibliography: references.bib
+csl: apa.csl
+
+format:
+  html:
+    css: glossary.css
+    theme:
+      light: default
+      dark: cyborg
+
+filters:
+  - nutshell

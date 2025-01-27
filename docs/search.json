@@ -1,0 +1,362 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Statistical Models in Psychology and Neuroscience: A Survey",
+    "section": "",
+    "text": "Preface\nThis course offers a survey of common approaches to statistical modeling found in psychology and neuroscience, with three key goals in mind: flexibility, generalizability, and reproducibility. We focus on analytical techniques that are flexible, in the sense that they can be adapted to different types of study designs with different types of data. We seek to structure analyses to support claims that are generalizable to the larger population of people (and possibly stimuli) from which our sample was drawn. Finally, we aim to analyse data in ways that are reproducible by writing plain text scripts in R. In this way, the full set of procedures have been documented in an unambiguous way to enable others (including our future selves!) to easily reproduce our analysis from the raw data to the results and perhaps even up to generating the research report.\nThis textbook accompanies a one-semester survey course whose aim is to introduce students to the most common analytical approaches in the field. But psychology and neuroscience are broad research areas with many different traditions and approaches, reflecting the complexity of the subject matter. Fortunately, all of these approaches are built on the foundation of linear regression. My hope is to provide a solid foundation in regression so that you know enough to go further on your own with any technique you are interested in. Be under no illusion that we give adequate treatment to techniques introduced in this textbook beyond multiple regression. For each approach, I provide guidance for learning more at the end of the corresponding chapter.\nThe textbook focuses on the practical implementation of concepts introduced in lectures of my course. The textbook itself does not provide much conceptual discussion. Nevertheless, it may still be useful for people who already understand these concepts but are looking to learn their implementation in R statistical programming.",
+    "crumbs": [
+      "Preface"
+    ]
+  },
+  {
+    "objectID": "index.html#about-this-book",
+    "href": "index.html#about-this-book",
+    "title": "Statistical Models in Psychology and Neuroscience: A Survey",
+    "section": "About this book",
+    "text": "About this book\nThe material in this course forms the basis for a one-semester course for third-year undergradautes taught by Dale Barr at the University of Glasgow School of Psychology and Neuroscience. It is part of the PsyTeachR series of course materials developed by University of Glasgow Psychology staff.\nThis textbook is meant to be interactive. Each chapter contains embedded exercises as well as web applications to help students better understand the content. The interactive content will only work if you access this material through a web browser. Printing out the material is not recommended.\n\nThe main tool that we will be using is the statistical programming environment R. To follow along with the code in this textbook you will need R version 4.2.0 or later. It is also recommended that you install the add-on packages tidyverse, lme4, psych, corrr, and lavaan.\nFor anyone starting out with R, you will need to choose an :Integrated Development Environment. For beginners, the RStudio Desktop is a good choice.\n\nHow to use this book\nThis book has ‘dark’ and ‘light’ modes that you can toggle between to suit your reading preferences. Look for the toggle switch next to where the book title is displayed in your browser.\nWhen discussing statistical modeling, some use of technical terminology is unavoidable. This book contains a glossary where you can find definitions of common terms. I have used the Nutshell web tool which allows you to “expand” definitions to appear within the body of the web page, to avoid flipping back and forth between the main text and the glossary. Whereever you see an underlined term that has two dots to the top left of it, like this term—:Nutshell—you can click on the term to expand the definition (try it!).\n\n\nHow to cite this book\nBarr, Dale J. (2024). Statistical models in psychology and neuroscience: A survey. Version 0.9.0. Retrieved from https://psyteachr.github.io/stat-models-v2.\n\n\n\nFree to re-use and remix!\nYou are free to re-use and modify the material in this textbook for your own purposes with the stipulation that you cite the original work. Please note additional terms of the Creative Commons CC-BY-SA 4.0 license governing re-use of this material.\n\n\nHow this book was made\nThis book was authored using the Quarto publishing system. To learn more about Quarto books visit https://quarto.org/docs/books.",
+    "crumbs": [
+      "Preface"
+    ]
+  },
+  {
+    "objectID": "intro-placeholder.html",
+    "href": "intro-placeholder.html",
+    "title": "1  Introduction",
+    "section": "",
+    "text": "(under construction)",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction</span>"
+    ]
+  },
+  {
+    "objectID": "corr-and-reg.html",
+    "href": "corr-and-reg.html",
+    "title": "2  Correlation and Regression",
+    "section": "",
+    "text": "2.1 Correlation\nA correlation coefficient quantifies the strength and direction of an association between two variables. It is usually represented by the symbol \\(r\\) or \\(\\rho\\) (Greek letter “rho”). The correlation coefficient ranges between -1 and 1, with 0 corresponding to no relationship, positive values reflecting a positive relationship (as one variable increases, so does the other), and negative values reflecting a negative relationship (as one variable increases, the other decreases).\nThe web app below shows 100 random points from a bivariate normal distribution for variables \\(X\\) and \\(Y\\). You can use the sliders to change the parameters of that distribution: the correlation (Greek symbol \\(\\rho\\), “rho”), the standard deviation for \\(X\\) (\\(\\sigma_X\\), “sigma X”), the standard deviation for \\(Y\\) (\\(\\sigma_Y\\)), the mean of \\(X\\) (\\(\\mu_X\\), “mu X”) and the mean of \\(Y\\) (\\(\\mu_Y\\), “mu Y”). These five parameters are all you need to characterize a bivariate normal distribution.\nPlay around with the sliders until you have a conceptual understanding of the various parameters. Use the “new sample” button to get a new set of 100 randomly-generated pairs, and use “reset” to reset the parameter values to their defaults.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Correlation and Regression</span>"
+    ]
+  },
+  {
+    "objectID": "corr-and-reg.html#correlation",
+    "href": "corr-and-reg.html#correlation",
+    "title": "2  Correlation and Regression",
+    "section": "",
+    "text": "2.1.1 Bivariate application\n\n\nThere are different correlation coefficients that make different assumptions or that allow you to work with different types of data. To start, let’s consider the one most commonly used: the Pearson product-moment correlation coefficient, which can be applied to :interval or :ratio scale data. When you hear someone talk about a “correlation” without further qualification, they are most likely talking about a Pearson correlation coefficient. If we have the variables \\(X\\) and \\(Y\\) then we might use \\(r_{XY}\\) or \\(\\rho_{XY}\\) as a symbol for the correlation.\nThere are multiple equivalent formulas for calculating a Pearson correlation coefficient. The most important one for us is\n\\[r_{XY} = \\frac{cov_{XY}}{S_X S_Y}\\]\nbecause it can offer some conceptual understanding. The quantity \\(cov_{XY}\\) is the covariance between two variables, \\(X\\) and \\(Y\\), which is defined as\n\\[cov_{XY} = \\frac{\\Sigma (X - \\bar{X})(Y - \\bar{Y})}{N}.\\]\nIn other words, it is the sum of the products of the deviation scores for each \\((X, Y)\\) pair of observations divided by the number of pairs.\nNote that the covariance of a variable with itself is\n\\[cov_{XX} = \\frac{\\Sigma (X - \\bar{X})(X - \\bar{X})}{N} = \\frac{\\Sigma (X - \\bar{X})^2}{N}\\]\nwhich is the formula for the variance of a variable. Taking the square root gives us the formula for the standard deviation:\n\\[SD_X = \\sqrt{\\frac{\\Sigma (X - \\bar{X})^2}{N}}.\\]\nThe above formulas are for calculating these statistics for the sample. When we want to estimate the corresponding parameters for the population we have sampled from, these formulas will have \\(N-1\\) instead of \\(N\\) in their denominators. The R functions cov(), var(), and sd() are used to compute these values on vectors or matrices.\n\n\n\n\n\n\nExercise: Calculate a correlation coefficient for variables in a data frame.\n\n\n\nThe data frame iris in R has measurements of different parts of 50 flowers from three different species of iris. See help(\"iris\") for more information about this dataset.\n\nhead(iris, 6)\n\n  Sepal.Length Sepal.Width Petal.Length Petal.Width Species\n1          5.1         3.5          1.4         0.2  setosa\n2          4.9         3.0          1.4         0.2  setosa\n3          4.7         3.2          1.3         0.2  setosa\n4          4.6         3.1          1.5         0.2  setosa\n5          5.0         3.6          1.4         0.2  setosa\n6          5.4         3.9          1.7         0.4  setosa\n\n\nCalculate the correlation between the petal length and petal width of these flowers in R using the cov() and sd() functions in R.\n\n\n\n\n\n\nHint\n\n\n\n\n\n\\[r_{XY} = \\frac{cov_{XY}}{S_X S_Y}\\]\ncov(iris$Petal.Length, iris$Petal.Width) # covariance\n\n\n\n\n\n\n\n\n\nSolution\n\n\n\n\n\n\ncov(iris$Petal.Length, iris$Petal.Width) /\n  (sd(iris$Petal.Length) * sd(iris$Petal.Width))\n\n[1] 0.9628654\n\n\nLet’s compare this result with the result of the function cor().\n\ncor(iris$Petal.Length, iris$Petal.Width)\n\n[1] 0.9628654\n\n\n\n\n\n\n\n\n\n2.1.2 Covariance matrix\nCovariance matrices become very important once we start talking about multilevel modelling and multivariate analyses.\nA covariance matrix (also known as the variance-covariance matrix) is a mathematical structure that describes the spread of a multivariate distribution. It is multidimensional analogue of the standard deviation.\nTo fully describe a univariate (single variable) normal distribution, you need to know only two parameters: the mean (\\(\\mu\\)) and standard deviation (\\(\\sigma\\)). Mathematically, this is often represented as\n\\[X_i \\sim \\mathcal{N}\\left(\\mu, \\sigma^2\\right)\\]\nwhich is read as, “each case \\(i\\) of the \\(X\\) variable is drawn from a normal distribution with mean of \\(\\mu\\) and variance \\(\\sigma^2\\).\nTo fully describe a bivariate normal distribution, you need five parameters: the means of each of the two variables, their standard deviations, and their correlation. The mathematical way to represent the idea that pairs of observations for case \\(i\\), (\\(X_i\\), \\(Y_i\\)) are drawn from a normal distribution is:\n\\[\\begin{pmatrix} X_i \\\\ Y_i\\end{pmatrix} \\sim \\mathcal{N}\\left(\\begin{pmatrix}\\mu_X \\\\ \\mu_Y\\end{pmatrix}, \\mathbf{\\Sigma}\\right)\\]\nwhere \\(\\mathbf{\\Sigma}\\) is a covariance matrix, defined as\n\\[\\mathbf{\\Sigma} = \\begin{pmatrix}cov_{xx} & cov_{xy} \\\\ cov_{yx} & cov_{yy}\\end{pmatrix} = \\begin{pmatrix}\\rho_{xx}\\sigma_x\\sigma_x & \\rho_{xy}\\sigma_x\\sigma_y \\\\ \\rho_{yx}\\sigma_y\\sigma_x & \\rho_{yy}\\sigma_y\\sigma_y\\end{pmatrix}.\\]\nYou can see that the entries are just a rearrangement of the correlation formula\n\\[\\rho_{xy} = \\frac{cov_{xy}}{\\sigma_x \\sigma_y}.\\]\nwhere we rearrange to solve for \\(cov_{xy}\\)\n\\[cov_{xy} = \\rho_{xy}\\sigma_x \\sigma_y.\\]\nBecause the correlation of a variable with itself (\\(\\rho_{xx}\\), \\(\\rho_{yy}\\)) is always 1, we will often see \\(\\mathbf{\\Sigma}\\) written equivalently as\n\\[\\begin{pmatrix}{\\sigma_x}^2 & \\rho_{xy}\\sigma_x\\sigma_y \\\\ \\rho_{yx}\\sigma_y\\sigma_x & {\\sigma_y}^2\\end{pmatrix}.\\]\nNote two things about the above matrix: first, the variances appear in the main diagonal, and the covariance appear off the main diagonal. Second, a correlation is not directional, and so \\(\\rho_{xy} = \\rho_{yx}\\), which means that the two off-diagonal elements have the same value.\n\n\n\n\n\n\nWarning: \\(\\Sigma\\) doing double duty\n\n\n\nYou may have noticed that the Greek capital letter \\(\\Sigma\\) is used both to represent the instruction to add things together, e.g., \\(\\Sigma X\\) = sum(X), and now it’s being used as a symbol to represent a covariance matrix \\(\\mathbf{\\Sigma}\\). In the latter case, \\(\\Sigma\\) appears in boldface (compare \\(\\mathbf{\\Sigma}\\) to \\(\\Sigma\\)). Usually the context will make things clear.\n\n\n\n\n\n\n\n\nTell me more about matrices\n\n\n\n\n\nIn mathematics, matrices are just generalizations of the concept of a vector: a vector can be thought of as having one dimension, whereas a matrix can have any number of dimensions.\nSo the matrix\n\\[\n\\begin{pmatrix}\n1 & 4 & 7 \\\\\n2 & 5 & 8 \\\\\n3 & 6 & 9 \\\\\n\\end{pmatrix}\n\\]\nis a 3 (row) by 3 (column) matrix containing the column vectors \\(\\begin{pmatrix} 1 \\\\ 2 \\\\ 3 \\\\ \\end{pmatrix}\\), \\(\\begin{pmatrix} 4 \\\\ 5 \\\\ 6 \\\\ \\end{pmatrix}\\), and \\(\\begin{pmatrix} 7 \\\\ 8 \\\\ 9 \\\\ \\end{pmatrix}\\). Conventionally, we refer to matrices in \\(i\\) by \\(j\\) format, with \\(i\\) being the number of rows and \\(j\\) being the number of columns. So a 3x2 matrix has 3 rows and 2 columns, like so.\n\\[\n\\begin{pmatrix}\na & d \\\\\nb & e \\\\\nc & f \\\\\n\\end{pmatrix}\n\\]\nA square matrix is a matrix where the number of rows is equal to the number of columns.\n\n\n\n\n\n\n\n\n\nExercise: Generate a covariance matrix\n\n\n\nGenerate a covariance matrix corresponding to the relation between Petal.Width and Petal.Length for the iris dataset. Name your covariance matrix cvmx.\n\n\n\n\n\n\nSolution\n\n\n\n\n\n\nr_wl &lt;- cor(iris$Petal.Width, iris$Petal.Length)\nsd_w &lt;- sd(iris$Petal.Width)\nsd_l &lt;- sd(iris$Petal.Length)\n\ncov_wl &lt;- r_wl * sd_w * sd_l\n\n## bind together rows of the matrix using rbind()\ncvmx &lt;- rbind(c(sd_w^2, cov_wl),\n              c(cov_wl, sd_l^2))\n\ncvmx\n\n          [,1]     [,2]\n[1,] 0.5810063 1.295609\n[2,] 1.2956094 3.116278",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Correlation and Regression</span>"
+    ]
+  },
+  {
+    "objectID": "corr-and-reg.html#regression",
+    "href": "corr-and-reg.html#regression",
+    "title": "2  Correlation and Regression",
+    "section": "2.2 Regression",
+    "text": "2.2 Regression\nWhen we have two variables, \\(X\\) and \\(Y\\), and our goal is to predict values of \\(Y\\) from \\(X\\), then we usually want to fit a linear regression model; or we might say, we want “to regress \\(Y\\) on \\(X\\).”\nA simple regression model is of the form:\n\\[Y_i = \\beta_0 + \\beta_1 X_i + e_i.\\]\nIn this equation, \\(\\beta_0\\) and \\(\\beta_1\\) are the y-intercept and slope parameters respectively, and the \\(e_i\\)s are the errors (the part of each \\(Y_i\\) left unexplained by the model). It is conventionally assumed that the \\(e_i\\) values are from a normal distribution with mean of zero and variance \\(\\sigma^2\\); the math-y way of saying this is \\(e_i \\sim \\mathcal{N}(0, \\sigma^2)\\), where \\(\\sim\\) is read as “distributed according to” and \\(\\mathcal{N}(0, \\sigma^2)\\) means “Normal distribution (\\(\\mathcal{N}\\)) with mean of 0 and variance of \\(\\sigma^2\\)”.\n\n2.2.1 Scatterplot\nLet’s return to the iris data. Say we want to predict Petal.Length from Petal.Width. Before proceeding, it is a good idea to make a scatterplot of the data using ggplot2. We can use the colour aesthetic to capture what species a datapoint belongs to.\n\nlibrary(\"tidyverse\")\n\nggplot(iris,\n       aes(x = Petal.Width, y = Petal.Length, colour = Species)) +\n  geom_point()\n\n\n\n\n\n\n\nFigure 2.1: Scatterplot of the iris data.\n\n\n\n\n\nThe plot looks like we could nicely fit a line through the cloud of points. Let’s do that.\n\n\n2.2.2 Fitting a model using lm()\nWe use the lm() function (linear model) to fit regression models. It’s a good idea to look at the help file before using a function we’re unfamiliar with (type help(\"lm\") in the console).\nlm                    package:stats                    R Documentation\n\nFitting Linear Models\n\nDescription:\n\n     ‘lm’ is used to fit linear models, including multivariate ones.\n     It can be used to carry out regression, single stratum analysis of\n     variance and analysis of covariance (although aov may provide a\n     more convenient interface for these).\n\nUsage:\n\n     lm(formula, data, subset, weights, na.action,\n        method = \"qr\", model = TRUE, x = FALSE, y = FALSE, qr = TRUE,\n        singular.ok = TRUE, contrasts = NULL, offset, ...)\n     \n     ## S3 method for class 'lm'\n     print(x, digits = max(3L, getOption(\"digits\") - 3L), ...)\n     \nArguments:\n\n formula: an object of class ‘\"formula\"’ (or one that can be coerced to\n          that class): a symbolic description of the model to be\n          fitted.  The details of model specification are given under\n          ‘Details’.\n\n    data: an optional data frame, list or environment (or object\n          coercible by as.data.frame to a data frame) containing the\n          variables in the model.  If not found in ‘data’, the\n          variables are taken from ‘environment(formula)’, typically\n          the environment from which ‘lm’ is called.\nUsually the first few arguments are the important ones we need to pay attention to. Here, the key ones are formula and data. We need to provide a symbolic description of the model. Under Details we see\nDetails:\n\n     Models for ‘lm’ are specified symbolically.  A typical model has\n     the form ‘response ~ terms’ where ‘response’ is the (numeric)\n     response vector and terms is a series of terms which specifies a\n     linear predictor for ‘response’.\nSo we specify the model using response ~ terms, but we omit the intercept and the error term of the model because they are always implied. We also don’t name the regression coefficients; they get given the same names as the predictor variables. Thus our formula \\(Y_i = \\beta_0 + \\beta_1 X_i + e_i\\) just becomes Petal.Length ~ Petal.Width. The data argument tells the function the name of the data frame where the variables can be found. The result of the call to lm() is a fitted model object. We want to store the result so that we can perform further computations on the object. So altogether, our call might look like the following.\n\nmod &lt;- lm(Petal.Length ~ Petal.Width, data = iris)\n\nNote that we chose the name mod, but this is arbitrary; we could have used any other variable name.\nTo see the results of the function, we use summary() on the model object.\n\nsummary(mod)\n\n\nCall:\nlm(formula = Petal.Length ~ Petal.Width, data = iris)\n\nResiduals:\n     Min       1Q   Median       3Q      Max \n-1.33542 -0.30347 -0.02955  0.25776  1.39453 \n\nCoefficients:\n            Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)  1.08356    0.07297   14.85   &lt;2e-16 ***\nPetal.Width  2.22994    0.05140   43.39   &lt;2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 0.4782 on 148 degrees of freedom\nMultiple R-squared:  0.9271,    Adjusted R-squared:  0.9266 \nF-statistic:  1882 on 1 and 148 DF,  p-value: &lt; 2.2e-16\n\n\nWe are most interested in the table of coefficients here, which is the table of the regression coefficients for our model, the y-intercept \\(\\beta_0\\) and the slope \\(\\beta_1\\). We get \\(\\hat{\\beta}_0 = 1.084\\) and \\(\\hat{\\beta}_1 = 2.230\\). So with every 1 unit increase in Petal.Width, Petal.Length increases by 2.230.\nWe can see these value in the output, but we can also pull them out using code with the coef() function, which returns a vector with their values.\n\ncoef(mod)\n\n(Intercept) Petal.Width \n   1.083558    2.229940 \n\n\nRecall that the errors in our model are from a normal distribution with a mean of zero and variance \\(\\sigma^2\\), stated mathematically as \\(e_i \\sim \\mathcal{N}\\left(0, \\sigma^2\\right)\\). The “residual standard error” for the model tells us \\(\\hat{\\sigma}\\), the estimated value of \\(\\sigma\\). We can pull this out of the model object using the sigma() function.\n\nsigma(mod)\n\n[1] 0.4782058\n\n\n\n\n2.2.3 Plotting the model fit against the data\nIt’s usually a good idea to plot the model fit against the data to see how well we are doing. Let’s re-create our scatterplot but use geom_abline() to add in a line with the slope and y-intercept for the model, which we can get using coef().\n\nggplot(iris,\n       aes(x = Petal.Width, y = Petal.Length, colour = Species)) +\n  geom_point() +\n  geom_abline(slope = coef(mod)[\"Petal.Width\"],\n              intercept = coef(mod)[\"(Intercept)\"],\n              colour = \"pink\")\n\n\n\n\n\n\n\n\n\n\n2.2.4 Getting other properties of fitted model objects\nThere are three other functions that useful to know. Each of these takes the fitted model object as the first argument.\n\n\n\nfunction\ndescription\n\n\n\n\npredict()\ngenerate predictions from the model\n\n\nfitted()\nget fitted values from the model\n\n\nresiduals()\ncalculate residuals\n\n\n\nFitted values, denoted by \\(\\hat{Y}_i\\), are the predicted values for all the \\(X_i\\) in the data. Predicted values can be for any \\(X_i\\) values, even those not seen in the dataset.\nResiduals represent the error of prediction, and are defined as \\(Y_i - \\hat{Y}_i\\); i.e., the observed value for case \\(i\\) minus the fitted value for case \\(i\\).",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Correlation and Regression</span>"
+    ]
+  },
+  {
+    "objectID": "corr-and-reg.html#relationship-between-correlation-and-regression",
+    "href": "corr-and-reg.html#relationship-between-correlation-and-regression",
+    "title": "2  Correlation and Regression",
+    "section": "2.3 Relationship between correlation and regression",
+    "text": "2.3 Relationship between correlation and regression\nWe can calculate regression coefficients from correlation statistics and vice versa. To get regression statistics from correlation statistics, along with the correlation coefficient we need means of X and Y (denoted by \\(\\mu_x\\) and \\(\\mu_y\\) respectively) and their standard deviations (\\(\\hat{\\sigma}_x\\) and \\(\\hat{\\sigma}_y\\)). Let’s see how we can compute regression coefficients \\(\\beta_0\\) and \\(\\beta_1\\).\nFirst, the slope of the regression line \\(\\beta_1\\) equals the correlation coefficient \\(\\rho\\) times the ratio of the standard deviations of \\(Y\\) and \\(X\\).\n\\[\\beta_1 = \\rho \\frac{\\sigma_Y}{\\sigma_X}\\]\nIf you play around with the bivariate web app you can verify for yourself that this is the case.\nThe next thing to note is that for mathematical reasons, the regression line is guaranteed to go through the point corresponding to the mean of \\(X\\) and the mean of \\(Y\\), i.e., the point \\((\\mu_x, \\mu_y)\\). (You can think of the regression line “pivoting” around that point depending on the slope). You also know that \\(\\beta_0\\) is the y-intercept, the point where the line crosses the vertical axis at \\(X = 0\\). From this information, and the estimates above, can you figure out the value of \\(\\beta_0\\)?\nWell, for each unit increase in \\(X\\) you have a corresponding change of \\(\\beta_1\\) for \\(Y\\), and you know that the line goes through the points \\((\\mu_x, \\mu_y)\\) as well as the y-intercept \\((0, \\beta_0)\\).\nThink about stepping back unit-by-unit from \\(X = \\mu_x\\) to \\(X = 0\\). At \\(X = \\mu_x\\), \\(Y = \\mu_y\\). Each unit step you take backward in the X dimension, \\(Y\\) will drop by \\(\\beta_1\\) units. When you get to zero, \\(Y\\) will have dropped from \\(\\mu_y\\) to \\(\\mu_y - \\mu_x\\beta_1\\).\nSo the general solution is: \\(\\beta_0 = \\mu_y - \\mu_x\\beta_1\\).\nTo close, here are a few implications from the relationship between correlation and regression.\n\n\\(\\beta_1 = 0\\) is the same as \\(\\rho = 0\\).\n\\(\\beta_1 &gt; 0\\) implies \\(\\rho &gt; 0\\), since standard deviations can’t be negative.\n\\(\\beta_1 &lt; 0\\) implies \\(\\rho &lt; 0\\), for the same reason.\nRejecting the null hypothesis that \\(\\beta_1 = 0\\) is the same as rejecting the null hypothesis that \\(\\rho = 0\\). The p-values that you get for \\(\\beta_1\\) in lm() will be the same as the one you get for \\(\\rho\\) from cor.test().",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Correlation and Regression</span>"
+    ]
+  },
+  {
+    "objectID": "corr-and-reg.html#two-approaches-for-simulating-bivariate-data",
+    "href": "corr-and-reg.html#two-approaches-for-simulating-bivariate-data",
+    "title": "2  Correlation and Regression",
+    "section": "2.4 Two approaches for simulating bivariate data",
+    "text": "2.4 Two approaches for simulating bivariate data\n\n2.4.1 Approach 1: Simulating from the covariance matrix\nYou can simulate data from the normal distribution using the function rnorm(). The function rnorm() allows you to specify the mean and standard deviation of a single variable. How do we simulate correlated variables?\nIt should be clear that you can’t just run rnorm() twice and combine the variables, because then you end up with two variables that are unrelated, i.e., with a correlation of zero.\nThe package MASS provides a function mvrnorm() which is the ‘multivariate’ version of rnorm (hence the function name, mv + rnorm, which makes it easy to remember.\n\n\n\n\n\n\nCaution\n\n\n\nThe MASS package comes pre-installed with R. But the only function you’ll probably ever want to use from MASS is mvrnorm(), so rather than load in the package using library(\"MASS\"), it is preferable to use MASS::mvrnorm(), especially as MASS and the dplyr package from tidyverse don’t play well together, due to both packages having the function select(). So if you load in MASS after you load in tidyverse, you’ll end up getting the MASS version of select() instead of the dplyr version. It will do your head in trying to figure out what is wrong with your code, so always use MASS::mvrnorm() without loading library(\"MASS\").\n\n\nHave a look at the documentation for the mvrnorm() function (type ?MASS::mvrnorm in the console).\nThere are three arguments to take note of:\n\n\n\n\n\n\n\narg\ndescription\n\n\n\n\nn\nthe number of samples required\n\n\nmu\na vector giving the means of the variables\n\n\nSigma\na positive-definite symmetric matrix specifying the covariance matrix of the variables.\n\n\n\nThe Sigma argument to MASS::mvrnorm() plays an analogous role to the sd argument in rnorm(); it specifies the spread for the two variables.\n\n\n\n\n\n\nExercise: Simulate bivariate data using MASS::mvrnorm().\n\n\n\n\n\n\n\n\n\nSolution\n\n\n\n\n\n\n\n\n\n\n\n\n\n2.4.2 Approach 2: Simulating from the regression model\nAnother way you can simulated data is based on a regression model. This way is pretty straightforward because we just follow the \\(Y_i = \\beta_0 + \\beta_1 X_i + e_i\\) formula.\n\nfirst, simulate the \\(X_i\\) values\ncalculate the predicted value from the model\nadd random error to the prediction using rnorm() to yield \\(Y_i\\)\n\nLet’s use this approach to simulate data from the iris dataset. First, let’s get the coefficients and the estimate of \\(\\sigma\\).\n\niris_coef &lt;- coef(mod)\niris_sig &lt;- sigma(mod) \n\niris_coef\n\n(Intercept) Petal.Width \n   1.083558    2.229940 \n\niris_sig\n\n[1] 0.4782058\n\n\nWe want to start by creating a data frame containing the \\(X_i\\) values. But for this we need to know \\(\\mu_x\\) and \\(\\sigma_x\\).\n\niris_mu_x &lt;- mean(iris$Petal.Width)\niris_sd_x &lt;- sd(iris$Petal.Width)\n\nWe’ll create the \\(X_i\\) values in a vector first. We have to decide on the number of paired observations we want; let’s say 150, the same number as in the original dataset. Let’s set the seed before we do any random number generation.\n\nset.seed(1451)\n\niris_x &lt;- rnorm(150, mean = iris_mu_x, sd = iris_sd_x)\n\nNow let’s use the tibble() function (from tidyverse) to create the \\(X_i\\) values in a data frame, followed by the predicted value, y_hat, followed by the errors, e_i\n\nsim_iris &lt;- tibble(x_i = iris_x,\n                   y_hat = iris_coef[1] + iris_coef[2] * x_i,\n                   e_i = rnorm(150, mean = 0, sd = iris_sig),\n                   y_i = y_hat + e_i)\n\nLet’s have a look.\n\nggplot(sim_iris,\n       aes(x = x_i, y = y_i)) +\n  geom_point()\n\n\n\n\n\n\n\n\nThis looks fairly similar to the original data, but note that we haven’t taken into account the species of flower, so the points are spread evenly across the x dimension, unlike in Figure Figure 2.1 above. So our model is good, but not really complete.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Correlation and Regression</span>"
+    ]
+  },
+  {
+    "objectID": "multiple-reg-placeholder.html",
+    "href": "multiple-reg-placeholder.html",
+    "title": "3  Multiple regression",
+    "section": "",
+    "text": "(under construction)",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Multiple regression</span>"
+    ]
+  },
+  {
+    "objectID": "interactions-placeholder.html",
+    "href": "interactions-placeholder.html",
+    "title": "4  Interactions",
+    "section": "",
+    "text": "(under construction)",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Interactions</span>"
+    ]
+  },
+  {
+    "objectID": "mixed-effects-placeholder.html",
+    "href": "mixed-effects-placeholder.html",
+    "title": "5  Multilevel models",
+    "section": "",
+    "text": "(under construction)",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Multilevel models</span>"
+    ]
+  },
+  {
+    "objectID": "references.html",
+    "href": "references.html",
+    "title": "References",
+    "section": "",
+    "text": "Stevens, S. S. (1946). On the theory of scales of measurement.\nScience, 103(2684), 677–680. https://doi.org/10.1126/science.103.2684.677",
+    "crumbs": [
+      "References"
+    ]
+  },
+  {
+    "objectID": "glossary.html",
+    "href": "glossary.html",
+    "title": "Glossary",
+    "section": "",
+    "text": "criterion\nThe :response variable, usually used in the regression context to refer to the variable whose value we are trying to predict. Conventionally, this variable appears on the left side of the regression equation. For example, in the simple regression equation\n\\[Y_i = \\beta_0 + \\beta_1 X_i + e_i\\]\nthe variable \\(Y_i\\) is the response variable.\nSee also :predictor variable.",
+    "crumbs": [
+      "Glossary"
+    ]
+  },
+  {
+    "objectID": "glossary.html#dependent-variable",
+    "href": "glossary.html#dependent-variable",
+    "title": "Glossary",
+    "section": "dependent variable",
+    "text": "dependent variable\nThe variable in an analysis corresponding to an outcome that we are interested in, often abbreviated as “DV”. The value of the DV is assumed to be related in some way to the value of an :independent variable or set of independent variables.\nConventionally, researchers use the more general term :response variable or :criterion, with “dependent variable” usually referring to the response variable in an experiment.",
+    "crumbs": [
+      "Glossary"
+    ]
+  },
+  {
+    "objectID": "glossary.html#ide",
+    "href": "glossary.html#ide",
+    "title": "Glossary",
+    "section": "integrated development environment (IDE)",
+    "text": "integrated development environment (IDE)\nAn integrated development environment or IDE is software that you use to develop computer programs. In the context of data analysis we often refer to the plain text files containing the programming instructions as a “script”. The IDE includes things like a script editor and features like syntax highlighting that make it easier to develop scripts.\nIt is always important to distinguish the software that provides the programming environment (e.g., RStudio Desktop, created by the for-profit company Posit) from the software that performs the computations (e.g., R, created for free by numerous volunteers). The scripts you develop are (ideally) independent of the IDE.",
+    "crumbs": [
+      "Glossary"
+    ]
+  },
+  {
+    "objectID": "glossary.html#independent-variable",
+    "href": "glossary.html#independent-variable",
+    "title": "Glossary",
+    "section": "independent variable",
+    "text": "independent variable\nA variable whose value is assumed to affect the value of a :dependent variable, abbreviated as “IV”. In a randomized experiment, the value of the IV is manipulated by the experimenter. Similar to a :predictor variable, but usually used in the context of randomized experiments.",
+    "crumbs": [
+      "Glossary"
+    ]
+  },
+  {
+    "objectID": "glossary.html#deviation-score",
+    "href": "glossary.html#deviation-score",
+    "title": "Glossary",
+    "section": "deviation score",
+    "text": "deviation score\nA transformed score, where the mean is subtracted from the original score. If \\(X\\) is a variable, then the deviation score is \\(X - \\bar{X}\\), where \\(\\bar{X}\\) is the :mean of \\(X\\).",
+    "crumbs": [
+      "Glossary"
+    ]
+  },
+  {
+    "objectID": "glossary.html#fixed-factor",
+    "href": "glossary.html#fixed-factor",
+    "title": "Glossary",
+    "section": "fixed factor",
+    "text": "fixed factor\nTODO\nSee also :random factor",
+    "crumbs": [
+      "Glossary"
+    ]
+  },
+  {
+    "objectID": "glossary.html#interval-scale",
+    "href": "glossary.html#interval-scale",
+    "title": "Glossary",
+    "section": "interval scale of measurement",
+    "text": "interval scale of measurement\nOne of the four basic :scales of measurement. Values measured on an interval scale are numerical, quantitative values where differences between measurements represent meaningful ‘distances’ on the scale. Unlike the :ratio scale, interval scales lack a true zero corresponding to the absence of the quantity being measured. Instead, the zero point is determined by convention. A common example is temperature, where zero does not reflect an absence of temperature but is defined more arbitrarily (e.g., zero degrees Centigrade is different from zero degrees Farenheit).",
+    "crumbs": [
+      "Glossary"
+    ]
+  },
+  {
+    "objectID": "glossary.html#linear-mixed-effects-model",
+    "href": "glossary.html#linear-mixed-effects-model",
+    "title": "Glossary",
+    "section": "linear mixed-effects model",
+    "text": "linear mixed-effects model\nTODO",
+    "crumbs": [
+      "Glossary"
+    ]
+  },
+  {
+    "objectID": "glossary.html#mean",
+    "href": "glossary.html#mean",
+    "title": "Glossary",
+    "section": "mean",
+    "text": "mean\nA measure of the central tendency of a variable, calculated by summing up the values and then dividing by \\(N\\), the number of values. The mean of a set of observations is often notated by putting a horizontal bar over the symbol for the variable; e.g., for variable \\(X\\), the mean would be notated as \\(\\bar{X}\\). In contrast, population means are often denoted using the greek letter \\(\\mu\\) (“mu”) with the variable name as a subscript, e.g., \\(\\mu_x\\).\nThe mean is calculated using the formula:\n\\[\\bar{X} = \\frac{\\Sigma X}{N}\\]\nwhere \\(N\\) is the number of observations, and \\(\\Sigma\\) is an instruction to sum together all of the \\(X\\) values.",
+    "crumbs": [
+      "Glossary"
+    ]
+  },
+  {
+    "objectID": "glossary.html#multilevel",
+    "href": "glossary.html#multilevel",
+    "title": "Glossary",
+    "section": "multilevel",
+    "text": "multilevel\nWe say that a dataset is multilevel when there are multiple measurements on the dependent variable for a given sampling unit. Usually, the sampling unit is a participant in a research study.",
+    "crumbs": [
+      "Glossary"
+    ]
+  },
+  {
+    "objectID": "glossary.html#multivariate",
+    "href": "glossary.html#multivariate",
+    "title": "Glossary",
+    "section": "multivariate",
+    "text": "multivariate\nWe say that a dataset is multivariate when there are multiple dependent variables rather than a single dependent variable.",
+    "crumbs": [
+      "Glossary"
+    ]
+  },
+  {
+    "objectID": "glossary.html#nominal-scale",
+    "href": "glossary.html#nominal-scale",
+    "title": "Glossary",
+    "section": "nominal scale of measurement",
+    "text": "nominal scale of measurement\nOne of the four basic :scales of measurement. Values measured on a nominal scale consist of discrete, unordered categories. “Scottish political party affiliation” is an example of a nominal variable, which (in 2025) might be given the following levels: Conservative, Labour, SNP, Lib Dem, Green, Reform, Alba, Other. Note that the levels correspond to discrete categories rather than numeric values, and that there is no intrinsic ordering among them. An easy way to remember this is that “nominal” comes from the Latin “nomen” which means name. Nominal data contrasts with :ordinal data, where in the later case there is an intrinsic ordering to the categories.",
+    "crumbs": [
+      "Glossary"
+    ]
+  },
+  {
+    "objectID": "glossary.html#Nutshell",
+    "href": "glossary.html#Nutshell",
+    "title": "Glossary",
+    "section": "Nutshell",
+    "text": "Nutshell\nNutshell is a web tool developed by Nicky Case to make expandable, embeddable explanations within a web page, like this one. A Nutshell definition appears with a dashed underline and two dots to the upper left. When you click on the link, the definition of the term will appear embedded within the page. Click the link again (or the little X at the bottom) to remove the definition.",
+    "crumbs": [
+      "Glossary"
+    ]
+  },
+  {
+    "objectID": "glossary.html#ordinal-scale",
+    "href": "glossary.html#ordinal-scale",
+    "title": "Glossary",
+    "section": "ordinal scale",
+    "text": "ordinal scale\nOne of the four basic :scales of measurement. Ordinal data is like :nominal data, except there is an intrinsic rank ordering among the categories, but the distance between the ranks may not be (psychologically) equal, unlike with :interval data. An example would be a Likert agreement scale with five categories: Strongly Agree, Somewhat Agree, Neither Agree Nor Disagree, Somewhat Disagree, Strongly Disagree.",
+    "crumbs": [
+      "Glossary"
+    ]
+  },
+  {
+    "objectID": "glossary.html#predictor-variable",
+    "href": "glossary.html#predictor-variable",
+    "title": "Glossary",
+    "section": "predictor variable",
+    "text": "predictor variable\nA variable in a regression whose value is used to predict the value of the :response variable, often in tandem with other predictor variables. For example, in the simple regression equation\n\\[Y_i = \\beta_0 + \\beta_1 X_i + e_i\\]\nthe variable \\(X_i\\) is a predictor variable.",
+    "crumbs": [
+      "Glossary"
+    ]
+  },
+  {
+    "objectID": "glossary.html#p-value",
+    "href": "glossary.html#p-value",
+    "title": "Glossary",
+    "section": "\\(p\\)-value",
+    "text": "\\(p\\)-value\nA probability associated with a test statistic; specifically, the probability, assuming the null hypothesis is true, of obtaining a test statistic at least as extreme as, or more extreme than, the one observed.",
+    "crumbs": [
+      "Glossary"
+    ]
+  },
+  {
+    "objectID": "glossary.html#power",
+    "href": "glossary.html#power",
+    "title": "Glossary",
+    "section": "power",
+    "text": "power\nThe probability of rejecting the null hypothesis when it is false, for a specific analysis, effect size, sample size, and significance level.",
+    "crumbs": [
+      "Glossary"
+    ]
+  },
+  {
+    "objectID": "glossary.html#random-factor",
+    "href": "glossary.html#random-factor",
+    "title": "Glossary",
+    "section": "random factor",
+    "text": "random factor\nTODO\nSee also :fixed factor.",
+    "crumbs": [
+      "Glossary"
+    ]
+  },
+  {
+    "objectID": "glossary.html#ratio-scale-of-measurement-ratio-scale",
+    "href": "glossary.html#ratio-scale-of-measurement-ratio-scale",
+    "title": "Glossary",
+    "section": "ratio scale of measurement (#ratio-scale)",
+    "text": "ratio scale of measurement (#ratio-scale)\nOne of the four basic :scales of measurement. Ratio data, like :interval data is quantitative in nature and with a consistent distance between units, but unlike interval data, it has a true zero representing the absence of the quantity being measure. Response time, which is a measure of duration, is an example of ratio scale data, where ‘zero’ is a theoretically possible value, meaning that a response was made instantaneously (although such a fast response time is unattainable in practice).",
+    "crumbs": [
+      "Glossary"
+    ]
+  },
+  {
+    "objectID": "glossary.html#regression-coefficient",
+    "href": "glossary.html#regression-coefficient",
+    "title": "Glossary",
+    "section": "regression coefficient",
+    "text": "regression coefficient\nA parameter in a regression equation, whose true (i.e., population) value is usually estimated from the sample. Each predictor in a model is weighted by an associated regression coefficient. For example, in the simple regression equation\n\\[Y_i = \\beta_0 + \\beta_1 X_i + e_i\\]\n\\(\\beta_0\\) and \\(\\beta_1\\) are both regression coefficients.",
+    "crumbs": [
+      "Glossary"
+    ]
+  },
+  {
+    "objectID": "glossary.html#response-variable",
+    "href": "glossary.html#response-variable",
+    "title": "Glossary",
+    "section": "response variable",
+    "text": "response variable\nThe outcome variable in a regression. Used interchangeably with :criterion variable.",
+    "crumbs": [
+      "Glossary"
+    ]
+  },
+  {
+    "objectID": "glossary.html#scales-of-measurement",
+    "href": "glossary.html#scales-of-measurement",
+    "title": "Glossary",
+    "section": "scales of measurement",
+    "text": "scales of measurement\nA typology introduced by Stevens (1946) of four types of measurement scales found in psychology: :nominal, :interval, :ratio, and :ordinal.",
+    "crumbs": [
+      "Glossary"
+    ]
+  },
+  {
+    "objectID": "glossary.html#standard-deviation",
+    "href": "glossary.html#standard-deviation",
+    "title": "Glossary",
+    "section": "standard deviation",
+    "text": "standard deviation\nA measure of variability, defined as the mean of the :deviation scores.\n\n\n\n\nStevens, S. S. (1946). On the theory of scales of measurement. Science, 103(2684), 677–680. https://doi.org/10.1126/science.103.2684.677",
+    "crumbs": [
+      "Glossary"
+    ]
+  },
+  {
+    "objectID": "notation.html",
+    "href": "notation.html",
+    "title": "Notation",
+    "section": "",
+    "text": "blah!!",
+    "crumbs": [
+      "Notation"
+    ]
+  }
+]
