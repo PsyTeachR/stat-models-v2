@@ -1,165 +1,589 @@
 # Multiple regression
 
-A matrix must have two key properties to represent a valid covariance matrix: it must be **symmetric** and **positive-definite**.
-
-The way to understand a covariance matrix is to imagine writing the names of the variables along the rows and columns of the matrix
-
-In this chapter we'll only be looking at two variables, but next chapter we'll generalize the concept to more than two variables. Let's say these variables are $X$ and $Y$. Then 
-
-matrix being "positive-definite" and "symmetric"? These are mathematical requirements about the kinds of matrices that can represent possible multivariate normal distributions. In other words, the covariance matrix you supply must represent a legal multivariate normal distribution. At this point, you don't really need to know much more about this than that.
-
-
-## Correlation matrices
-
-You may be familiar with the concept of a **correlation matrix** from reading papers in psychology. Correlation matrices are a common way of summarizing relationships between multiple measurements taken from the same individual.
-
-Let's say you've measured psychological well-being using multiple scales. One question is the extent to which these scales are measuring the same thing. Often you will look at a correlation matrix to explore all the pairwise relationships between measures.
-
-
-If you have $n$ measures, how many pairwise correlations can you compute? You can figure this out either by the formula in the info box below, or more easily you can computed it directly through the `choose(n, 2)` function in R. For instance, to get the number of possible pairwise correlations between 6 measures, you'd type `choose(6, 2)`, which tells you that you have `{r} choose(6, 2)` combinations.
-
-::: {.callout-note}
-For any $n$ measures, you can calculate $\frac{n!}{2(n - 2)!}$ pairwise correlations between measures. The $!$ symbol is called the **factorial** operator, defined as the product of all numbers from 1 to $n$. So, if you have six measurements, you have
+The general model for single-level data with $m$ predictors is
 
 $$
-\frac{6!}{2(6-2)!} = \frac{1 \times 2 \times 3 \times 4 \times 5 \times 6}{2\left(1 \times 2 \times 3 \times 4\right)} = \frac{720}{2(24)} = 15
+Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \ldots + \beta_m X_{mi} + e_i
 $$
-:::
 
-You can create a correlation matrix in R using `base::cor()` or `corrr::correlate()`. We prefer the latter function because `cor()` requires that your data is stored in a matrix, whereas most of the data we will be working with is tabular data stored in a data frame. The `corrr::correlate()` function takes a data frame as the first argument, and provides "tidy" output, so it integrates better with tidyverse functions and pipes (`|>`).
+with $e_i \sim \mathcal{N}\left(0, \sigma^2\right)$—in other words, with the assumption that the errors are from a normal distribution having a mean of zero and variance $\sigma^2$. 
 
-Let's create a correlation matrix to see how it works. Start by loading in the packages we will need.
+Note that the key assumption here is **not** that the response variable (the $Y$s) is normally distributed, **nor** that the individual predictor variables (the $X$s) are normally distributed; it is **only** that the model residuals are normally distributed (for discussion, see [this blog post](https://datahowler.wordpress.com/2018/08/04/checking-model-assumptions-look-at-the-residuals-not-the-raw-data/)). The individual $X$ predictor variables can be any combination of continuous and/or categorical predictors, including interactions among variables. Further assumptions behind this particular model are that the relationship is "planar" (can be described by a flat surface, analogous to the linearity assumption in simple regression) and that the error variance is independent of the predictor values.
+
+The $\beta$ values are referred to as **regression coefficients**. Each $\beta_h$ is interpreted as the **partial effect of $\beta_h$ holding constant all other predictor variables.** If you have $m$ predictor variables, you have $m+1$ regression coefficients: one for the intercept, and one for each predictor.
+
+Although discussions of multiple regression are common in statistical textbooks, data from psychological or neuroscience experiments are often multi-level, and so you cannot apply the exact model above. However, the fundamentals are the same for single- and multi-level data, so let's start there.
+
+## An example: How to get a good grade in statistics
+
+Let's look at some (made up, but realistic) data to see how we can use multiple regression to answer various study questions. In this hypothetical study, you have a dataset for 100 statistics students, which includes their final course grade (`grade`), the number of lectures each student attended (`lecture`, an integer ranging from 0-10), how many times each student clicked to download online materials (`nclicks`) and each student's grade point average prior to taking the course, `GPA`, which ranges from 0 (fail) to 4 (highest possible grade).
+
+### Data import and visualization
+
+Let's load in the data [grades.csv](data/grades.csv){target="_download"} and have a look.
 
 ```{r}
-#| label: load-packages
+#| label: load-data
 #| message: false
+
+library("corrr") # correlation matrices
 library("tidyverse")
-library("corrr")  # install.packages("corrr") in console if missing
+
+grades <- read_csv("data/grades.csv", col_types = "ddii")
+
+grades
 ```
 
-We will use the `starwars` dataset, which is a built-in dataset that becomes available after you load the tidyverse package. This dataset has information about various characters that have appeared in the Star Wars film series. Let's look at the correlation between 
+First let's look at all the pairwise correlations.
 
 ```{r}
-#| label: starwars-corr
-starwars |>
-  select(height, mass, birth_year) |>
-  correlate()
-```
-
-You can look up any bivariate correlation at the intersection of any given row or column. So the correlation between `height` and `mass` is .134, which you can find in row 1, column 2 or row 2, column 1; the values are the same. Note that there are only `choose(3, 2)` = `{r} choose(3, 2)` unique bivariate relationships, but each appears twice in the table. We might want to show only the unique pairs. We can do this by appending `corrr::shave()` to our pipeline.
-
-```{r}
-#| label: corrr-shave
-starwars |>
-  select(height, mass, birth_year) |>
-  correlate() |>
-  shave()
-```
-
-Now we've only got the lower triangle of the correlation matrix, but the `NA` values are ugly and so are the leading zeroes. The **`corrr`** package also provides the `fashion()` function that cleans things up (see `?corrr::fashion` for more options).
-
-```{r}
-#| label: shave-and-fashion
-starwars |>
-  select(height, mass, birth_year) |>
+#| label: correlation-matrix
+grades |>
   correlate() |>
   shave() |>
   fashion()
 ```
-
-Correlations only provide a good description of the relationship if the relationship is (roughly) linear and there aren't severe outliers that are wielding too strong of an influence on the results. So it is always a good idea to visualize the correlations as well as to quantify them.  The `base::pairs()` function does this. The first argument to `pairs()` is simply of the form `~ v1 + v2 + v3 + ... + vn` where `v1`, `v2`, etc. are the names of the variables you want to correlate.
 
 ```{r}
 #| label: fig-pairs
-#| fig.height: 6
-#| fig.width: 6
-#| fig.asp: 1
-#| fig.cap: "Pairwise correlations for the starwars dataset"
-pairs(~ height + mass + birth_year, starwars)
+#| fig.cap: "All pairwise relationships in the `grades` dataset."
+pairs(grades)
 ```
 
-We can see that there is a big outlier influencing our data; in particular, there is a creature with a mass greater than 1200kg! Let's find out who this is and eliminate them from the dataset.
+### Estimation and interpretation
+
+To estimate the regression coefficients (the $\beta$s), we will use the `lm()` function. For a GLM with $m$ predictors:
+
+$$
+Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \ldots + \beta_m X_{mi} + e_i
+$$
+
+The call to base R's `lm()` is
+
+`lm(Y ~ X1 + X2 + ... + Xm, data)`
+
+The `Y` variable is your response variable, and the `X` variables are the predictor variables. Note that you don't need to explicitly specify the intercept or residual terms; those are included by default.
+
+For the current data, let's predict `grade` from `lecture` and `nclicks`.
 
 ```{r}
-#| label: massive-creature-id
-starwars |>
-  filter(mass > 1200) |>
-  select(name, mass, height, birth_year)
-```
+#| label: fit-the-model
+my_model <- lm(grade ~ lecture + nclicks, grades)
 
-OK, let's see how the data look without this massive creature.
+summary(my_model)
+```
 
 ```{r}
-#| label: fig-massive-creature
-#| fig.height: 6
-#| fig.asp: 1
-#| fig.cap: "Pairwise correlations for the starwars dataset after removing outlying value on `mass`."
-starwars2 <- starwars |>
-  filter(name != "Jabba Desilijic Tiure")
-
-pairs(~height + mass + birth_year, starwars2)
+#| label: get-coef
+#| echo: false
+.coef <- coef(my_model) |> round(2)
 ```
 
-Better, but there's a creature with an outlying birth year that we might want to get rid of.
+We'll often write the parameter symbol with a little hat on top to make clear that we are dealing with estimates from the sample rather than the (unknown) true population values. From above:
+
+* $\hat{\beta}_0$ = `{r} round(.coef[[1]], 2)`
+* $\hat{\beta}_1$ = `{r} round(.coef[[2]], 2)`
+* $\hat{\beta}_2$ = `{r} round(.coef[[3]], 2)`
+
+This tells us that a person's predicted grade is related to their lecture attendance and download rate by the following formula:
+
+`grade` = `{r} .coef[[1]]` + `{r} .coef[[2]]` $\times$ `lecture` + `{r} .coef[[3]]` $\times$ `nclicks`
+
+Because $\hat{\beta}_1$ and $\hat{\beta}_2$ are both positive, we know that higher values of `lecture` and `nclicks` are associated with higher grades.
+
+So if you were asked, what grade would you predict for a student who attends 3 lectures and downloaded 70 times, you could easily figure that out by substituting the appropriate values.
+
+`grade` = `{r} .coef[[1]]` + `{r} .coef[[2]]` $\times$ 3 + `{r} .coef[[3]]` $\times$ 70
+
+which equals
+
+`grade` = `{r} .coef[[1]]` + `{r} round(.coef[[2]] * 3, 2)` + `{r} round(.coef[[3]] * 70, 2)`
+
+and reduces to
+
+`grade` = `{r} .coef[[1]] + round(.coef[[2]] * 3, 2) + round(.coef[[3]] * 70, 2)`
+
+### Predictions from the linear model using `predict()`
+
+If we want to predict response values for new predictor values, we can use the `predict()` function in base R. 
+
+`predict()` takes two main arguments. The first argument is a fitted model object (i.e., `my_model` from above) and the second is a data frame (or tibble) containing new values for the predictors.
+
+::: {.callout-caution}
+
+You need to include **all** of the predictor variables in the new table. You'll get an error message if your tibble is missing any predictors. You also need to make sure that the variable names in the new table **exactly** match the variable names in the model.
+
+:::
+
+Let's create a tibble with new values and try it out.
 
 ```{r}
-#| label: year-outlier
-starwars2 |>
-  filter(birth_year > 800) |>
-  select(name, height, mass, birth_year)
+## a 'tribble' is a way to make a tibble by rows,
+## rather than by columns. This is sometimes useful
+new_data <- tribble(~lecture, ~nclicks,
+                    3, 70,
+                    10, 130,
+                    0, 20,
+                    5, 100)
 ```
 
-It's Yoda. He's as old as the universe. Let's drop him and see how the plots look.
+::: {.callout-note}
+
+The `tribble()` function provides a way to build a tibble row by row, whereas with `tibble()` the table is built column by column.
+
+The first row of the `tribble()` contains the column names, each preceded by a tilde (`~`).
+
+This is sometimes easier to read than doing it row by row, although the result is the same. Consider that we could have made the above table using
 
 ```{r}
-#| label: fig-bye-yoda
-#| fig.width: 6
-#| fig.asp: 1
-#| fig.cap: "Pairwise correlations for the starwars dataset after removing outlying values on `mass` and `birth_year`."
-starwars3 <- starwars2 |>
-  filter(name != "Yoda")
-
-pairs(~height + mass + birth_year, starwars3)
+#| label: tibble-example
+#| eval: false
+new_data <- tibble(lecture = c(3, 10, 0, 5),
+                   nclicks = c(70, 130, 20, 100))
 ```
 
-That looks much better. Let's see how that changes our correlation matrix.
+:::
+
+Now that we've created our table `new_data`, we just pass it to `predict()` and it will return a vector with the predictions for $Y$ (`grade`).
 
 ```{r}
-#| label: no-yoda
-starwars3 |>
-  select(height, mass, birth_year) |>
-  correlate() |>
-  shave() |>
-  fashion()
+#| label: predict-it
+predict(my_model, new_data)
 ```
 
-Note that these values are quite different from the ones we started with.
-
-Sometimes it's not a great idea to remove outliers. Another approach to dealing with outliers is to use a robust method. The default correlation coefficient that is computed by `corrr::correlate()` is the Pearson product-moment correlation coefficient. You can also compute the Spearman correlation coefficient by changing the `method()` argument to `correlate()`. This replaces the values with ranks before computing the correlation, so that outliers will still be included, but will have dramatically less influence.
+That's great, but maybe we want to line it up with the predictor values. We can do this by just adding it as a new column to `new_data`.
 
 ```{r}
-#| label: starwars-spearman
-starwars |>
-  select(height, mass, birth_year) |>
-  correlate(method = "spearman") |>
-  shave() |>
-  fashion()
+new_data |>
+  mutate(predicted_grade = predict(my_model, new_data))
 ```
 
-Incidentally, if you are generating a report from R Markdown and want your tables to be nicely formatted you can use `knitr::kable()`.
+Want to see more options for `predict()`? Check the help at `?predict.lm`.
+
+### Visualizing partial effects
+
+As noted above the parameter estimates for each regression coefficient tell us about the **partial** effect of that variable; it's effect holding all of the others constant. Is there a way to visualize this partial effect? Yes, you can do this using the `predict()` function, by making a table with varying values for the focal predictor, while filling in all of the other predictors with their mean values.
+
+For example, let's visualize the partial effect of `lecture` on `grade` holding `nclicks` constant at its mean value.
 
 ```{r}
-#| label: knitr-format
-#| message: false
-starwars |>
-  select(height, mass, birth_year) |>
-  correlate(method = "spearman") |>
-  shave() |>
-  fashion() |>
-  knitr::kable()
-```
-## Exercises
+#| label: partial-lecture
+nclicks_mean <- grades |> pull(nclicks) |> mean()
 
-```{r cov-app, echo=FALSE, out.width="530px"}
-knitr::include_app("https://talklab.psy.gla.ac.uk/app/covariance-site/", height = "480px")
+## new data for prediction
+new_lecture <- tibble(lecture = 0:10,
+                      nclicks = nclicks_mean)
+
+## add the predicted value to new_lecture
+new_lecture2 <- new_lecture |>
+  mutate(grade = predict(my_model, new_lecture))
+
+new_lecture2
 ```
+
+Now let's plot.
+
+```{r}
+#| label: fig-partial-lecture-plot
+#| fig.cap: "Partial effect of 'lecture' on grade, with nclicks at its mean value."
+ggplot(grades, aes(lecture, grade)) + 
+  geom_point() +
+  geom_line(data = new_lecture2)
+```
+
+::: {.callout-caution}
+
+Partial effect plots only make sense when there are no interactions in the model between the focal predictor and any other predictor.
+
+The reason is that when there are interactions, the partial effect of focal predictor $X_i$ will differ across the values of the other variables it interacts with.
+
+:::
+
+Now can you visualize the partial effect of `nclicks` on `grade`?
+
+See the solution at the bottom of the page.
+
+### Standardizing coefficients
+
+One kind of question that we often use multiple regression to address is, **Which predictors matter most in predicting Y?**
+
+Now, you can't just read off the $\hat{\beta}$ values and choose the one with the largest absolute value, because the predictors are all on different scales.  To answer this question, you need to **center** and **scale** the predictors.
+
+Remember $z$ scores?
+
+$$
+z = \frac{X - \bar{X}}{S_x}
+$$
+
+A $z$ score represents the distance of a score $X$ from the sample mean ($\bar{X}$) in standard deviation units ($S_x$). So a $z$ score of 1 means that the score is one standard deviation about the mean; a $z$-score of -2.5 means 2.5 standard deviations below the mean.  $Z$-scores give us a way of comparing things that come from different populations by calibrating them to the standard normal distribution (a distribution with a mean of 0 and a standard deviation of 1).
+
+So we re-scale our predictors by converting them to $z$-scores. This is easy enough to do.
+
+```{r}
+#| label: rescale-predictors
+grades2 <- grades |>
+  mutate(lecture_z = (lecture - mean(lecture)) / sd(lecture),
+         nclicks_z = (nclicks - mean(nclicks)) / sd(nclicks))
+
+grades2
+```
+
+Now let's re-fit the model using the centered and scaled predictors.
+
+```{r}
+#| label: my-model2
+
+my_model_scaled <- lm(grade ~ lecture_z + nclicks_z, grades2)
+
+summary(my_model_scaled)
+```
+
+```{r} 
+#| label: which-larger
+#| include: false
+.bigger <- names(which.max(coef(my_model_scaled)[-1]))
+.smaller <- setdiff(names(coef(my_model_scaled)[-1]), .bigger)
+
+if (coef(my_model_scaled)[[2]] > coef(my_model_scaled)[[1]]) "nclicks_z" else "lecture_z"
+```
+
+This tells us that `{r} .bigger` has a relatively larger influence; for each standard deviation increase in this variable, `grade` increases by about `{r} coef(my_model_scaled)[[.bigger]] |> round(2)`.
+
+Another common approach to standardization involves standardizing the response variable as well as the predictors, i.e., $z$-scoring the $Y$ values as well as the $X$ values. The relative rank order of the regression coefficients will be the same under this approach. The main difference would be that the coefficients will be expressed in standard deviation ($SD$) units of the response variable, rather than in raw units.
+
+:::{.callout-note}
+
+## Multicollinearity
+
+In discussions about multiple regression you may hear concerns expressed about "multicollinearity", which is a fancy way of referring to the existence of intercorrelations among the predictor variables. This is only a potential problem insofar as it potentially affects the interpretation of the effects of individual predictor variables. When predictor variables are correlated, $\beta$ values can change depending upon which predictors are included or excluded from the model, sometimes even changing signs. The key things to keep in mind about this are:
+
+- correlated predictors are probably unavoidable in observational studies; 
+- regression does *not* assume that your predictor variables are independent from one another (in other words, finding correlations amongst your predictors is not itself a reason to question your model);
+- when strong correlations are present, use caution in interpreting individual regression coefficients;
+- there is no known "remedy" for it, nor is it clear that any such remedy is desireable, and many so-called remedies do more harm than good.
+
+For more information and guidance, see @Vanhove_2021.
+
+:::
+
+### Model comparison
+
+Another common kind of question multiple regression is also used to address is of the form: Does some predictor or set of predictors of interest significantly impact my response variable **over and above the effects of some control variables**?
+
+```{r}
+#| label: hidden-chunk
+#| include: false
+.df1 <- summary(my_model)$fstatistic[["numdf"]]
+.df2 <- summary(my_model)$fstatistic[["dendf"]]
+.f <- summary(my_model)$fstatistic[["value"]]
+.p <- pf(.f, .df1, .df2, lower.tail = FALSE)
+.pstr <- if (.p < .001) {
+           "< \\.001"
+         } else {
+           sprintf("= %0.3f", .p)
+         }
+```
+
+For example, we saw above that the model including `lecture` and `nclicks` was statistically significant, 
+$F(`{r}  .df1`,
+`{r} .df2`) = 
+`{r} round(.f, 3)`$, 
+$p `{r} .pstr`$.
+
+The null hypothesis for a regression model with $m$ predictors is
+
+$$H_0: \beta_1 = \beta_2 = \ldots = \beta_m = 0;$$
+
+in other words, that all of the coefficients (except the intercept) are zero. If the null hypothesis is true, then the null model
+
+$$Y_i = \beta_0$$
+
+gives just as good of a prediction as the model including all of the predictors and their coefficients. In other words, your best prediction for $Y$ is just its mean ($\mu_y$); the $X$ variables are irrelevant. We rejected this null hypothesis, which implies that we can do better by including our two predictors, `lecture` and `nclicks`.
+
+But you might ask: maybe its the case that better students get better grades, and the relationship between `lecture`, `nclicks`, and `grade` is just mediated by student quality. After all, better students are more likely to go to lecture and download the materials. So we can ask, are attendance and downloads associated with better grades **above and beyond** student ability, as measured by GPA?
+
+The way we can test this hypothesis is by using **model comparison**. The logic is as follows. First, estimate a model containing any control predictors but excluding the focal predictors of interest. Second, estimate a model containing the control predictors as well as the focal predictors. Finally, compare the two models, to see if there is any statistically significant gain by including the predictors. 
+
+Here is how you do this:
+
+```{r}
+#| label: model-comparison
+m1 <- lm(grade ~ GPA, grades) # control model
+m2 <- lm(grade ~ GPA + lecture + nclicks, grades) # bigger model
+
+anova(m1, m2)
+```
+
+```{r}
+#| label: m1-m2
+#| include: false
+.anova <- anova(m1, m2)
+.df1 <- .anova$Df[2]
+.df2 <- .anova$Res.Df[2]
+.f <- .anova$F[2]
+```
+
+The null hypothesis is that we are just as good predicting `grade` from `GPA` as we are predicting it from `GPA` plus `lecture` and `nclicks`. We will reject the null if adding these two variables leads to a substantial enough reduction in the **residual sums of squares** (RSS); i.e., if they explain away enough residual variance.
+
+We see that this is not the case: 
+$F(`{r} .df1`, `{r} .df2` ) = `{r} round(.f, 3)`$, 
+$p = `{r} round(pf(.f, .df1, .df2, lower.tail = FALSE), 3)`$. So we don't have evidence that lecture attendance and downloading the online materials is associated with better grades above and beyond student ability, as measured by GPA.
+
+## Dealing with categorical predictors
+
+A regression formula characterizes the response variable as the sum of weighted predictors. What if one of the predictors is categorical (e.g., representing groups such as "rural" or "urban") rather than numeric? Many variables are **nominal**: a categorical variable containing names, for which there is no inherent ordering among the levels of the variable. Pet ownership (cat, dog, ferret) is a nominal variable; preferences aside, owning a cat is not greater than owning a dog, and owning a dog is not greater than owning a ferret. 
+
+:::{.callout-note}
+
+## Representing nominal data using numeric predictors
+
+Representing a nominal variable with $k$ levels in a regression model requires $k-1$ numeric predictors; for instance, if you have four levels, you need three predictors. Most numerical coding schemes require that you choose one of these $k$ levels as a baseline level. Each of your $k-1$ variables contrasts one of the other levels level with the baseline.
+
+**Example:** You have a variable, `pet_type` with three levels (cat, dog, ferret). 
+
+You choose `cat` as the baseline, and create two numeric predictor variables:
+
+* `dog_v_cat` to encode the contrast between dog and cat, and
+* `ferret_v_cat` to encode the contrast between ferret and cat.
+
+:::
+
+Nominal variables are typically represented in a data frame as type `character` or `factor`. 
+
+The difference between a character and a factor variable is that factors contain information about the levels and their order, while character vectors lack this information.
+
+When you specify a model using the R formula syntax, R will check the data types of the predictors on the right hand side of the formula. For example, if your model regresses `income` on `pet_type` (e.g., `income ~ pet_type`), R checks the data type of `pet_type`.
+
+For any variable of type character or factor, R will implicitly create a numeric predictor (or a set of predictors) to represent that variable in the model. There are different schemes available for creating numeric representations of nominal variables. The default in R is to use **dummy (or 'treatment')** coding (see below). Unfortunately, this default is unsuitable for many types of study designs in psychology, so I am going to recommend that you learn how to code your own predictor variables "by hand," and that you make a habit of doing so.
+
+::: {.callout-important}
+
+## Don't represent levels of a categorical variable with numbers!
+
+In the above example, we had a variable `pet_type` with levels `cat`, `dog`, and `ferret`. Sometimes people represent the levels of a nominal variable with numbers, like so:
+
+* `1` for cat,
+* `2` for dog,
+* `3` for ferret.
+
+This is a bad idea.
+
+First, the labeling is arbitrary and opaque and anyone attempting to use your data would not know which number goes with which category (and you could also forget!).
+
+Even worse, if you were to put this variable in as a predictor in a regression model, R would have no way of knowing your intention to use 1, 2, and 3 as arbitrary labels for groups, and would instead assume that `pet_type` is a measurement for which dogs are 1 unit greater than cats, and ferrets are 2 units greater than cats and 1 unit greater than dogs, which is nonsense!
+
+It is far too easy to make this mistake, and difficult to catch if authors do not share their data and code. In 2016, [a paper on religious affiliation and altruism in children that was published in Current Biology had to be retracted for just this kind of mistake](https://www.sciencedirect.com/science/article/pii/S0960982216306704).
+
+So, don't represent the levels of a nominal variable with numbers, except of course when you deliberately create predictor variables encoding the $k-1$ contrasts needed to properly represent a nominal variable in a regression model.
+
+If you get data where someone has done this, you can convert the problematic variable into a factor by using the `factor()` function.
+
+:::
+
+### Dummy (a.k.a. "treatment") coding
+
+For a nominal variable with only two levels, choose one level as baseline, and create a new variable that is `0` whenever the level is baseline and `1` when it is the other level. The choice of baseline is arbitrary, and will affect only whether the coefficient is positive or negative, but not its magnitude, its standard error nor the associated p-value.
+
+To illustrate, let's gin up some fake data with a single two level categorical predictor.
+
+```{r}
+#| label: fake-data
+fake_data <- tibble(Y = rnorm(10),
+                    group = rep(c("A", "B"), each = 5))
+
+fake_data
+```
+
+Now let's add a new variable, `group_d`, which is the dummy coded group variable. We will use the `dplyr::if_else()` function to define the new column.
+
+```{r}
+#| label: fake-data2
+fake_data2 <- fake_data |>
+  mutate(group_d = if_else(group == "B", 1, 0))
+
+fake_data2
+```
+
+Now we just run it as a regular regression model.
+
+```{r}
+#| label: fake-regression
+summary(lm(Y ~ group_d, fake_data2))
+```
+
+Let's reverse the coding. We get the same result, just the sign is different.
+
+```{r}
+#| label: fake-regression2
+fake_data3 <- fake_data |>
+  mutate(group_d = if_else(group == "A", 1, 0))
+
+summary(lm(Y ~ group_d, fake_data3))
+```
+
+The interpretation of the intercept is the estimated mean for the group coded as zero. You can see by plugging in zero for X in the prediction formula below. Thus, $\beta_1$ can be interpreted as the difference between the mean for the baseline group and the group coded as 1.
+
+$$\hat{Y_i} = \hat{\beta}_0 + \hat{\beta}_1 X_i $$
+
+Note that if we just put the character variable `group` as a predictor in the model, R will automatically create a dummy variable (or variables) for us as needed.
+
+```{r}
+#| label: autocode
+lm(Y ~ group, fake_data) |>
+  summary()
+```
+
+The `lm()` function examines `group` and figures out the unique levels of the variable, which in this case are `A` and `B`. It then chooses as baseline the level that comes first alphabetically, and encodes the contrast between the other level (`B`) and the baseline level (`A`). (In the case where `group` has been defined as a factor, the baseline level is the first element of `levels(fake_data$group)`).
+
+This new variable that it created shows up with the name `groupB` in the output.
+
+### Dummy coding when $k > 2$
+
+When a nominal predictor variable has more than two levels ($k > 2$), one numeric predictor is no longer sufficient; we need $k-1$ predictors. If the nominal predictor has four levels, we'll need to define three predictors. Let's simulate some data to work with, `season_wt`, which represents a person's bodyweight (in kg) over the four seasons of the year.
+
+```{r}
+#| label: three-predictors
+season_wt <- tibble(season = rep(c("winter", "spring", "summer", "fall"),
+                                 each = 5),
+                    bodyweight_kg = c(rnorm(5, 105, 3),
+                                      rnorm(5, 103, 3),
+                                      rnorm(5, 101, 3),
+                                      rnorm(5, 102.5, 3)))
+
+season_wt
+```
+
+Now let's add three predictors to code the variable `season`. Try it out and see if you can figure out how it works.
+
+```{r}
+#| label: season
+## baseline value is 'winter'
+season_wt2 <- season_wt |>
+  mutate(spring_v_winter = if_else(season == "spring", 1, 0),
+         summer_v_winter = if_else(season == "summer", 1, 0),
+         fall_v_winter = if_else(season == "fall", 1, 0))
+
+season_wt2
+```
+
+::: {.callout-caution}
+
+## Reminder: Always look at your data
+
+Whenever you write code that potentially changes your data, you should double check that the code works as intended by looking at your data. This is especially the case when you are hand-coding nominal variables for use in regression, because sometimes the code will be wrong, but won't throw an error.
+
+Consider the code chunk above, where we defined three contrasts to represent the nominal variable `season`, with `winter` as our baseline.
+
+What would happen if you accidently misspelled one of the levels (`summre` for `summer`) and didn't notice?
+
+```{r}
+#| label: misspelling
+season_wt3 <- season_wt |>
+  mutate(spring_v_winter = if_else(season == "spring", 1, 0),
+         summer_v_winter = if_else(season == "summre", 1, 0),
+         fall_v_winter = if_else(season == "fall", 1, 0))
+```
+
+While the above code chunk runs, we get confusing output when we run the regression; namely, the coefficent for `summer_v_winter` is `NA` (not available).
+
+```{r}
+#| label: misspelling2
+lm(bodyweight_kg ~ spring_v_winter + summer_v_winter + fall_v_winter,
+   season_wt3)
+```
+
+What happened? Let's look at the data to find out. We will use `distinct` to find the distinct combinations of our original variable `season` with the three variables we created (see `?dplyr::distinct` for details).
+
+```{r}
+#| label: the-test
+season_wt3 |>
+  distinct(season, spring_v_winter, summer_v_winter, fall_v_winter)
+```
+
+Because of our misspelling, the predictor `summer_v_winter` is not `1` when `season == "summer"`; instead, it is **always zero**. The `if_else()` above literally says 'set `summer_v_winter` to 1 if `season == "summre"`, otherwise 0'. Of course, `season` is **never** equal to `summre`, because `summre` is a typo. We could have caught this easily by running the above check with `distinct()`. Get in the habit of doing this when you create your own numeric predictors.
+
+:::
+
+:::{.callout-note}
+
+## A closer look at R's defaults
+
+If you've ever used point-and-click statistical software like SPSS, you probably never had to learn about coding categorical predictors. Normally, the software recognizes when a predictor is categorical and, behind the scenes, it takes care of recoding it into a numerical predictor. R is no different: if you supply a predictor of type `character` or `factor` to a linear modeling function, it will create numerical dummy-coded predictors for you, as shown in the code below.
+
+```{r}
+#| label: mtcars-example
+lm(bodyweight_kg ~ season, season_wt) |>
+  summary()
+```
+
+Here, R implicitly creates three dummy variables to code the four levels of `season`, called `seasonspring`, `seasonsummer` and `seasonwinter`. The unmentioned season, `fall`, has been chosen as baseline because it comes earliest in the alphabet. These three predictors have the following values:
+
+* `seasonspring`: `1` if spring, `0` otherwise;
+* `seasonsummer`: `1` if summer, `0` otherwise;
+* `seasonwinter`: `1` if winter, `0` otherwise.
+
+This seems like a handy thing to have R do for us, but dangers lurk in relying on the default. We'll learn more about these dangers in the next chapter when we talk about interactions.
+
+:::
+
+## Equivalence between multiple regression and one-way ANOVA
+
+If we wanted to see whether our bodyweight varies over season, we could do a one way ANOVA on `season_wt2` like so.
+
+```{r}
+#| label: one-way
+## make season into a factor with baseline level 'winter'
+season_wt3 <- season_wt2 |>
+  mutate(season = factor(season, levels = c("winter", "spring",
+                                            "summer", "fall")))
+
+my_anova <- aov(bodyweight_kg ~ season, season_wt3)
+summary(my_anova)
+```
+
+OK, now can we replicate that result using the regression model below?
+
+$$Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \beta_3 X_{3i} + e_i$$
+
+```{r}
+#| label: regression
+summary(lm(bodyweight_kg ~ spring_v_winter +
+             summer_v_winter + fall_v_winter,
+           season_wt2))
+```
+
+Note that the $F$ values and $p$ values are identical for the two methods!
+
+::: {.callout-tip collapse="true"}
+
+## Solution to partial effect plot
+
+First create a tibble with new predictors. We might also want to know the range of values that `nclicks` varies over.
+
+```{r}
+lecture_mean <- grades |> pull(lecture) |> mean()
+min_nclicks <- grades |> pull(nclicks) |> min()
+max_nclicks <- grades |> pull(nclicks) |> max()
+
+## new data for prediction
+new_nclicks <- tibble(lecture = lecture_mean,
+                      nclicks = min_nclicks:max_nclicks)
+
+## add the predicted value to new_lecture
+new_nclicks2 <- new_nclicks |>
+  mutate(grade = predict(my_model, new_nclicks))
+
+new_nclicks2
+```
+
+Now plot.
+
+```{r}
+#| label: fig-partial-nclicks
+#| fig.cap: "Partial effect plot of nclicks on grade."
+ggplot(grades, aes(nclicks, grade)) +
+  geom_point() +
+  geom_line(data = new_nclicks2)
+```
+
+:::
