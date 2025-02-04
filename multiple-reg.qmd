@@ -325,9 +325,9 @@ anova(m1, m2)
 
 The null hypothesis is that we are just as good predicting `grade` from `GPA` as we are predicting it from `GPA` plus `lecture` and `nclicks`. We will reject the null if adding these two variables leads to a substantial enough reduction in the **residual sums of squares** (RSS); i.e., if they explain away enough residual variance.
 
-We see that this is not the case: 
+We see that this is the case: 
 $F(`{r} .df1`, `{r} .df2` ) = `{r} round(.f, 3)`$, 
-$p = `{r} round(pf(.f, .df1, .df2, lower.tail = FALSE), 3)`$. So we don't have evidence that lecture attendance and downloading the online materials is associated with better grades above and beyond student ability, as measured by GPA.
+$p = `{r} round(pf(.f, .df1, .df2, lower.tail = FALSE), 3)`$. So the analysis supports the idea that lecture attendance and downloading the online materials is associated with better grades above and beyond student ability, as measured by GPA.
 
 ## Dealing with categorical predictors
 
