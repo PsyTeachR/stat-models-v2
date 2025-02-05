@@ -1,4 +1,4 @@
-# Linear mixed-effects (1)
+# Mixed-effects models
 
 ```{r}
 #| label: setup
