@@ -320,12 +320,13 @@ A factorial design is one in which the predictors (IVs) are all categorical: eac
 Typically, factorial designs are given a tabular representation, showing all the combinations of factor levels. Below is a tabular representation of a 2x2 design.
 
 ```{r}
-#| label: full-factorial-2x3
+#| label: tbl-full-factorial-2x3
 #| echo: false
-.a <- data.frame(`$B_1$` = c("$AB_{11}$", "$AB_{21}$"),
-                 `$B_2$` = c("$AB_{12}$", "$AB_{22}$"), check.names = FALSE)
+#| html-table-processing: none
+.a <- data.frame(`\\(B_1\\)` = c("\\(AB_{11}\\)", "\\(AB_{21}\\)"),
+                 `\\(B_2\\)` = c("\\(AB_{12}\\)", "\\(AB_{22}\\)"), check.names = FALSE)
 
-rownames(.a) <- c("$A_1$", "$A_2$")
+rownames(.a) <- c("\\(A_1\\)", "\\(A_2\\)")
 
 knitr::kable(.a) |>
   kable_styling(full_width = FALSE)
@@ -334,12 +335,13 @@ knitr::kable(.a) |>
 A 3x2 design might be shown as follows.
 
 ```{r}
-#| label: full-factorial
+#| label: tbl-full-factorial
 #| echo: false
-.a <- data.frame(`$B_1$` = c("$AB_{11}$", "$AB_{21}$", "$AB_{31}$"),
-                 `$B_2$` = c("$AB_{12}$", "$AB_{22}$", "$AB_{32}$"), check.names = FALSE)
+#| html-table-processing: none
+.a <- data.frame(`\\(B_1\\)` = c("\\(AB_{11}\\)", "\\(AB_{21}\\)", "\\(AB_{31}\\)"),
+                 `\\(B_2\\)` = c("\\(AB_{12}\\)", "\\(AB_{22}\\)", "\\(AB_{32}\\)"), check.names = FALSE)
 
-rownames(.a) <- c("$A_1$", "$A_2$", "$A_3$")
+rownames(.a) <- c("\\(A_1\\)", "\\(A_2\\)", "\\(A_3\\)")
 
 knitr::kable(.a) |>
   kable_styling(full_width = FALSE)
@@ -347,33 +349,45 @@ knitr::kable(.a) |>
 
 And finally, here's a 2x2x2 design.
 
-$$C_1$$
+:::: {.columns}
+
+::: {.column width="50%"}
 
 ```{r}
-#| label: full-factorial-2x2-c1
+#| label: tbl-full-factorial-2x2-c1
 #| echo: false
-.a <- data.frame(`$B_1$` = c("$ABC_{111}$", "$ABC_{211}$"),
-                 `$B_2$` = c("$ABC_{121}$", "$ABC_{221}$"), check.names = FALSE)
+#| tbl-cap: "$C_1$"
+#| html-table-processing: none
+.a <- data.frame(`\\(B_1\\)` = c("\\(ABC_{111}\\)", "\\(ABC_{211}\\)"),
+                 `\\(B_2\\)` = c("\\(ABC_{121}\\)", "\\(ABC_{221}\\)"), check.names = FALSE)
 
-rownames(.a) <- c("$A_1$", "$A_2$")
+rownames(.a) <- c("\\(A_1\\)", "\\(A_2\\)")
 
 knitr::kable(.a) |>
   kable_styling(full_width = FALSE)
 ```
 
-$$C_2$$
+:::
+
+::: {.column width="50%"}
 
 ```{r}
-#| label: full-factorial-2x2-c2
+#| label: tbl-full-factorial-2x2-c2
 #| echo: false
-.a <- data.frame(`$B_1$` = c("$ABC_{112}$", "$ABC_{212}$"),
-                 `$B_2$` = c("$ABC_{122}$", "$ABC_{222}$"), check.names = FALSE)
+#| tbl-cap: "$C_2$"
+#| html-table-processing: none
+.a <- data.frame(`\\(B_1\\)` = c("\\(ABC_{112}\\)", "\\(ABC_{212}\\)"),
+                 `\\(B_2\\)` = c("\\(ABC_{122}\\)", "\\(ABC_{222}\\)"), check.names = FALSE)
 
-rownames(.a) <- c("$A_1$", "$A_2$")
+rownames(.a) <- c("\\(A_1\\)", "\\(A_2\\)")
 
 knitr::kable(.a) |>
   kable_styling(full_width = FALSE)
 ```
+
+:::
+
+::::
 
 ::: {.callout-caution}
 
@@ -586,7 +600,7 @@ Comparing the significance of the simple effects is **not the same** as testing 
 
 ## The GLM for a factorial design
 
-Now let's look at the math behind these models. The typically way you'll see the GLM for an ANOVA written for a 2x2 factorial design uses "ANOVA" notation, like so:
+Now let's look at the math behind these models. The typical way you'll see the GLM for an ANOVA written for a 2x2 factorial design uses "ANOVA" notation, like so:
 
 $$Y_{ijk} = \mu + A_i + B_j + AB_{ij} + S(AB)_{ijk}.$$
 

@@ -603,127 +603,154 @@ Solution
 <p>A factorial design is one in which the predictors (IVs) are all categorical: each is a <strong>factor</strong> having a fixed number of <strong>levels</strong>. In a full-factorial design, the factors are fully crossed with each other such that each possible combination of factors is represented. We call each unique combination a <strong>cell</strong> of the design. You will often hear designs referred to as “a two-by-two design” (2x2), which means that there are two factors, each of which has two levels. A “three-by-three” (3x3) design is one where there are two factors, each with three levels; a “two-by-two-by-two” 2x2x2 design is one in which there are three factors, each with two levels; and so on.</p>
 <p>Typically, factorial designs are given a tabular representation, showing all the combinations of factor levels. Below is a tabular representation of a 2x2 design.</p>
 <div class="cell">
+<div id="tbl-full-factorial-2x3" class="cell quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl quarto-uncaptioned" id="tbl-full-factorial-2x3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;4.1
+</figcaption>
+<div aria-describedby="tbl-full-factorial-2x3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div>
-<table class="table table-sm table-striped small" data-quarto-postprocess="true">
-<thead>
-<tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">$B_1$</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">$B_2$</th>
-</tr>
-</thead>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;">  </th>
+   <th style="text-align:left;"> \(B_1\) </th>
+   <th style="text-align:left;"> \(B_2\) </th>
+  </tr>
+ </thead>
 <tbody>
-<tr class="odd">
-<td style="text-align: left;">$A_1$</td>
-<td style="text-align: left;">$AB_{11}$</td>
-<td style="text-align: left;">$AB_{12}$</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">$A_2$</td>
-<td style="text-align: left;">$AB_{21}$</td>
-<td style="text-align: left;">$AB_{22}$</td>
-</tr>
+  <tr>
+   <td style="text-align:left;"> \(A_1\) </td>
+   <td style="text-align:left;"> \(AB_{11}\) </td>
+   <td style="text-align:left;"> \(AB_{12}\) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> \(A_2\) </td>
+   <td style="text-align:left;"> \(AB_{21}\) </td>
+   <td style="text-align:left;"> \(AB_{22}\) </td>
+  </tr>
 </tbody>
 </table>
 
-
 </div>
+</div>
+</figure>
 </div>
 </div>
 <p>A 3x2 design might be shown as follows.</p>
 <div class="cell">
+<div id="tbl-full-factorial" class="cell quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl quarto-uncaptioned" id="tbl-full-factorial-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;4.2
+</figcaption>
+<div aria-describedby="tbl-full-factorial-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div>
-<table class="table table-sm table-striped small" data-quarto-postprocess="true">
-<thead>
-<tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">$B_1$</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">$B_2$</th>
-</tr>
-</thead>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;">  </th>
+   <th style="text-align:left;"> \(B_1\) </th>
+   <th style="text-align:left;"> \(B_2\) </th>
+  </tr>
+ </thead>
 <tbody>
-<tr class="odd">
-<td style="text-align: left;">$A_1$</td>
-<td style="text-align: left;">$AB_{11}$</td>
-<td style="text-align: left;">$AB_{12}$</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">$A_2$</td>
-<td style="text-align: left;">$AB_{21}$</td>
-<td style="text-align: left;">$AB_{22}$</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">$A_3$</td>
-<td style="text-align: left;">$AB_{31}$</td>
-<td style="text-align: left;">$AB_{32}$</td>
-</tr>
+  <tr>
+   <td style="text-align:left;"> \(A_1\) </td>
+   <td style="text-align:left;"> \(AB_{11}\) </td>
+   <td style="text-align:left;"> \(AB_{12}\) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> \(A_2\) </td>
+   <td style="text-align:left;"> \(AB_{21}\) </td>
+   <td style="text-align:left;"> \(AB_{22}\) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> \(A_3\) </td>
+   <td style="text-align:left;"> \(AB_{31}\) </td>
+   <td style="text-align:left;"> \(AB_{32}\) </td>
+  </tr>
 </tbody>
 </table>
 
-
 </div>
+</div>
+</figure>
 </div>
 </div>
 <p>And finally, here’s a 2x2x2 design.</p>
-<p><span class="math display">\[C_1\]</span></p>
+<div class="columns">
+<div class="column" style="width:50%;">
 <div class="cell">
+<div id="tbl-full-factorial-2x2-c1" class="cell quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-full-factorial-2x2-c1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;4.3: <span class="math inline">\(C_1\)</span>
+</figcaption>
+<div aria-describedby="tbl-full-factorial-2x2-c1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div>
-<table class="table table-sm table-striped small" data-quarto-postprocess="true">
-<thead>
-<tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">$B_1$</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">$B_2$</th>
-</tr>
-</thead>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;">  </th>
+   <th style="text-align:left;"> \(B_1\) </th>
+   <th style="text-align:left;"> \(B_2\) </th>
+  </tr>
+ </thead>
 <tbody>
-<tr class="odd">
-<td style="text-align: left;">$A_1$</td>
-<td style="text-align: left;">$ABC_{111}$</td>
-<td style="text-align: left;">$ABC_{121}$</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">$A_2$</td>
-<td style="text-align: left;">$ABC_{211}$</td>
-<td style="text-align: left;">$ABC_{221}$</td>
-</tr>
+  <tr>
+   <td style="text-align:left;"> \(A_1\) </td>
+   <td style="text-align:left;"> \(ABC_{111}\) </td>
+   <td style="text-align:left;"> \(ABC_{121}\) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> \(A_2\) </td>
+   <td style="text-align:left;"> \(ABC_{211}\) </td>
+   <td style="text-align:left;"> \(ABC_{221}\) </td>
+  </tr>
 </tbody>
 </table>
 
-
 </div>
 </div>
+</figure>
 </div>
-<p><span class="math display">\[C_2\]</span></p>
+</div>
+</div><div class="column" style="width:50%;">
 <div class="cell">
+<div id="tbl-full-factorial-2x2-c2" class="cell quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-full-factorial-2x2-c2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;4.4: <span class="math inline">\(C_2\)</span>
+</figcaption>
+<div aria-describedby="tbl-full-factorial-2x2-c2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div>
-<table class="table table-sm table-striped small" data-quarto-postprocess="true">
-<thead>
-<tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">$B_1$</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">$B_2$</th>
-</tr>
-</thead>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;">  </th>
+   <th style="text-align:left;"> \(B_1\) </th>
+   <th style="text-align:left;"> \(B_2\) </th>
+  </tr>
+ </thead>
 <tbody>
-<tr class="odd">
-<td style="text-align: left;">$A_1$</td>
-<td style="text-align: left;">$ABC_{112}$</td>
-<td style="text-align: left;">$ABC_{122}$</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">$A_2$</td>
-<td style="text-align: left;">$ABC_{212}$</td>
-<td style="text-align: left;">$ABC_{222}$</td>
-</tr>
+  <tr>
+   <td style="text-align:left;"> \(A_1\) </td>
+   <td style="text-align:left;"> \(ABC_{112}\) </td>
+   <td style="text-align:left;"> \(ABC_{122}\) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> \(A_2\) </td>
+   <td style="text-align:left;"> \(ABC_{212}\) </td>
+   <td style="text-align:left;"> \(ABC_{222}\) </td>
+  </tr>
 </tbody>
 </table>
 
-
+</div>
+</div>
+</figure>
+</div>
 </div>
 </div>
 </div>
@@ -784,7 +811,7 @@ Figure&nbsp;4.3: Scenario A
 <div id="tbl-scenario-a-means" class="cell quarto-float anchored" data-tbl-colwidths="[20,20,20,20]">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-scenario-a-means-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;4.1: Scenario A
+Table&nbsp;4.5: Scenario A
 </figcaption>
 <div aria-describedby="tbl-scenario-a-means-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
@@ -853,7 +880,7 @@ Figure&nbsp;4.4: Scenario B
 <div id="tbl-scenario-b-means" class="cell quarto-float anchored" data-tbl-colwidths="[20,20,20,20]">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-scenario-b-means-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;4.2: Scenario B
+Table&nbsp;4.6: Scenario B
 </figcaption>
 <div aria-describedby="tbl-scenario-b-means-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
@@ -920,7 +947,7 @@ Figure&nbsp;4.5: Scenario C
 <div id="tbl-scenario-c-means" class="cell quarto-float anchored" data-tbl-colwidths="[20,20,20,20]">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-scenario-c-means-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;4.3: Scenario C
+Table&nbsp;4.7: Scenario C
 </figcaption>
 <div aria-describedby="tbl-scenario-c-means-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
@@ -1014,7 +1041,7 @@ Comparing the significance of the simple effects is **not the same** as testing 
 </section>
 <section id="the-glm-for-a-factorial-design" class="level2" data-number="4.3">
 <h2 data-number="4.3" class="anchored" data-anchor-id="the-glm-for-a-factorial-design"><span class="header-section-number">4.3</span> The GLM for a factorial design</h2>
-<p>Now let’s look at the math behind these models. The typically way you’ll see the GLM for an ANOVA written for a 2x2 factorial design uses “ANOVA” notation, like so:</p>
+<p>Now let’s look at the math behind these models. The typical way you’ll see the GLM for an ANOVA written for a 2x2 factorial design uses “ANOVA” notation, like so:</p>
 <p><span class="math display">\[Y_{ijk} = \mu + A_i + B_j + AB_{ij} + S(AB)_{ijk}.\]</span></p>
 <p>In the above formula,</p>
 <ul>
@@ -1085,7 +1112,7 @@ Comparing the significance of the simple effects is **not the same** as testing 
 <div id="tbl-simple-effect" class="cell quarto-float anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl quarto-uncaptioned" id="tbl-simple-effect-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;4.4
+Table&nbsp;4.8
 </figcaption>
 <div aria-describedby="tbl-simple-effect-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
@@ -1152,7 +1179,7 @@ Table&nbsp;4.4
 <div id="tbl-coding-schemes" class="cell quarto-float anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-coding-schemes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;4.5: codes for a two-level factor
+Table&nbsp;4.9: codes for a two-level factor
 </figcaption>
 <div aria-describedby="tbl-coding-schemes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
@@ -1199,7 +1226,7 @@ Table&nbsp;4.5: codes for a two-level factor
 <div id="tbl-simple-effect-C1" class="cell quarto-float anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-simple-effect-C1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;4.6: <span class="math inline">\(C_1\)</span>
+Table&nbsp;4.10: <span class="math inline">\(C_1\)</span>
 </figcaption>
 <div aria-describedby="tbl-simple-effect-C1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
@@ -1255,7 +1282,7 @@ Table&nbsp;4.6: <span class="math inline">\(C_1\)</span>
 <div id="tbl-simple-effect-C2" class="cell quarto-float anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-simple-effect-C2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;4.7: <span class="math inline">\(C_2\)</span>
+Table&nbsp;4.11: <span class="math inline">\(C_2\)</span>
 </figcaption>
 <div aria-describedby="tbl-simple-effect-C2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
