@@ -769,6 +769,66 @@ Don’t confuse <strong>factors</strong> and <strong>levels</strong>!
 </div>
 </div>
 <p>You can find out how many cells a design has by multiplying the number of levels of each factor. So, a 2x3x4 design would have 24 cells in the design.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Factorial plots
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A common way to visualize data from a factorial design is through a <strong>factorial plot</strong>. For a factorial plot, you compute the mean for each cell, and then (arbitrarily) choose one of the two categorical factors to form the x-axis of your plot. You distinguish the levels of the other categorical factor by having a separate line for each level, and possibly different shapes and colors as well.</p>
+<p>Here is some made up data looking at people’s performance on a cognitive task while listening to music at a low or high volume.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>cogdata <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tribble</span>(<span class="sc">~</span> genre, <span class="sc">~</span> volume, <span class="sc">~</span> mean_performance,</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>                           <span class="st">"metal"</span>, <span class="st">"low"</span>, <span class="fl">8.2</span>,</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>                           <span class="st">"metal"</span>, <span class="st">"high"</span>, <span class="fl">5.2</span>,</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>                           <span class="st">"classical"</span>, <span class="st">"low"</span>, <span class="fl">8.0</span>,</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>                           <span class="st">"classical"</span>, <span class="st">"high"</span>, <span class="fl">3.3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Can you recreate the following factorial plot using ggplot2?</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-cogdata" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-cogdata-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="interactions_files/figure-html/fig-cogdata-1.png" class="img-fluid figure-img" width="480">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-cogdata-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.3: The effect of music genre and volume on cognitive performance.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"ggplot2"</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cogdata, <span class="fu">aes</span>(volume, mean_performance,</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">color =</span> genre)) <span class="sc">+</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">shape =</span> genre), <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> genre)) <span class="sc">+</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 <section id="effects-of-cognitive-therapy-and-drug-therapy-on-mood" class="level3" data-number="4.2.1">
 <h3 data-number="4.2.1" class="anchored" data-anchor-id="effects-of-cognitive-therapy-and-drug-therapy-on-mood"><span class="header-section-number">4.2.1</span> Effects of cognitive therapy and drug therapy on mood</h3>
 <p>Let’s consider a simple factorial design and think about the types of patterns our data can show. After we get the concepts down from this concrete example, we’ll map them onto the more abstract statistical terminology.</p>
@@ -800,7 +860,7 @@ Caution
 <img src="interactions_files/figure-html/fig-scenario-a-plot-1.png" class="img-fluid figure-img" width="384">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-scenario-a-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4.3: Scenario A
+Figure&nbsp;4.4: Scenario A
 </figcaption>
 </figure>
 </div>
@@ -869,7 +929,7 @@ Table&nbsp;4.5: Scenario A
 <img src="interactions_files/figure-html/fig-scenario-b-plot-1.png" class="img-fluid figure-img" width="384">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-scenario-b-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4.4: Scenario B
+Figure&nbsp;4.5: Scenario B
 </figcaption>
 </figure>
 </div>
@@ -936,7 +996,7 @@ Table&nbsp;4.6: Scenario B
 <img src="interactions_files/figure-html/fig-scenario-c-plot-1.png" class="img-fluid figure-img" width="384">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-scenario-c-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4.5: Scenario C
+Figure&nbsp;4.6: Scenario C
 </figcaption>
 </figure>
 </div>
@@ -1217,7 +1277,7 @@ Table&nbsp;4.9: codes for a two-level factor
 </div>
 <p>The default in R is to use treatment coding for any variable defined as a =factor= in the model (see <code>?factor</code> and <code>?contrasts</code> for information). To see why this is not ideal for factorial designs, consider a 2x2x2 factorial design with factors <span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span> and <span class="math inline">\(C\)</span>. We will just consider a fully between-subjects design with only one observation per subject as this allows us to use the simplest possible error structure. We would fit such a model using <code>lm()</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(Y <span class="sc">~</span> A <span class="sc">*</span> B <span class="sc">*</span> C)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(Y <span class="sc">~</span> A <span class="sc">*</span> B <span class="sc">*</span> C)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The figure below spells out the notation for the various cell and marginal means for a 2x2x2 design.</p>
 <div class="columns">

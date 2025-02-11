@@ -401,6 +401,56 @@ There is no such thing as a factor that has only one level.
 
 You can find out how many cells a design has by multiplying the number of levels of each factor. So, a 2x3x4 design would have 24 cells in the design.
 
+::: {.callout-note}
+
+## Factorial plots
+
+A common way to visualize data from a factorial design is through a **factorial plot**. For a factorial plot, you compute the mean for each cell, and then (arbitrarily) choose one of the two categorical factors to form the x-axis of your plot. You distinguish the levels of the other categorical factor by having a separate line for each level, and possibly different shapes and colors as well.
+
+Here is some made up data looking at people's performance on a cognitive task while listening to music at a low or high volume.
+
+```{r}
+#| label: facplot-data
+#| echo: true
+cogdata <- tibble::tribble(~ genre, ~ volume, ~ mean_performance,
+                           "metal", "low", 8.2,
+                           "metal", "high", 5.2,
+                           "classical", "low", 8.0,
+                           "classical", "high", 3.3)
+```
+
+Can you recreate the following factorial plot using ggplot2?
+
+```{r}
+#| label: fig-cogdata
+#| fig.cap: "The effect of music genre and volume on cognitive performance."
+#| fig.width: 5
+#| fig.height: 5
+#| fig.asp: .7
+#| echo: false
+library("ggplot2")
+
+ggplot(cogdata, aes(volume, mean_performance,
+                    color = genre)) +
+  geom_point(aes(shape = genre), size = 3) +
+  geom_line(aes(group = genre)) +
+  coord_cartesian(ylim = c(0, 10))
+```
+
+::: {.callout-tip collapse="true"}
+
+## Solution
+
+```{r}
+#| label: fig-cogdata
+#| echo: true
+#| eval: false
+```
+
+:::
+
+:::
+
 ### Effects of cognitive therapy and drug therapy on mood
 
 Let's consider a simple factorial design and think about the types of patterns our data can show. After we get the concepts down from this concrete example, we'll map them onto the more abstract statistical terminology.
@@ -894,3 +944,4 @@ tribble(~scheme, ~interpretation,
 ```
 
 Note that the inferential tests of $A \times B \times C$ will all have the same outcome, despite the parameter estimate for sum coding being one-eighth of that for the other schemes.  For all lower-order effects, sum and deviation coding will give different parameter estimates but identical inferential outcomes.  Both of these schemes provide identical tests of the canonical main effects and main interactions for a three-way ANOVA.  In contrast, treatment (dummy) coding will provide inferential tests of simple effects and simple interactions.  So, if what you are interested in getting are the "canonical" tests from ANOVA, use sum or deviation coding.
+
