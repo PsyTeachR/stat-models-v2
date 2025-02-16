@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.31">
+<meta name="generator" content="quarto-1.6.40">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Statistical Models in Psychology and Neuroscience: A Survey – 3&nbsp; Multiple regression</title>
+<title>3&nbsp; Multiple regression – Statistical Models in Psychology and Neuroscience: A Survey</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -91,12 +91,12 @@ div.csl-indent {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-8ea72dc5fed832574809a9c94082fbbb.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-bafd94f2deb1d35dec8254ac31951f16.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-a2d08f8a70a9a46c9db7361725a9e247.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script src="site_libs/quarto-contrib/nutshell-1.0.7/nutshell.js"></script>
 <script src="site_libs/quarto-contrib/nutshell-1.0.7/nutshell_options.js"></script>
 <script id="quarto-search-options" type="application/json">{
@@ -166,13 +166,13 @@ window.Quarto = {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./multiple-reg.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Multiple regression</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -361,7 +361,7 @@ Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \ldots + \beta_m X_{mi} + e_i
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(grades)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-pairs" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-pairs" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-pairs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="multiple-reg_files/figure-html/fig-pairs-1.png" class="img-fluid figure-img" width="672">
@@ -535,7 +535,7 @@ Note
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> new_lecture2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-partial-lecture-plot" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-partial-lecture-plot" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-partial-lecture-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="multiple-reg_files/figure-html/fig-partial-lecture-plot-1.png" class="img-fluid figure-img" width="672">
@@ -743,18 +743,18 @@ Don’t represent levels of a categorical variable with numbers!
 <span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>fake_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 10 × 2
-         Y group
-     &lt;dbl&gt; &lt;chr&gt;
- 1  0.397  A    
- 2 -0.203  A    
- 3  0.853  A    
- 4  0.0209 A    
- 5  2.67   A    
- 6 -2.04   B    
- 7 -0.759  B    
- 8  0.934  B    
- 9 -0.341  B    
-10 -0.402  B    </code></pre>
+          Y group
+      &lt;dbl&gt; &lt;chr&gt;
+ 1  0.341   A    
+ 2  0.670   A    
+ 3  0.496   A    
+ 4  0.00216 A    
+ 5  0.0861  A    
+ 6 -0.214   B    
+ 7 -0.337   B    
+ 8 -0.866   B    
+ 9  1.30    B    
+10 -0.747   B    </code></pre>
 </div>
 </div>
 <p>Now let’s add a new variable, <code>group_d</code>, which is the dummy coded group variable. We will use the <code>dplyr::if_else()</code> function to define the new column.</p>
@@ -765,18 +765,18 @@ Don’t represent levels of a categorical variable with numbers!
 <span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>fake_data2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 10 × 3
-         Y group group_d
-     &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt;
- 1  0.397  A           0
- 2 -0.203  A           0
- 3  0.853  A           0
- 4  0.0209 A           0
- 5  2.67   A           0
- 6 -2.04   B           1
- 7 -0.759  B           1
- 8  0.934  B           1
- 9 -0.341  B           1
-10 -0.402  B           1</code></pre>
+          Y group group_d
+      &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt;
+ 1  0.341   A           0
+ 2  0.670   A           0
+ 3  0.496   A           0
+ 4  0.00216 A           0
+ 5  0.0861  A           0
+ 6 -0.214   B           1
+ 7 -0.337   B           1
+ 8 -0.866   B           1
+ 9  1.30    B           1
+10 -0.747   B           1</code></pre>
 </div>
 </div>
 <p>Now we just run it as a regular regression model.</p>
@@ -788,17 +788,17 @@ Call:
 lm(formula = Y ~ group_d, data = fake_data2)
 
 Residuals:
-     Min       1Q   Median       3Q      Max 
--1.51695 -0.63281 -0.06658  0.16479  1.92350 
+    Min      1Q  Median      3Q     Max 
+-0.6928 -0.2961 -0.1023  0.1384  1.4708 
 
 Coefficients:
             Estimate Std. Error t value Pr(&gt;|t|)
-(Intercept)   0.7478     0.4947   1.512    0.169
-group_d      -1.2691     0.6996  -1.814    0.107
+(Intercept)   0.3192     0.2877   1.110    0.299
+group_d      -0.4926     0.4069  -1.211    0.261
 
-Residual standard error: 1.106 on 8 degrees of freedom
-Multiple R-squared:  0.2915,    Adjusted R-squared:  0.2029 
-F-statistic: 3.291 on 1 and 8 DF,  p-value: 0.1072</code></pre>
+Residual standard error: 0.6433 on 8 degrees of freedom
+Multiple R-squared:  0.1549,    Adjusted R-squared:  0.04922 
+F-statistic: 1.466 on 1 and 8 DF,  p-value: 0.2605</code></pre>
 </div>
 </div>
 <p>Let’s reverse the coding. We get the same result, just the sign is different.</p>
@@ -813,17 +813,17 @@ Call:
 lm(formula = Y ~ group_d, data = fake_data3)
 
 Residuals:
-     Min       1Q   Median       3Q      Max 
--1.51695 -0.63281 -0.06658  0.16479  1.92350 
+    Min      1Q  Median      3Q     Max 
+-0.6928 -0.2961 -0.1023  0.1384  1.4708 
 
 Coefficients:
             Estimate Std. Error t value Pr(&gt;|t|)
-(Intercept)  -0.5213     0.4947  -1.054    0.323
-group_d       1.2691     0.6996   1.814    0.107
+(Intercept)  -0.1734     0.2877  -0.603    0.563
+group_d       0.4926     0.4069   1.211    0.261
 
-Residual standard error: 1.106 on 8 degrees of freedom
-Multiple R-squared:  0.2915,    Adjusted R-squared:  0.2029 
-F-statistic: 3.291 on 1 and 8 DF,  p-value: 0.1072</code></pre>
+Residual standard error: 0.6433 on 8 degrees of freedom
+Multiple R-squared:  0.1549,    Adjusted R-squared:  0.04922 
+F-statistic: 1.466 on 1 and 8 DF,  p-value: 0.2605</code></pre>
 </div>
 </div>
 <p>The interpretation of the intercept is the estimated mean for the group coded as zero. You can see by plugging in zero for X in the prediction formula below. Thus, <span class="math inline">\(\beta_1\)</span> can be interpreted as the difference between the mean for the baseline group and the group coded as 1.</p>
@@ -838,17 +838,17 @@ Call:
 lm(formula = Y ~ group, data = fake_data)
 
 Residuals:
-     Min       1Q   Median       3Q      Max 
--1.51695 -0.63281 -0.06658  0.16479  1.92350 
+    Min      1Q  Median      3Q     Max 
+-0.6928 -0.2961 -0.1023  0.1384  1.4708 
 
 Coefficients:
             Estimate Std. Error t value Pr(&gt;|t|)
-(Intercept)   0.7478     0.4947   1.512    0.169
-groupB       -1.2691     0.6996  -1.814    0.107
+(Intercept)   0.3192     0.2877   1.110    0.299
+groupB       -0.4926     0.4069  -1.211    0.261
 
-Residual standard error: 1.106 on 8 degrees of freedom
-Multiple R-squared:  0.2915,    Adjusted R-squared:  0.2029 
-F-statistic: 3.291 on 1 and 8 DF,  p-value: 0.1072</code></pre>
+Residual standard error: 0.6433 on 8 degrees of freedom
+Multiple R-squared:  0.1549,    Adjusted R-squared:  0.04922 
+F-statistic: 1.466 on 1 and 8 DF,  p-value: 0.2605</code></pre>
 </div>
 </div>
 <p>The <code>lm()</code> function examines <code>group</code> and figures out the unique levels of the variable, which in this case are <code>A</code> and <code>B</code>. It then chooses as baseline the level that comes first alphabetically, and encodes the contrast between the other level (<code>B</code>) and the baseline level (<code>A</code>). (In the case where <code>group</code> has been defined as a factor, the baseline level is the first element of <code>levels(fake_data$group)</code>).</p>
@@ -870,26 +870,26 @@ F-statistic: 3.291 on 1 and 8 DF,  p-value: 0.1072</code></pre>
 <pre><code># A tibble: 20 × 2
    season bodyweight_kg
    &lt;chr&gt;          &lt;dbl&gt;
- 1 winter         111. 
- 2 winter         103. 
- 3 winter         108. 
+ 1 winter         109. 
+ 2 winter         104. 
+ 3 winter         103. 
  4 winter         106. 
- 5 winter         108. 
- 6 spring         102. 
- 7 spring         101. 
- 8 spring          98.1
- 9 spring          99.8
-10 spring          95.0
-11 summer         107. 
-12 summer          99.3
-13 summer         101. 
-14 summer         102. 
-15 summer         102. 
-16 fall            98.9
-17 fall           103. 
-18 fall           110. 
-19 fall           104. 
-20 fall           101. </code></pre>
+ 5 winter         105. 
+ 6 spring         108. 
+ 7 spring          98.1
+ 8 spring          97.8
+ 9 spring         105. 
+10 spring         108. 
+11 summer         101. 
+12 summer         101. 
+13 summer          99.1
+14 summer         101. 
+15 summer         103. 
+16 fall           107. 
+17 fall           104. 
+18 fall            97.7
+19 fall           108. 
+20 fall           103. </code></pre>
 </div>
 </div>
 <p>Now let’s add three predictors to code the variable <code>season</code>. Try it out and see if you can figure out how it works.</p>
@@ -905,26 +905,26 @@ F-statistic: 3.291 on 1 and 8 DF,  p-value: 0.1072</code></pre>
 <pre><code># A tibble: 20 × 5
    season bodyweight_kg spring_v_winter summer_v_winter fall_v_winter
    &lt;chr&gt;          &lt;dbl&gt;           &lt;dbl&gt;           &lt;dbl&gt;         &lt;dbl&gt;
- 1 winter         111.                0               0             0
- 2 winter         103.                0               0             0
- 3 winter         108.                0               0             0
+ 1 winter         109.                0               0             0
+ 2 winter         104.                0               0             0
+ 3 winter         103.                0               0             0
  4 winter         106.                0               0             0
- 5 winter         108.                0               0             0
- 6 spring         102.                1               0             0
- 7 spring         101.                1               0             0
- 8 spring          98.1               1               0             0
- 9 spring          99.8               1               0             0
-10 spring          95.0               1               0             0
-11 summer         107.                0               1             0
-12 summer          99.3               0               1             0
-13 summer         101.                0               1             0
-14 summer         102.                0               1             0
-15 summer         102.                0               1             0
-16 fall            98.9               0               0             1
-17 fall           103.                0               0             1
-18 fall           110.                0               0             1
-19 fall           104.                0               0             1
-20 fall           101.                0               0             1</code></pre>
+ 5 winter         105.                0               0             0
+ 6 spring         108.                1               0             0
+ 7 spring          98.1               1               0             0
+ 8 spring          97.8               1               0             0
+ 9 spring         105.                1               0             0
+10 spring         108.                1               0             0
+11 summer         101.                0               1             0
+12 summer         101.                0               1             0
+13 summer          99.1               0               1             0
+14 summer         101.                0               1             0
+15 summer         103.                0               1             0
+16 fall           107.                0               0             1
+17 fall           104.                0               0             1
+18 fall            97.7               0               0             1
+19 fall           108.                0               0             1
+20 fall           103.                0               0             1</code></pre>
 </div>
 </div>
 <div class="callout callout-style-default callout-caution callout-titled">
@@ -958,7 +958,7 @@ lm(formula = bodyweight_kg ~ spring_v_winter + summer_v_winter +
 
 Coefficients:
     (Intercept)  spring_v_winter  summer_v_winter    fall_v_winter  
-        104.853           -5.728               NA           -1.413  </code></pre>
+       103.3448           0.1674               NA           0.4179  </code></pre>
 </div>
 </div>
 <p>What happened? Let’s look at the data to find out. We will use <code>distinct</code> to find the distinct combinations of our original variable <code>season</code> with the three variables we created (see <code>?dplyr::distinct</code> for details).</p>
@@ -999,20 +999,20 @@ lm(formula = bodyweight_kg ~ season, data = season_wt)
 
 Residuals:
     Min      1Q  Median      3Q     Max 
--4.6193 -1.5964 -0.4105  1.3028  6.9759 
+-6.0943 -1.9638  0.0809  2.5046  4.9469 
 
 Coefficients:
              Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)   103.440      1.503  68.841   &lt;2e-16 ***
-seasonspring   -4.315      2.125  -2.031   0.0593 .  
-seasonsummer   -1.082      2.125  -0.509   0.6174    
-seasonwinter    3.909      2.125   1.839   0.0845 .  
+(Intercept)  103.7627     1.6069  64.574   &lt;2e-16 ***
+seasonspring  -0.2505     2.2725  -0.110    0.914    
+seasonsummer  -2.6696     2.2725  -1.175    0.257    
+seasonwinter   1.8338     2.2725   0.807    0.432    
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 3.36 on 16 degrees of freedom
-Multiple R-squared:  0.4886,    Adjusted R-squared:  0.3927 
-F-statistic: 5.096 on 3 and 16 DF,  p-value: 0.01152</code></pre>
+Residual standard error: 3.593 on 16 degrees of freedom
+Multiple R-squared:  0.1989,    Adjusted R-squared:  0.04869 
+F-statistic: 1.324 on 3 and 16 DF,  p-value: 0.3013</code></pre>
 </div>
 </div>
 <p>Here, R implicitly creates three dummy variables to code the four levels of <code>season</code>, called <code>seasonspring</code>, <code>seasonsummer</code> and <code>seasonwinter</code>. The unmentioned season, <code>fall</code>, has been chosen as baseline because it comes earliest in the alphabet. These three predictors have the following values:</p>
@@ -1038,11 +1038,9 @@ F-statistic: 5.096 on 3 and 16 DF,  p-value: 0.01152</code></pre>
 <span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>my_anova <span class="ot">&lt;-</span> <span class="fu">aov</span>(bodyweight_kg <span class="sc">~</span> season, season_wt3)</span>
 <span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(my_anova)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>            Df Sum Sq Mean Sq F value Pr(&gt;F)  
-season       3  172.6   57.53   5.096 0.0115 *
-Residuals   16  180.6   11.29                 
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+<pre><code>            Df Sum Sq Mean Sq F value Pr(&gt;F)
+season       3  51.29   17.09   1.324  0.301
+Residuals   16 206.56   12.91               </code></pre>
 </div>
 </div>
 <p>OK, now can we replicate that result using the regression model below?</p>
@@ -1059,20 +1057,20 @@ lm(formula = bodyweight_kg ~ spring_v_winter + summer_v_winter +
 
 Residuals:
     Min      1Q  Median      3Q     Max 
--4.6193 -1.5964 -0.4105  1.3028  6.9759 
+-6.0943 -1.9638  0.0809  2.5046  4.9469 
 
 Coefficients:
                 Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)      107.349      1.503  71.442  &lt; 2e-16 ***
-spring_v_winter   -8.224      2.125  -3.870  0.00136 ** 
-summer_v_winter   -4.991      2.125  -2.349  0.03201 *  
-fall_v_winter     -3.909      2.125  -1.839  0.08447 .  
+(Intercept)      105.597      1.607  65.716   &lt;2e-16 ***
+spring_v_winter   -2.084      2.272  -0.917    0.373    
+summer_v_winter   -4.503      2.272  -1.982    0.065 .  
+fall_v_winter     -1.834      2.272  -0.807    0.432    
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 3.36 on 16 degrees of freedom
-Multiple R-squared:  0.4886,    Adjusted R-squared:  0.3927 
-F-statistic: 5.096 on 3 and 16 DF,  p-value: 0.01152</code></pre>
+Residual standard error: 3.593 on 16 degrees of freedom
+Multiple R-squared:  0.1989,    Adjusted R-squared:  0.04869 
+F-statistic: 1.324 on 3 and 16 DF,  p-value: 0.3013</code></pre>
 </div>
 </div>
 <p>Note that the <span class="math inline">\(F\)</span> values and <span class="math inline">\(p\)</span> values are identical for the two methods!</p>
@@ -1126,7 +1124,7 @@ Solution to partial effect plot
 <span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
 <span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> new_nclicks2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-partial-nclicks" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-partial-nclicks" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-partial-nclicks-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="multiple-reg_files/figure-html/fig-partial-nclicks-1.png" class="img-fluid figure-img" width="672">
@@ -1377,8 +1375,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -1489,7 +1485,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {

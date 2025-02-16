@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.31">
+<meta name="generator" content="quarto-1.6.40">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Statistical Models in Psychology and Neuroscience: A Survey – 5&nbsp; Mixed-effects models</title>
+<title>5&nbsp; Mixed-effects models – Statistical Models in Psychology and Neuroscience: A Survey</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -91,12 +91,12 @@ div.csl-indent {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-8ea72dc5fed832574809a9c94082fbbb.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-bafd94f2deb1d35dec8254ac31951f16.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-a2d08f8a70a9a46c9db7361725a9e247.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script src="site_libs/quarto-contrib/nutshell-1.0.7/nutshell.js"></script>
 <script src="site_libs/quarto-contrib/nutshell-1.0.7/nutshell_options.js"></script>
 <script id="quarto-search-options" type="application/json">{
@@ -166,13 +166,13 @@ window.Quarto = {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./mixed-effects.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Mixed-effects models</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -360,7 +360,7 @@ References:
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">9</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-one-subject" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-one-subject" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-one-subject-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="mixed-effects_files/figure-html/fig-one-subject-1.png" class="img-fluid figure-img" width="672">
@@ -387,7 +387,7 @@ Note&nbsp;5.1: Exercise 4.1
 <p>Use ggplot to recreate <a href="#fig-plot-solution" class="quarto-xref">Figure&nbsp;<span>5.2</span></a> below, which shows data for all 18 subjects.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-plot-solution" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-plot-solution" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-plot-solution-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="mixed-effects_files/figure-html/fig-plot-solution-1.png" class="img-fluid figure-img" width="672">
@@ -540,7 +540,7 @@ Solution
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Subject) <span class="sc">+</span></span>
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Reaction Time"</span>, <span class="at">x =</span> <span class="st">"Days deprived of sleep (0 = baseline)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-plot-solution2" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-plot-solution2" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-plot-solution2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="mixed-effects_files/figure-html/fig-plot-solution2-1.png" class="img-fluid figure-img" width="672">
@@ -610,7 +610,7 @@ F-statistic: 38.23 on 1 and 142 DF,  p-value: 6.316e-09</code></pre>
 <span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Subject) <span class="sc">+</span></span>
 <span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Reaction Time"</span>, <span class="at">x =</span> <span class="st">"Days deprived of sleep (0 = baseline)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-cp-model-plot" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-cp-model-plot" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-cp-model-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="mixed-effects_files/figure-html/fig-cp-model-plot-1.png" class="img-fluid figure-img" width="672">
@@ -835,7 +835,7 @@ Answers and explanation
 <span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Subject) <span class="sc">+</span></span>
 <span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Reaction Time"</span>, <span class="at">x =</span> <span class="st">"Days deprived of sleep (0 = baseline)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-np-model-fits" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-np-model-fits" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-np-model-fits-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="mixed-effects_files/figure-html/fig-np-model-fits-1.png" class="img-fluid figure-img" width="672">
@@ -900,7 +900,7 @@ Y_{sd} = \beta_{0s} + \beta_{1s} X_{sd} + e_{sd}
 e_{sd} \sim N\left(0, \sigma^2\right)
 \end{equation}\]</span></p>
 <p>In case you get lost, here’s a table with an explanation for all of the variables in the set of equations above.</p>
-<table class="table">
+<table class="caption-top table">
 <colgroup>
 <col style="width: 24%">
 <col style="width: 10%">
@@ -1027,7 +1027,7 @@ Y_{sd} = \gamma_{0} + S_{0s} + \left(\gamma_{1} + S_{1s}\right) X_{sd} + e_{sd}
 <p>A key difference from standard R model syntax is the presence of a random effect term, which is enclosed in parentheses, e.g., <code>(ran1 + ran2 + ... + ranK | random_factor)</code>. Each bracketed expression represents random effects associated with a single random factor. You can have more than one random effects term in a single formula, as we will see when we talk about crossed random factors. You should think of the random effects terms as providing <code>lmer()</code> with <strong>instructions on how to construct variance-covariance matrices</strong>.</p>
 <p>On the left side of the bar <code>|</code> you put the effects you want to allow to vary over the levels of the random factor named on the right side. Usually, the right-side variable is one whose values uniquely identify individual subjects (e.g., <code>subject_id</code>).</p>
 <p>Consider the following possible model formulas for the <code>sleep2</code> data and the variance-covariance matrices they construct.</p>
-<table class="table">
+<table class="caption-top table">
 <colgroup>
 <col style="width: 3%">
 <col style="width: 38%">
@@ -1184,7 +1184,7 @@ days_deprvd -0.062</code></pre>
 <span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Subject) <span class="sc">+</span></span>
 <span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Reaction Time"</span>, <span class="at">x =</span> <span class="st">"Days deprived of sleep (0 = baseline)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-pp-plot" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-pp-plot" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-pp-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="mixed-effects_files/figure-html/fig-pp-plot-1.png" class="img-fluid figure-img" width="672">
@@ -1416,7 +1416,7 @@ days_deprived   0.1776263     1.0000000</code></pre>
 <span id="cb63-6"><a href="#cb63-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Subject) <span class="sc">+</span></span>
 <span id="cb63-7"><a href="#cb63-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Reaction Time"</span>, <span class="at">x =</span> <span class="st">"Days deprived of sleep (0 = baseline)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-extrap-plot" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-extrap-plot" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-extrap-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="mixed-effects_files/figure-html/fig-extrap-plot-1.png" class="img-fluid figure-img" width="672">
@@ -1678,8 +1678,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -1790,7 +1788,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {
