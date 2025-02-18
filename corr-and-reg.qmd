@@ -374,12 +374,25 @@ The `Sigma` argument to `MASS::mvrnorm()` plays an analogous role to the `sd` ar
 
 ## Exercise: Simulate bivariate data using `MASS::mvrnorm()`.
 
+Use the covariance matrix `cvmx` that you created for `Petal.Width` and `Petal.Length` to simulate data for 15 flowers with mean `Petal.Width` of 1.2 and mean `Petal.Length` of 3.8.
+
 ::: {.callout-warning collapse="true"}
 
 ## Solution
 
-:::
+```{r}
+set.seed(1451)
 
+simdata <- MASS::mvrnorm(n = 15,
+                         mu = c(Petal.Width = 1.2, Petal.Length = 3.8),
+                         Sigma = cvmx)
+
+# print it out
+simdata
+```
+
+:::
+              
 :::
 
 ### Approach 2: Simulating from the regression model
