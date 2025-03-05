@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Statistical Models in Psychology and Neuroscience: A Survey – Glossary</title>
+<title>Statistical Models in Psychology and Neuroscience: A Survey – 5&nbsp; Multilevel models</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,27 +20,7 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-  margin-bottom: 0em;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -50,8 +30,8 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./notation.html" rel="next">
-<link href="./references.html" rel="prev">
+<link href="./multivariate.html" rel="next">
+<link href="./interactions-placeholder.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -93,35 +73,6 @@ div.csl-indent {
   }
 }</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="glossary.css">
 </head>
@@ -135,7 +86,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./glossary.html">Glossary</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./mixed-effects-placeholder.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Multilevel models</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -195,7 +146,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./mixed-effects-placeholder.html" class="sidebar-item-text sidebar-link">
+  <a href="./mixed-effects-placeholder.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Multilevel models</span></span></a>
   </div>
 </li>
@@ -219,7 +170,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./glossary.html" class="sidebar-item-text sidebar-link active">
+  <a href="./glossary.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Glossary</span></a>
   </div>
 </li>
@@ -234,44 +185,15 @@ window.Quarto = {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#criterion" id="toc-criterion" class="nav-link active" data-scroll-target="#criterion">criterion</a></li>
-  <li><a href="#dependent-variable" id="toc-dependent-variable" class="nav-link" data-scroll-target="#dependent-variable">dependent variable</a></li>
-  <li><a href="#ide" id="toc-ide" class="nav-link" data-scroll-target="#ide">integrated development environment (IDE)</a></li>
-  <li><a href="#independent-variable" id="toc-independent-variable" class="nav-link" data-scroll-target="#independent-variable">independent variable</a></li>
-  <li><a href="#dependent-variable" id="toc-dependent-variable" class="nav-link" data-scroll-target="#dependent-variable">dependent variable</a></li>
-  <li><a href="#deviation-score" id="toc-deviation-score" class="nav-link" data-scroll-target="#deviation-score">deviation score</a></li>
-  <li><a href="#fixed-factor" id="toc-fixed-factor" class="nav-link" data-scroll-target="#fixed-factor">fixed factor</a></li>
-  <li><a href="#interval-scale" id="toc-interval-scale" class="nav-link" data-scroll-target="#interval-scale">interval scale of measurement</a></li>
-  <li><a href="#linear-mixed-effects-model" id="toc-linear-mixed-effects-model" class="nav-link" data-scroll-target="#linear-mixed-effects-model">linear mixed-effects model</a></li>
-  <li><a href="#mean" id="toc-mean" class="nav-link" data-scroll-target="#mean">mean</a></li>
-  <li><a href="#multilevel" id="toc-multilevel" class="nav-link" data-scroll-target="#multilevel">multilevel</a></li>
-  <li><a href="#multivariate" id="toc-multivariate" class="nav-link" data-scroll-target="#multivariate">multivariate</a></li>
-  <li><a href="#nominal-scale" id="toc-nominal-scale" class="nav-link" data-scroll-target="#nominal-scale">nominal scale of measurement</a></li>
-  <li><a href="#Nutshell" id="toc-Nutshell" class="nav-link" data-scroll-target="#Nutshell">Nutshell</a></li>
-  <li><a href="#ordinal-scale" id="toc-ordinal-scale" class="nav-link" data-scroll-target="#ordinal-scale">ordinal scale</a></li>
-  <li><a href="#predictor-variable" id="toc-predictor-variable" class="nav-link" data-scroll-target="#predictor-variable">predictor variable</a></li>
-  <li><a href="#p-value" id="toc-p-value" class="nav-link" data-scroll-target="#p-value"><span class="math inline">\(p\)</span>-value</a></li>
-  <li><a href="#power" id="toc-power" class="nav-link" data-scroll-target="#power">power</a></li>
-  <li><a href="#random-factor" id="toc-random-factor" class="nav-link" data-scroll-target="#random-factor">random factor</a></li>
-  <li><a href="#ratio-scale-of-measurement-ratio-scale" id="toc-ratio-scale-of-measurement-ratio-scale" class="nav-link" data-scroll-target="#ratio-scale-of-measurement-ratio-scale">ratio scale of measurement (#ratio-scale)</a></li>
-  <li><a href="#regression-coefficient" id="toc-regression-coefficient" class="nav-link" data-scroll-target="#regression-coefficient">regression coefficient</a></li>
-  <li><a href="#response-variable" id="toc-response-variable" class="nav-link" data-scroll-target="#response-variable">response variable</a></li>
-  <li><a href="#scales-of-measurement" id="toc-scales-of-measurement" class="nav-link" data-scroll-target="#scales-of-measurement">scales of measurement</a></li>
-  <li><a href="#standard-deviation" id="toc-standard-deviation" class="nav-link" data-scroll-target="#standard-deviation">standard deviation</a></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Glossary</h1>
+<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Multilevel models</span></h1>
 </div>
 
 
@@ -288,123 +210,9 @@ window.Quarto = {
 </header>
 
 
-<section id="criterion" class="level2">
-<h2 class="anchored" data-anchor-id="criterion">criterion</h2>
-<p>The <a href="#response-variable">:response variable</a>, usually used in the regression context to refer to the variable whose value we are trying to predict. Conventionally, this variable appears on the left side of the regression equation. For example, in the simple regression equation</p>
-<p><span class="math display">\[Y_i = \beta_0 + \beta_1 X_i + e_i\]</span></p>
-<p>the variable <span class="math inline">\(Y_i\)</span> is the response variable.</p>
-<p>See also <a href="#predictor-variable">:predictor variable</a>.</p>
-</section>
-<section id="dependent-variable" class="level2">
-<h2 class="anchored" data-anchor-id="dependent-variable">dependent variable</h2>
-<p>The outcome variable, whose value we are interested in predicting and/or explaining as a function of one or more <a href="#independent-variable">:independent variables</a>. Often abbreviated as “DV”. This term means the same as <a href="#response-variable">:response variable</a>, but is often only used in the context of an experiment.</p>
-</section>
-<section id="ide" class="level2">
-<h2 class="anchored" data-anchor-id="ide">integrated development environment (IDE)</h2>
-<p>An integrated development environment or IDE is software that you use to develop computer programs. In the context of data analysis we often refer to the plain text files containing the programming instructions as a “script”. The IDE includes things like a script editor and features like syntax highlighting that make it easier to develop scripts.</p>
-<p>It is always important to distinguish the software that provides the programming environment (e.g., <a href="https://posit.co/download/rstudio-desktop/">RStudio Desktop</a>, created by the for-profit company <a href="https://posit.co/">Posit</a>) from the software that performs the computations (e.g., <a href="https://r-project.org">R</a>, created for free by numerous volunteers). The scripts you develop are (ideally) independent of the IDE.</p>
-</section>
-<section id="independent-variable" class="level2">
-<h2 class="anchored" data-anchor-id="independent-variable">independent variable</h2>
-<p>A variable whose value is assumed to affect the value of a <a href="#dependent-variable">:dependent variable</a>, abbreviated as “IV”. In a randomized experiment, the value of the IV is manipulated by the experimenter. Similar to a <a href="#predictor-variable">:predictor variable</a>, but usually used in the context of randomized experiments.</p>
-</section>
-<section id="dependent-variable" class="level2">
-<h2 class="anchored" data-anchor-id="dependent-variable">dependent variable</h2>
-<p>The variable in an analysis corresponding to an outcome that we are interested in, often abbreviated as “DV”. The value of the DV is assumed to be related in some way to the value of an <a href="#independent-variable">:independent variable</a> or set of independent variables.</p>
-<p>Conventionally, researchers use the more general term <a href="#response-variable">:response variable</a> or <a href="#criterion">:criterion</a>, with “dependent variable” usually referring to the response variable in an experiment.</p>
-</section>
-<section id="deviation-score" class="level2">
-<h2 class="anchored" data-anchor-id="deviation-score">deviation score</h2>
-<p>A transformed score, where the mean is subtracted from the original score. If <span class="math inline">\(X\)</span> is a variable, then the deviation score is <span class="math inline">\(X - \bar{X}\)</span>, where <span class="math inline">\(\bar{X}\)</span> is the <a href="#mean">:mean</a> of <span class="math inline">\(X\)</span>.</p>
-</section>
-<section id="fixed-factor" class="level2">
-<h2 class="anchored" data-anchor-id="fixed-factor">fixed factor</h2>
-<p>TODO</p>
-<p>See also <a href="#random-factor">:random factor</a></p>
-</section>
-<section id="interval-scale" class="level2">
-<h2 class="anchored" data-anchor-id="interval-scale">interval scale of measurement</h2>
-<p>One of the four basic <a href="#scales-of-measurement">:scales of measurement</a>. Values measured on an interval scale are numerical, quantitative values where differences between measurements represent meaningful ‘distances’ on the scale. Unlike the <a href="#ratio-scale">:ratio scale</a>, interval scales lack a true zero corresponding to the absence of the quantity being measured. Instead, the zero point is determined by convention. A common example is temperature, where zero does not reflect an absence of temperature but is defined more arbitrarily (e.g., zero degrees Centigrade is different from zero degrees Farenheit).</p>
-</section>
-<section id="linear-mixed-effects-model" class="level2">
-<h2 class="anchored" data-anchor-id="linear-mixed-effects-model">linear mixed-effects model</h2>
-<p>TODO</p>
-</section>
-<section id="mean" class="level2">
-<h2 class="anchored" data-anchor-id="mean">mean</h2>
-<p>A measure of the central tendency of a variable, calculated by summing up the values and then dividing by <span class="math inline">\(N\)</span>, the number of values. The mean of a set of observations is often notated by putting a horizontal bar over the symbol for the variable; e.g., for variable <span class="math inline">\(X\)</span>, the mean would be notated as <span class="math inline">\(\bar{X}\)</span>. In contrast, population means are often denoted using the greek letter <span class="math inline">\(\mu\)</span> (“mu”) with the variable name as a subscript, e.g., <span class="math inline">\(\mu_x\)</span>.</p>
-<p>The mean is calculated using the formula:</p>
-<p><span class="math display">\[\bar{X} = \frac{\Sigma X}{N}\]</span></p>
-<p>where <span class="math inline">\(N\)</span> is the number of observations, and <span class="math inline">\(\Sigma\)</span> is an instruction to sum together all of the <span class="math inline">\(X\)</span> values.</p>
-</section>
-<section id="multilevel" class="level2">
-<h2 class="anchored" data-anchor-id="multilevel">multilevel</h2>
-<p>We say that a dataset is multilevel when there are multiple measurements on the dependent variable for a given sampling unit. Usually, the sampling unit is a participant in a research study.</p>
-</section>
-<section id="multivariate" class="level2">
-<h2 class="anchored" data-anchor-id="multivariate">multivariate</h2>
-<p>We say that a dataset is multivariate when there are multiple dependent variables rather than a single dependent variable.</p>
-</section>
-<section id="nominal-scale" class="level2">
-<h2 class="anchored" data-anchor-id="nominal-scale">nominal scale of measurement</h2>
-<p>One of the four basic <a href="#scales-of-measurement">:scales of measurement</a>. Values measured on a nominal scale consist of discrete, unordered categories. “Scottish political party affiliation” is an example of a nominal variable, which (in 2025) might be given the following levels: Conservative, Labour, SNP, Lib Dem, Green, Reform, Alba, Other. Note that the levels correspond to discrete categories rather than numeric values, and that there is no intrinsic ordering among them. An easy way to remember this is that “nominal” comes from the Latin “nomen” which means name. Nominal data contrasts with <a href="#ordinal-scale">:ordinal</a> data, where in the later case there is an intrinsic ordering to the categories.</p>
-</section>
-<section id="Nutshell" class="level2">
-<h2 class="anchored" data-anchor-id="Nutshell">Nutshell</h2>
-<p><a href="https://ncase.me/nutshell/">Nutshell</a> is a web tool developed by Nicky Case to make expandable, embeddable explanations within a web page, like this one. A Nutshell definition appears with a dashed underline and two dots to the upper left. When you click on the link, the definition of the term will appear embedded within the page. Click the link again (or the little X at the bottom) to remove the definition.</p>
-</section>
-<section id="ordinal-scale" class="level2">
-<h2 class="anchored" data-anchor-id="ordinal-scale">ordinal scale</h2>
-<p>One of the four basic <a href="#scales-of-measurement">:scales of measurement</a>. Ordinal data is like <a href="#nominal-scale">:nominal</a> data, except there is an intrinsic rank ordering among the categories, but the distance between the ranks may not be (psychologically) equal, unlike with <a href="#interval-scale">:interval</a> data. An example would be a Likert agreement scale with five categories: Strongly Agree, Somewhat Agree, Neither Agree Nor Disagree, Somewhat Disagree, Strongly Disagree.</p>
-</section>
-<section id="predictor-variable" class="level2">
-<h2 class="anchored" data-anchor-id="predictor-variable">predictor variable</h2>
-<p>A variable in a regression whose value is used to predict the value of the <a href="#response-variable">:response variable</a>, often in tandem with other predictor variables. For example, in the simple regression equation</p>
-<p><span class="math display">\[Y_i = \beta_0 + \beta_1 X_i + e_i\]</span></p>
-<p>the variable <span class="math inline">\(X_i\)</span> is a predictor variable.</p>
-</section>
-<section id="p-value" class="level2">
-<h2 class="anchored" data-anchor-id="p-value"><span class="math inline">\(p\)</span>-value</h2>
-<p>A probability associated with a test statistic; specifically, the probability, assuming the null hypothesis is true, of obtaining a test statistic at least as extreme as, or more extreme than, the one observed.</p>
-</section>
-<section id="power" class="level2">
-<h2 class="anchored" data-anchor-id="power">power</h2>
-<p>The probability of rejecting the null hypothesis when it is false, for a specific analysis, effect size, sample size, and significance level.</p>
-</section>
-<section id="random-factor" class="level2">
-<h2 class="anchored" data-anchor-id="random-factor">random factor</h2>
-<p>TODO</p>
-<p>See also <a href="#fixed-factor">:fixed factor</a>.</p>
-</section>
-<section id="ratio-scale-of-measurement-ratio-scale" class="level2">
-<h2 class="anchored" data-anchor-id="ratio-scale-of-measurement-ratio-scale">ratio scale of measurement (#ratio-scale)</h2>
-<p>One of the four basic <a href="#scales-of-measurement">:scales of measurement</a>. Ratio data, like <a href="#interval-scale">:interval</a> data is quantitative in nature and with a consistent distance between units, but unlike interval data, it has a true zero representing the absence of the quantity being measure. Response time, which is a measure of duration, is an example of ratio scale data, where ‘zero’ is a theoretically possible value, meaning that a response was made instantaneously (although such a fast response time is unattainable in practice).</p>
-</section>
-<section id="regression-coefficient" class="level2">
-<h2 class="anchored" data-anchor-id="regression-coefficient">regression coefficient</h2>
-<p>A parameter in a regression equation, whose true (i.e., population) value is usually estimated from the sample. Each predictor in a model is weighted by an associated regression coefficient. For example, in the simple regression equation</p>
-<p><span class="math display">\[Y_i = \beta_0 + \beta_1 X_i + e_i\]</span></p>
-<p><span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> are both regression coefficients.</p>
-</section>
-<section id="response-variable" class="level2">
-<h2 class="anchored" data-anchor-id="response-variable">response variable</h2>
-<p>The outcome variable in a regression. Used interchangeably with <a href="#criterion">:criterion variable</a>.</p>
-</section>
-<section id="scales-of-measurement" class="level2">
-<h2 class="anchored" data-anchor-id="scales-of-measurement">scales of measurement</h2>
-<p>A typology introduced by <span class="citation" data-cites="Stevens_1946">Stevens (<a href="references.html#ref-Stevens_1946" role="doc-biblioref">1946</a>)</span> of four types of measurement scales found in psychology: <a href="#nominal-scale">:nominal</a>, <a href="#interval-scale">:interval</a>, <a href="#ratio-scale">:ratio</a>, and <a href="#ordinal-scale">:ordinal</a>.</p>
-</section>
-<section id="standard-deviation" class="level2">
-<h2 class="anchored" data-anchor-id="standard-deviation">standard deviation</h2>
-<p>A measure of variability, defined as the mean of the <a href="#deviation-scores">:deviation scores</a>.</p>
+<p>(under construction)</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
-<div id="ref-Stevens_1946" class="csl-entry" role="listitem">
-Stevens, S. S. (1946). On the theory of scales of measurement. <em>Science</em>, <em>103</em>(2684), 677–680. <a href="https://doi.org/10.1126/science.103.2684.677">https://doi.org/10.1126/science.103.2684.677</a>
-</div>
-</div>
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -973,13 +781,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./references.html" class="pagination-link" aria-label="References">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">References</span>
+      <a href="./interactions-placeholder.html" class="pagination-link" aria-label="Interactions">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Interactions</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./notation.html" class="pagination-link" aria-label="Notation">
-        <span class="nav-page-text">Notation</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./multivariate.html" class="pagination-link" aria-label="Psychometrics and Multivariate Analysis">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Psychometrics and Multivariate Analysis</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

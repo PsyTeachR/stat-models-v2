@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Statistical Models in Psychology and Neuroscience: A Survey – Glossary</title>
+<title>Statistical Models in Psychology and Neuroscience: A Survey – 7&nbsp; Path analysis</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 /* CSS for citations */
 div.csl-bib-body { }
@@ -50,8 +84,8 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./notation.html" rel="next">
-<link href="./references.html" rel="prev">
+<link href="./references.html" rel="next">
+<link href="./multivariate.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -93,35 +127,6 @@ div.csl-indent {
   }
 }</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="glossary.css">
 </head>
@@ -135,7 +140,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./glossary.html">Glossary</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./path.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Path analysis</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -207,7 +212,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./path.html" class="sidebar-item-text sidebar-link">
+  <a href="./path.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Path analysis</span></span></a>
   </div>
 </li>
@@ -219,7 +224,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./glossary.html" class="sidebar-item-text sidebar-link active">
+  <a href="./glossary.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Glossary</span></a>
   </div>
 </li>
@@ -239,30 +244,12 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#criterion" id="toc-criterion" class="nav-link active" data-scroll-target="#criterion">criterion</a></li>
-  <li><a href="#dependent-variable" id="toc-dependent-variable" class="nav-link" data-scroll-target="#dependent-variable">dependent variable</a></li>
-  <li><a href="#ide" id="toc-ide" class="nav-link" data-scroll-target="#ide">integrated development environment (IDE)</a></li>
-  <li><a href="#independent-variable" id="toc-independent-variable" class="nav-link" data-scroll-target="#independent-variable">independent variable</a></li>
-  <li><a href="#dependent-variable" id="toc-dependent-variable" class="nav-link" data-scroll-target="#dependent-variable">dependent variable</a></li>
-  <li><a href="#deviation-score" id="toc-deviation-score" class="nav-link" data-scroll-target="#deviation-score">deviation score</a></li>
-  <li><a href="#fixed-factor" id="toc-fixed-factor" class="nav-link" data-scroll-target="#fixed-factor">fixed factor</a></li>
-  <li><a href="#interval-scale" id="toc-interval-scale" class="nav-link" data-scroll-target="#interval-scale">interval scale of measurement</a></li>
-  <li><a href="#linear-mixed-effects-model" id="toc-linear-mixed-effects-model" class="nav-link" data-scroll-target="#linear-mixed-effects-model">linear mixed-effects model</a></li>
-  <li><a href="#mean" id="toc-mean" class="nav-link" data-scroll-target="#mean">mean</a></li>
-  <li><a href="#multilevel" id="toc-multilevel" class="nav-link" data-scroll-target="#multilevel">multilevel</a></li>
-  <li><a href="#multivariate" id="toc-multivariate" class="nav-link" data-scroll-target="#multivariate">multivariate</a></li>
-  <li><a href="#nominal-scale" id="toc-nominal-scale" class="nav-link" data-scroll-target="#nominal-scale">nominal scale of measurement</a></li>
-  <li><a href="#Nutshell" id="toc-Nutshell" class="nav-link" data-scroll-target="#Nutshell">Nutshell</a></li>
-  <li><a href="#ordinal-scale" id="toc-ordinal-scale" class="nav-link" data-scroll-target="#ordinal-scale">ordinal scale</a></li>
-  <li><a href="#predictor-variable" id="toc-predictor-variable" class="nav-link" data-scroll-target="#predictor-variable">predictor variable</a></li>
-  <li><a href="#p-value" id="toc-p-value" class="nav-link" data-scroll-target="#p-value"><span class="math inline">\(p\)</span>-value</a></li>
-  <li><a href="#power" id="toc-power" class="nav-link" data-scroll-target="#power">power</a></li>
-  <li><a href="#random-factor" id="toc-random-factor" class="nav-link" data-scroll-target="#random-factor">random factor</a></li>
-  <li><a href="#ratio-scale-of-measurement-ratio-scale" id="toc-ratio-scale-of-measurement-ratio-scale" class="nav-link" data-scroll-target="#ratio-scale-of-measurement-ratio-scale">ratio scale of measurement (#ratio-scale)</a></li>
-  <li><a href="#regression-coefficient" id="toc-regression-coefficient" class="nav-link" data-scroll-target="#regression-coefficient">regression coefficient</a></li>
-  <li><a href="#response-variable" id="toc-response-variable" class="nav-link" data-scroll-target="#response-variable">response variable</a></li>
-  <li><a href="#scales-of-measurement" id="toc-scales-of-measurement" class="nav-link" data-scroll-target="#scales-of-measurement">scales of measurement</a></li>
-  <li><a href="#standard-deviation" id="toc-standard-deviation" class="nav-link" data-scroll-target="#standard-deviation">standard deviation</a></li>
+  <li><a href="#sem-software-lavaan" id="toc-sem-software-lavaan" class="nav-link active" data-scroll-target="#sem-software-lavaan"><span class="header-section-number">7.1</span> SEM software: lavaan</a></li>
+  <li><a href="#example-sem-vs-regression" id="toc-example-sem-vs-regression" class="nav-link" data-scroll-target="#example-sem-vs-regression"><span class="header-section-number">7.2</span> Example: SEM vs regression</a>
+  <ul class="collapse">
+  <li><a href="#single-outcome-data" id="toc-single-outcome-data" class="nav-link" data-scroll-target="#single-outcome-data"><span class="header-section-number">7.2.1</span> single outcome data</a></li>
+  <li><a href="#adding-a-second-dv" id="toc-adding-a-second-dv" class="nav-link" data-scroll-target="#adding-a-second-dv"><span class="header-section-number">7.2.2</span> Adding a second DV</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -271,7 +258,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Glossary</h1>
+<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Path analysis</span></h1>
 </div>
 
 
@@ -288,122 +275,351 @@ window.Quarto = {
 </header>
 
 
-<section id="criterion" class="level2">
-<h2 class="anchored" data-anchor-id="criterion">criterion</h2>
-<p>The <a href="#response-variable">:response variable</a>, usually used in the regression context to refer to the variable whose value we are trying to predict. Conventionally, this variable appears on the left side of the regression equation. For example, in the simple regression equation</p>
-<p><span class="math display">\[Y_i = \beta_0 + \beta_1 X_i + e_i\]</span></p>
-<p>the variable <span class="math inline">\(Y_i\)</span> is the response variable.</p>
-<p>See also <a href="#predictor-variable">:predictor variable</a>.</p>
+<section id="sem-software-lavaan" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="sem-software-lavaan"><span class="header-section-number">7.1</span> SEM software: lavaan</h2>
+<p>For estimating structural equation models in R we will use the <a href="https://www.lavaan.ugent.be/"><code>lavaan</code></a> add-on package <span class="citation" data-cites="Rosseel_2012">(<a href="references.html#ref-Rosseel_2012" role="doc-biblioref">Rosseel, 2012</a>)</span> for R. You can install it by typing <code>install.packages("lavaan")</code> in your R console window.</p>
+<p>The main workhorse function for lavaan is called, simply, <code>lavaan()</code>. This is a powerful function that lets you specify a wide array of models. You can see all the options by looking at the help page (<code>?lavaan::lavaan</code>):</p>
+<pre><code>lavaan                 package:lavaan                  R Documentation
+
+Fit a Latent Variable Model
+
+Description:
+
+     Fit a latent variable model.
+
+Usage:
+
+     lavaan(model = NULL, data = NULL, ordered = NULL,
+            sampling.weights   = NULL,
+            sample.cov = NULL, sample.mean = NULL, sample.th = NULL,
+            sample.nobs = NULL,
+            group = NULL, cluster = NULL, constraints = "", 
+            WLS.V = NULL, NACOV = NULL, ov.order = "model",
+            slotOptions = NULL, slotParTable = NULL, slotSampleStats = NULL,
+            slotData = NULL, slotModel = NULL, slotCache = NULL,
+            sloth1 = NULL,
+            ...)</code></pre>
+<p>The <code>...</code> in the function syntax suggests there are more options than are listed, and the help page says “See <code>lavOptions</code> for a complete list.” And if you type <code>lavOptions()</code> you will see there are 113 additional options! This can be quite overwhelming for the novice user.</p>
+<p>Fortunately, lavaan provides two ‘convenience’ functions that hide away some of this complexity and that automatically choose sensible defaults. These functions are:</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>function</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>sem()</code></td>
+<td>Fit a structural equation model</td>
+</tr>
+<tr class="even">
+<td><code>cfa()</code></td>
+<td>Fit a confirmatory factor analysis</td>
+</tr>
+</tbody>
+</table>
+<p>In what follows, we’ll be using <code>sem()</code> to fit a path model. The function documentation indicates what options of lavaan are set to by default (see <code>?lavOptions</code> for further information).</p>
+<pre><code>     The ‘sem’ function is a wrapper for the more general lavaan
+     function, but setting the following default options: ‘int.ov.free
+     = TRUE’, ‘int.lv.free = FALSE’, ‘auto.fix.first = TRUE’ (unless
+     ‘std.lv = TRUE’), ‘auto.fix.single = TRUE’, ‘auto.var = TRUE’,
+     ‘auto.cov.lv.x = TRUE’, ‘auto.efa = TRUE’, ‘auto.th = TRUE’,
+     ‘auto.delta = TRUE’, and ‘auto.cov.y = TRUE’.</code></pre>
+<p>Many of these options are only relevant for models including latent variables, which our path models will not include. Thus, when using path analyses, these are the defaults you should keep in mind.</p>
+<table class="table">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 75%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>option setting</th>
+<th>effect</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>int.ov.free=TRUE</code></td>
+<td>intercepts of observed variables are not fixed to zero</td>
+</tr>
+<tr class="even">
+<td><code>auto.var=TRUE</code></td>
+<td>residual variances for observed variables are set free</td>
+</tr>
+<tr class="odd">
+<td><code>auto.cov.y=TRUE</code></td>
+<td>covariances of endogenous variables are modeled and set free</td>
+</tr>
+</tbody>
+</table>
 </section>
-<section id="dependent-variable" class="level2">
-<h2 class="anchored" data-anchor-id="dependent-variable">dependent variable</h2>
-<p>The outcome variable, whose value we are interested in predicting and/or explaining as a function of one or more <a href="#independent-variable">:independent variables</a>. Often abbreviated as “DV”. This term means the same as <a href="#response-variable">:response variable</a>, but is often only used in the context of an experiment.</p>
+<section id="example-sem-vs-regression" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="example-sem-vs-regression"><span class="header-section-number">7.2</span> Example: SEM vs regression</h2>
+<p>We will begin our practical introduction to path analysis with an example that represents a simple extension from ordinary regression modeling—namely, a situation where you have multiple response variables.</p>
+<p>Let’s assume we’re interested in the social determinants of <a href="https://en.wikipedia.org/wiki/Narcissistic_personality_disorder">narcisissm</a> and we have given a (subclinical) population a narcissism questionnaire (scale goes from 1-100).</p>
+<p>To follow along, download the following files. NB: These files contain simulated (i.e., not real) data, so don’t draw any conclusions about narcissism from the analyses.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>file</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="data/narc_1.csv"><code>narc_1.csv</code></a></td>
+<td>narcisissm data, 1 outcome variable</td>
+</tr>
+<tr class="even">
+<td><a href="data/narc_2.csv"><code>narc_2.csv</code></a></td>
+<td>narcisissm data, 2 outcome variables</td>
+</tr>
+</tbody>
+</table>
+<section id="single-outcome-data" class="level3" data-number="7.2.1">
+<h3 data-number="7.2.1" class="anchored" data-anchor-id="single-outcome-data"><span class="header-section-number">7.2.1</span> single outcome data</h3>
+<p>We might have the following theory of narcisissm, where parenting style (specifically, the degree of “helicopter” parenting where parents smother their child with attention) and economic privilege jointly determine the level of adult narcissism.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/narc_1.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p>Here, the SEM framework wouldn’t buy us anything because we can fit this model using basic regression.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"tidyverse"</span>) <span class="co"># for read_csv</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"lavaan"</span>)    <span class="co"># for SEM; we'll need these functions later</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>This is lavaan 0.6-19
+lavaan is FREE software! Please report any bugs.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>narc_1 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/narc_1.csv"</span>, <span class="at">col_types =</span> <span class="st">"ddd"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>mod_reg <span class="ot">&lt;-</span> <span class="fu">lm</span>(Narc <span class="sc">~</span> HP <span class="sc">+</span> EP, <span class="at">data =</span> narc_1)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod_reg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Narc ~ HP + EP, data = narc_1)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-18.6504  -4.5028  -0.3351   4.4134  18.0993 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 42.62670    6.48476   6.573 4.31e-10 ***
+HP           0.18531    0.06704   2.764  0.00625 ** 
+EP           0.33032    0.12922   2.556  0.01133 *  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 7.149 on 197 degrees of freedom
+Multiple R-squared:  0.07027,   Adjusted R-squared:  0.06083 
+F-statistic: 7.445 on 2 and 197 DF,  p-value: 0.0007642</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>sem_formula <span class="ot">&lt;-</span> <span class="st">'Narc ~ HP + EP'</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>mod_sem <span class="ot">&lt;-</span> <span class="fu">sem</span>(sem_formula, <span class="at">data =</span> narc_1)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod_sem, <span class="at">rsquare =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>lavaan 0.6-19 ended normally after 1 iteration
+
+  Estimator                                         ML
+  Optimization method                           NLMINB
+  Number of model parameters                         3
+
+  Number of observations                           200
+
+Model Test User Model:
+                                                      
+  Test statistic                                 0.000
+  Degrees of freedom                                 0
+
+Parameter Estimates:
+
+  Standard errors                             Standard
+  Information                                 Expected
+  Information saturated (h1) model          Structured
+
+Regressions:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+  Narc ~                                              
+    HP                0.185    0.067    2.785    0.005
+    EP                0.330    0.128    2.576    0.010
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+   .Narc             50.345    5.034   10.000    0.000
+
+R-Square:
+                   Estimate
+    Narc              0.070</code></pre>
+</div>
+</div>
+<p>You can see that the regression coefficients closely match the ones from the regression. We also get an estimate of the residual variance for the DV of 50.345, which is close to the “Residual standard error” in the regression model, because sqrt(50.345) = 7.095, which is close to 7.149.</p>
+<p>The summary suggests that we have estimated 3 parameters. What are they? Let’s use lavaan’s <code>parTable()</code> function to see.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">parTable</span>(mod_sem)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  id  lhs op  rhs user block group free ustart exo label plabel  start    est
+1  1 Narc  ~   HP    1     1     1    1     NA   0         .p1.  0.185  0.185
+2  2 Narc  ~   EP    1     1     1    2     NA   0         .p2.  0.330  0.330
+3  3 Narc ~~ Narc    0     1     1    3     NA   0         .p3. 50.345 50.345
+4  4   HP ~~   HP    0     1     1    0     NA   1         .p4. 56.991 56.991
+5  5   HP ~~   EP    0     1     1    0     NA   1         .p5.  1.423  1.423
+6  6   EP ~~   EP    0     1     1    0     NA   1         .p6. 15.341 15.341
+     se
+1 0.067
+2 0.128
+3 5.034
+4 0.000
+5 0.000
+6 0.000</code></pre>
+</div>
+</div>
+<p>The ‘free’ column counts the free parameters. You’ll note that <code>Narc ~ HP</code>, <code>Narc ~ EP</code> and <code>Narc ~~ Narc</code> are the (population) direct effects and variance that are being estimated. All the variances/covariances for the exogenous variables are just directly calculated from the sample, and so they have no standard errors (= 0).</p>
+<p>We can also get confidence intervals using the <code>parameterEstimates()</code> function, which also puts the estimates in a table, making them easier to access for reporting.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">parameterEstimates</span>(mod_sem)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   lhs op  rhs    est    se      z pvalue ci.lower ci.upper
+1 Narc  ~   HP  0.185 0.067  2.785  0.005    0.055    0.316
+2 Narc  ~   EP  0.330 0.128  2.576  0.010    0.079    0.582
+3 Narc ~~ Narc 50.345 5.034 10.000  0.000   40.477   60.212
+4   HP ~~   HP 56.991 0.000     NA     NA   56.991   56.991
+5   HP ~~   EP  1.423 0.000     NA     NA    1.423    1.423
+6   EP ~~   EP 15.341 0.000     NA     NA   15.341   15.341</code></pre>
+</div>
+</div>
+<p>We can also get standardized estimates. The <code>std.all</code> column is the one you want to look at.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">parameterEstimates</span>(mod_sem, <span class="at">standardized =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   lhs op  rhs    est    se      z pvalue ci.lower ci.upper std.lv std.all
+1 Narc  ~   HP  0.185 0.067  2.785  0.005    0.055    0.316  0.185   0.190
+2 Narc  ~   EP  0.330 0.128  2.576  0.010    0.079    0.582  0.330   0.176
+3 Narc ~~ Narc 50.345 5.034 10.000  0.000   40.477   60.212 50.345   0.930
+4   HP ~~   HP 56.991 0.000     NA     NA   56.991   56.991 56.991   1.000
+5   HP ~~   EP  1.423 0.000     NA     NA    1.423    1.423  1.423   0.048
+6   EP ~~   EP 15.341 0.000     NA     NA   15.341   15.341 15.341   1.000
+  std.nox
+1   0.025
+2   0.045
+3   0.930
+4  56.991
+5   1.423
+6  15.341</code></pre>
+</div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/narc_1b.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
 </section>
-<section id="ide" class="level2">
-<h2 class="anchored" data-anchor-id="ide">integrated development environment (IDE)</h2>
-<p>An integrated development environment or IDE is software that you use to develop computer programs. In the context of data analysis we often refer to the plain text files containing the programming instructions as a “script”. The IDE includes things like a script editor and features like syntax highlighting that make it easier to develop scripts.</p>
-<p>It is always important to distinguish the software that provides the programming environment (e.g., <a href="https://posit.co/download/rstudio-desktop/">RStudio Desktop</a>, created by the for-profit company <a href="https://posit.co/">Posit</a>) from the software that performs the computations (e.g., <a href="https://r-project.org">R</a>, created for free by numerous volunteers). The scripts you develop are (ideally) independent of the IDE.</p>
-</section>
-<section id="independent-variable" class="level2">
-<h2 class="anchored" data-anchor-id="independent-variable">independent variable</h2>
-<p>A variable whose value is assumed to affect the value of a <a href="#dependent-variable">:dependent variable</a>, abbreviated as “IV”. In a randomized experiment, the value of the IV is manipulated by the experimenter. Similar to a <a href="#predictor-variable">:predictor variable</a>, but usually used in the context of randomized experiments.</p>
-</section>
-<section id="dependent-variable" class="level2">
-<h2 class="anchored" data-anchor-id="dependent-variable">dependent variable</h2>
-<p>The variable in an analysis corresponding to an outcome that we are interested in, often abbreviated as “DV”. The value of the DV is assumed to be related in some way to the value of an <a href="#independent-variable">:independent variable</a> or set of independent variables.</p>
-<p>Conventionally, researchers use the more general term <a href="#response-variable">:response variable</a> or <a href="#criterion">:criterion</a>, with “dependent variable” usually referring to the response variable in an experiment.</p>
-</section>
-<section id="deviation-score" class="level2">
-<h2 class="anchored" data-anchor-id="deviation-score">deviation score</h2>
-<p>A transformed score, where the mean is subtracted from the original score. If <span class="math inline">\(X\)</span> is a variable, then the deviation score is <span class="math inline">\(X - \bar{X}\)</span>, where <span class="math inline">\(\bar{X}\)</span> is the <a href="#mean">:mean</a> of <span class="math inline">\(X\)</span>.</p>
-</section>
-<section id="fixed-factor" class="level2">
-<h2 class="anchored" data-anchor-id="fixed-factor">fixed factor</h2>
-<p>TODO</p>
-<p>See also <a href="#random-factor">:random factor</a></p>
-</section>
-<section id="interval-scale" class="level2">
-<h2 class="anchored" data-anchor-id="interval-scale">interval scale of measurement</h2>
-<p>One of the four basic <a href="#scales-of-measurement">:scales of measurement</a>. Values measured on an interval scale are numerical, quantitative values where differences between measurements represent meaningful ‘distances’ on the scale. Unlike the <a href="#ratio-scale">:ratio scale</a>, interval scales lack a true zero corresponding to the absence of the quantity being measured. Instead, the zero point is determined by convention. A common example is temperature, where zero does not reflect an absence of temperature but is defined more arbitrarily (e.g., zero degrees Centigrade is different from zero degrees Farenheit).</p>
-</section>
-<section id="linear-mixed-effects-model" class="level2">
-<h2 class="anchored" data-anchor-id="linear-mixed-effects-model">linear mixed-effects model</h2>
-<p>TODO</p>
-</section>
-<section id="mean" class="level2">
-<h2 class="anchored" data-anchor-id="mean">mean</h2>
-<p>A measure of the central tendency of a variable, calculated by summing up the values and then dividing by <span class="math inline">\(N\)</span>, the number of values. The mean of a set of observations is often notated by putting a horizontal bar over the symbol for the variable; e.g., for variable <span class="math inline">\(X\)</span>, the mean would be notated as <span class="math inline">\(\bar{X}\)</span>. In contrast, population means are often denoted using the greek letter <span class="math inline">\(\mu\)</span> (“mu”) with the variable name as a subscript, e.g., <span class="math inline">\(\mu_x\)</span>.</p>
-<p>The mean is calculated using the formula:</p>
-<p><span class="math display">\[\bar{X} = \frac{\Sigma X}{N}\]</span></p>
-<p>where <span class="math inline">\(N\)</span> is the number of observations, and <span class="math inline">\(\Sigma\)</span> is an instruction to sum together all of the <span class="math inline">\(X\)</span> values.</p>
-</section>
-<section id="multilevel" class="level2">
-<h2 class="anchored" data-anchor-id="multilevel">multilevel</h2>
-<p>We say that a dataset is multilevel when there are multiple measurements on the dependent variable for a given sampling unit. Usually, the sampling unit is a participant in a research study.</p>
-</section>
-<section id="multivariate" class="level2">
-<h2 class="anchored" data-anchor-id="multivariate">multivariate</h2>
-<p>We say that a dataset is multivariate when there are multiple dependent variables rather than a single dependent variable.</p>
-</section>
-<section id="nominal-scale" class="level2">
-<h2 class="anchored" data-anchor-id="nominal-scale">nominal scale of measurement</h2>
-<p>One of the four basic <a href="#scales-of-measurement">:scales of measurement</a>. Values measured on a nominal scale consist of discrete, unordered categories. “Scottish political party affiliation” is an example of a nominal variable, which (in 2025) might be given the following levels: Conservative, Labour, SNP, Lib Dem, Green, Reform, Alba, Other. Note that the levels correspond to discrete categories rather than numeric values, and that there is no intrinsic ordering among them. An easy way to remember this is that “nominal” comes from the Latin “nomen” which means name. Nominal data contrasts with <a href="#ordinal-scale">:ordinal</a> data, where in the later case there is an intrinsic ordering to the categories.</p>
-</section>
-<section id="Nutshell" class="level2">
-<h2 class="anchored" data-anchor-id="Nutshell">Nutshell</h2>
-<p><a href="https://ncase.me/nutshell/">Nutshell</a> is a web tool developed by Nicky Case to make expandable, embeddable explanations within a web page, like this one. A Nutshell definition appears with a dashed underline and two dots to the upper left. When you click on the link, the definition of the term will appear embedded within the page. Click the link again (or the little X at the bottom) to remove the definition.</p>
-</section>
-<section id="ordinal-scale" class="level2">
-<h2 class="anchored" data-anchor-id="ordinal-scale">ordinal scale</h2>
-<p>One of the four basic <a href="#scales-of-measurement">:scales of measurement</a>. Ordinal data is like <a href="#nominal-scale">:nominal</a> data, except there is an intrinsic rank ordering among the categories, but the distance between the ranks may not be (psychologically) equal, unlike with <a href="#interval-scale">:interval</a> data. An example would be a Likert agreement scale with five categories: Strongly Agree, Somewhat Agree, Neither Agree Nor Disagree, Somewhat Disagree, Strongly Disagree.</p>
-</section>
-<section id="predictor-variable" class="level2">
-<h2 class="anchored" data-anchor-id="predictor-variable">predictor variable</h2>
-<p>A variable in a regression whose value is used to predict the value of the <a href="#response-variable">:response variable</a>, often in tandem with other predictor variables. For example, in the simple regression equation</p>
-<p><span class="math display">\[Y_i = \beta_0 + \beta_1 X_i + e_i\]</span></p>
-<p>the variable <span class="math inline">\(X_i\)</span> is a predictor variable.</p>
-</section>
-<section id="p-value" class="level2">
-<h2 class="anchored" data-anchor-id="p-value"><span class="math inline">\(p\)</span>-value</h2>
-<p>A probability associated with a test statistic; specifically, the probability, assuming the null hypothesis is true, of obtaining a test statistic at least as extreme as, or more extreme than, the one observed.</p>
-</section>
-<section id="power" class="level2">
-<h2 class="anchored" data-anchor-id="power">power</h2>
-<p>The probability of rejecting the null hypothesis when it is false, for a specific analysis, effect size, sample size, and significance level.</p>
-</section>
-<section id="random-factor" class="level2">
-<h2 class="anchored" data-anchor-id="random-factor">random factor</h2>
-<p>TODO</p>
-<p>See also <a href="#fixed-factor">:fixed factor</a>.</p>
-</section>
-<section id="ratio-scale-of-measurement-ratio-scale" class="level2">
-<h2 class="anchored" data-anchor-id="ratio-scale-of-measurement-ratio-scale">ratio scale of measurement (#ratio-scale)</h2>
-<p>One of the four basic <a href="#scales-of-measurement">:scales of measurement</a>. Ratio data, like <a href="#interval-scale">:interval</a> data is quantitative in nature and with a consistent distance between units, but unlike interval data, it has a true zero representing the absence of the quantity being measure. Response time, which is a measure of duration, is an example of ratio scale data, where ‘zero’ is a theoretically possible value, meaning that a response was made instantaneously (although such a fast response time is unattainable in practice).</p>
-</section>
-<section id="regression-coefficient" class="level2">
-<h2 class="anchored" data-anchor-id="regression-coefficient">regression coefficient</h2>
-<p>A parameter in a regression equation, whose true (i.e., population) value is usually estimated from the sample. Each predictor in a model is weighted by an associated regression coefficient. For example, in the simple regression equation</p>
-<p><span class="math display">\[Y_i = \beta_0 + \beta_1 X_i + e_i\]</span></p>
-<p><span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> are both regression coefficients.</p>
-</section>
-<section id="response-variable" class="level2">
-<h2 class="anchored" data-anchor-id="response-variable">response variable</h2>
-<p>The outcome variable in a regression. Used interchangeably with <a href="#criterion">:criterion variable</a>.</p>
-</section>
-<section id="scales-of-measurement" class="level2">
-<h2 class="anchored" data-anchor-id="scales-of-measurement">scales of measurement</h2>
-<p>A typology introduced by <span class="citation" data-cites="Stevens_1946">Stevens (<a href="references.html#ref-Stevens_1946" role="doc-biblioref">1946</a>)</span> of four types of measurement scales found in psychology: <a href="#nominal-scale">:nominal</a>, <a href="#interval-scale">:interval</a>, <a href="#ratio-scale">:ratio</a>, and <a href="#ordinal-scale">:ordinal</a>.</p>
-</section>
-<section id="standard-deviation" class="level2">
-<h2 class="anchored" data-anchor-id="standard-deviation">standard deviation</h2>
-<p>A measure of variability, defined as the mean of the <a href="#deviation-scores">:deviation scores</a>.</p>
+<section id="adding-a-second-dv" class="level3" data-number="7.2.2">
+<h3 data-number="7.2.2" class="anchored" data-anchor-id="adding-a-second-dv"><span class="header-section-number">7.2.2</span> Adding a second DV</h3>
+<p>Up to this point using SEM doesn’t really buy us anything over and above ordinary regression. But the situation changes if we have more than one DV. Let’s say that instead of a single measure we had a measure of two types of narcissism: vulnerable narcissism (VN) and grandiose narcissism (GN), which, for the sake of example, let’s say are not mutually exclusive (i.e., a person can have a little bit of each).</p>
+<p>We could perform two separate regressions, but this has the problem that each regression is performed independently of the other, which only makes sense if we are sure that the two DVs are totally uncorrelated. If they are correlated, then the estimates from this approach will be biased. Here, a SEM approach is useful because it can account for this covariance.</p>
+<p><img src="img/narc_2.png" class="img-fluid"></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>narc_2 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/narc_2.csv"</span>,</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">col_types =</span> <span class="st">"dddd"</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>sem_formula2 <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="st">VN ~ HP + EP</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="st">GN ~ HP + EP'</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>mod_sem2 <span class="ot">&lt;-</span> <span class="fu">sem</span>(sem_formula2, <span class="at">data =</span> narc_2)</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod_sem2, <span class="at">rsquare =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>lavaan 0.6-19 ended normally after 9 iterations
+
+  Estimator                                         ML
+  Optimization method                           NLMINB
+  Number of model parameters                         7
+
+  Number of observations                           200
+
+Model Test User Model:
+                                                      
+  Test statistic                                 0.000
+  Degrees of freedom                                 0
+
+Parameter Estimates:
+
+  Standard errors                             Standard
+  Information                                 Expected
+  Information saturated (h1) model          Structured
+
+Regressions:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+  VN ~                                                
+    HP                0.131    0.030    4.351    0.000
+    EP               -0.193    0.058   -3.315    0.001
+  GN ~                                                
+    HP                0.145    0.039    3.754    0.000
+    EP               -0.014    0.074   -0.190    0.849
+
+Covariances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+ .VN ~~                                               
+   .GN                0.994    0.941    1.056    0.291
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+   .VN               10.375    1.037   10.000    0.000
+   .GN               16.975    1.698   10.000    0.000
+
+R-Square:
+                   Estimate
+    VN                0.125
+    GN                0.066</code></pre>
+</div>
+</div>
+<p>Let’s have a look at the model estimates, including standardized coefficients, and add the (raw) coefficients to our path diagram.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">parameterEstimates</span>(mod_sem2, <span class="at">standardized =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   lhs op rhs    est    se      z pvalue ci.lower ci.upper std.lv std.all
+1   VN  ~  HP  0.131 0.030  4.351  0.000    0.072    0.191  0.131   0.288
+2   VN  ~  EP -0.193 0.058 -3.315  0.001   -0.307   -0.079 -0.193  -0.219
+3   GN  ~  HP  0.145 0.039  3.754  0.000    0.069    0.221  0.145   0.257
+4   GN  ~  EP -0.014 0.074 -0.190  0.849   -0.160    0.132 -0.014  -0.013
+5   VN ~~  VN 10.375 1.037 10.000  0.000    8.341   12.408 10.375   0.875
+6   GN ~~  GN 16.975 1.698 10.000  0.000   13.648   20.302 16.975   0.934
+7   VN ~~  GN  0.994 0.941  1.056  0.291   -0.850    2.838  0.994   0.075
+8   HP ~~  HP 56.991 0.000     NA     NA   56.991   56.991 56.991   1.000
+9   HP ~~  EP  1.423 0.000     NA     NA    1.423    1.423  1.423   0.048
+10  EP ~~  EP 15.341 0.000     NA     NA   15.341   15.341 15.341   1.000
+   std.nox
+1    0.038
+2   -0.056
+3    0.034
+4   -0.003
+5    0.875
+6    0.934
+7    0.075
+8   56.991
+9    1.423
+10  15.341</code></pre>
+</div>
+</div>
+<p><img src="img/narc_2b.png" class="img-fluid"></p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
-<div id="ref-Stevens_1946" class="csl-entry" role="listitem">
-Stevens, S. S. (1946). On the theory of scales of measurement. <em>Science</em>, <em>103</em>(2684), 677–680. <a href="https://doi.org/10.1126/science.103.2684.677">https://doi.org/10.1126/science.103.2684.677</a>
+<div id="ref-Rosseel_2012" class="csl-entry" role="listitem">
+Rosseel, Y. (2012). Lavaan: An r package for structural equation modeling. <em>Journal of Statistical Software</em>, <em>48</em>(2), 1–36. <a href="https://doi.org/10.18637/jss.v048.i02">https://doi.org/10.18637/jss.v048.i02</a>
 </div>
 </div>
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -973,13 +1189,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./references.html" class="pagination-link" aria-label="References">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">References</span>
+      <a href="./multivariate.html" class="pagination-link" aria-label="Psychometrics and Multivariate Analysis">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Psychometrics and Multivariate Analysis</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./notation.html" class="pagination-link" aria-label="Notation">
-        <span class="nav-page-text">Notation</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./references.html" class="pagination-link" aria-label="References">
+        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

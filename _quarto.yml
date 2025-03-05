@@ -11,11 +11,11 @@ book:
     - intro-placeholder.qmd
     - corr-and-reg.qmd
     - multiple-reg.qmd
-    - interactions.qmd
-    - mixed-effects.qmd
-#    - multivariate.qmd
-#    - path-1.qmd
-#    - path-2.qmd
+    - interactions-placeholder.qmd
+    - mixed-effects-placeholder.qmd
+    - multivariate.qmd
+    - path.qmd
+#    - mediation.qmd
 #    - cfa.qmd
 #    - sem.qmd
     - references.qmd

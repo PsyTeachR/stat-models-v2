@@ -208,3 +208,13 @@ OK, we know how to estimate correlations, but what if we wanted to predict the w
 
 
 ; for a multivariate distribution with more the two variables you need the means for all of the variables, their standard deviations, and all of the possible pairwise correlations. 
+
+
+```{r}
+narc_2 <- read_csv("data/narc_2.csv",
+                   col_types = "dddd")
+
+lm_VN <- lm(cbind(VN, GN) ~ HP + EP, data = narc_2)
+summary(lm_VN)
+```
+

@@ -1,0 +1,247 @@
+# Path analysis
+
+## SEM software: lavaan
+
+For estimating structural equation models in R we will use the [`lavaan`](https://www.lavaan.ugent.be/) add-on package [@Rosseel_2012] for R. You can install it by typing `install.packages("lavaan")` in your R console window.
+
+The main workhorse function for lavaan is called, simply, `lavaan()`. This is a powerful function that lets you specify a wide array of models. You can see all the options by looking at the help page (`?lavaan::lavaan`):
+
+```
+lavaan                 package:lavaan                  R Documentation
+
+Fit a Latent Variable Model
+
+Description:
+
+     Fit a latent variable model.
+
+Usage:
+
+     lavaan(model = NULL, data = NULL, ordered = NULL,
+            sampling.weights   = NULL,
+            sample.cov = NULL, sample.mean = NULL, sample.th = NULL,
+            sample.nobs = NULL,
+            group = NULL, cluster = NULL, constraints = "", 
+            WLS.V = NULL, NACOV = NULL, ov.order = "model",
+            slotOptions = NULL, slotParTable = NULL, slotSampleStats = NULL,
+            slotData = NULL, slotModel = NULL, slotCache = NULL,
+            sloth1 = NULL,
+            ...)
+```
+
+The `...` in the function syntax suggests there are more options than are listed, and the help page says "See `lavOptions` for a complete list." And if you type `lavOptions()` you will see there are 113 additional options! This can be quite overwhelming for the novice user.
+
+Fortunately, lavaan provides two 'convenience' functions that hide away some of this complexity and that automatically choose sensible defaults. These functions are:
+
+| function | description                        |
+|----------|------------------------------------|
+| `sem()`  | Fit a structural equation model    |
+| `cfa()`  | Fit a confirmatory factor analysis |
+
+In what follows, we'll be using `sem()` to fit a path model. The function documentation indicates what options of lavaan are set to by default (see `?lavOptions` for further information).
+
+```
+     The ‘sem’ function is a wrapper for the more general lavaan
+     function, but setting the following default options: ‘int.ov.free
+     = TRUE’, ‘int.lv.free = FALSE’, ‘auto.fix.first = TRUE’ (unless
+     ‘std.lv = TRUE’), ‘auto.fix.single = TRUE’, ‘auto.var = TRUE’,
+     ‘auto.cov.lv.x = TRUE’, ‘auto.efa = TRUE’, ‘auto.th = TRUE’,
+     ‘auto.delta = TRUE’, and ‘auto.cov.y = TRUE’.
+```
+
+Many of these options are only relevant for models including latent variables, which our path models will not include. Thus, when using path analyses, these are the defaults you should keep in mind.
+
+| option setting     | effect                                                       |
+|--------------------|--------------------------------------------------------------|
+| `int.ov.free=TRUE` | intercepts of observed variables are not fixed to zero       |
+| `auto.var=TRUE`    | residual variances for observed variables are set free       |
+| `auto.cov.y=TRUE`  | covariances of endogenous variables are modeled and set free |
+
+
+## Example: SEM vs regression
+
+We will begin our practical introduction to path analysis with an example that represents a simple extension from ordinary regression modeling—namely, a situation where you have multiple response variables.
+
+Let's assume we're interested in the social determinants of [narcisissm](https://en.wikipedia.org/wiki/Narcissistic_personality_disorder) and we have given a (subclinical) population a narcissism questionnaire (scale goes from 1-100).
+
+```{r}
+#| label: narc-setup
+#| include: false
+options(tidyverse.quiet = TRUE)
+library("tidyverse")
+
+set.seed(1451)
+
+.nobs <- 200L
+
+## params for one DV model
+.b_HP <- .1
+.b_EP <- .3
+.b_SB <- -.1
+.err_sd <- 7
+.errs <- rnorm(.nobs, sd = .err_sd)
+
+.cvmx <- rbind(c(8 * 8, 8 * 4 * .1),
+               c(4 * 8 * .1, 4 * 4))
+
+.preds0 <- MASS::mvrnorm(.nobs, mu = c(HP = 72, EP = 34),
+                         Sigma = .cvmx)
+
+.preds0[, 1] <- dplyr::case_when(.preds0[, 1] < 1 ~ 1,
+                                 .preds0[, 1] > 100 ~ 100,
+                                 .default = .preds0[, 1])
+
+.preds0[, 2] <- dplyr::case_when(.preds0[, 2] < 1 ~ 1,
+                                 .preds0[, 2] > 100 ~ 100,
+                                 .default = .preds0[, 2])
+
+## add number of siblings (0:5)
+.preds <- cbind(.preds0,
+                sample(0:5, .nobs, TRUE, prob=c(.35,.30,.20,.10,.03,.02)))
+
+## params for two DV model
+.b_HP_VN <- .1
+.b_HP_GN <- .1
+.b_EP_VN <- -.1
+.b_EP_GN <- .1
+.b_SB_VN <- -.05
+.b_SB_GN <- -.05
+
+.corr <- 0
+.resid_cvmx <- rbind(c(3^2,         3 * 4 * .corr),
+                     c(3 * 4 * .corr, 4^2))
+
+.resids <- MASS::mvrnorm(nrow(.preds), mu = c(VN = 0, GN = 0),
+                         Sigma = .resid_cvmx)
+
+# use the same predictor values for both models
+
+narc_1dv <- tibble(HP = .preds[, 1],
+                   EP = .preds[, 2],
+                   SB = .preds[, 3],
+                   Narc_r = 50 + .b_HP * HP + .b_EP * EP +
+                     .b_SB * SB + .errs) |>
+  mutate(Narc = case_when(Narc_r < 1 ~ 1,
+                          Narc_r > 100 ~ 100,
+                          .default = Narc_r)) |>
+  select(-Narc_r)
+
+write_csv(narc_1dv |> select(-SB), file.path("data", "narc_1.csv"))
+write_csv(narc_1dv, file.path("data", "narc_1sib.csv"))
+
+
+narc_2dv <- tibble(HP = .preds[, 1],
+                   EP = .preds[, 2],
+                   SB = .preds[, 3],
+                   VN_r = 40 + .b_HP_VN * HP + .b_EP_VN * EP +
+                     .b_SB_VN * SB + .resids[, 1],
+                   GN_r = 60 + .b_HP_GN * HP + .b_EP_GN * EP +
+                     .b_SB_GN * SB + .resids[, 2],
+                   VN = case_when(VN_r < 1 ~ 1,
+                                  VN_r > 100 ~ 100,
+                                  .default = VN_r),
+                   GN = case_when(GN_r < 1 ~ 1,
+                                  GN_r > 100 ~ 100,
+                                  .default = GN_r)) |>
+  select(-VN_r, -GN_r)
+                   
+write_csv(narc_2dv |> select(-SB), file.path("data", "narc_2.csv"))
+write_csv(narc_2dv, file.path("data", "narc_2sib.csv"))
+```
+
+To follow along, download the following files. NB: These files contain simulated (i.e., not real) data, so don't draw any conclusions about narcissism from the analyses.
+
+| file                            | description                          |
+|---------------------------------|--------------------------------------|
+| [`narc_1.csv`](data/narc_1.csv) | narcisissm data, 1 outcome variable  |
+| [`narc_2.csv`](data/narc_2.csv) | narcisissm data, 2 outcome variables |
+
+### single outcome data
+
+We might have the following theory of narcisissm, where parenting style (specifically, the degree of "helicopter" parenting where parents smother their child with attention) and economic privilege jointly determine the level of adult narcissism.
+
+![](img/narc_1.png){fig-align="center"}
+
+Here, the SEM framework wouldn't buy us anything because we can fit this model using basic regression.
+
+```{r}
+library("tidyverse") # for read_csv
+library("lavaan")    # for SEM; we'll need these functions later
+
+narc_1 <- read_csv("data/narc_1.csv", col_types = "ddd")
+
+mod_reg <- lm(Narc ~ HP + EP, data = narc_1)
+
+summary(mod_reg)
+```
+
+```{r}
+sem_formula <- 'Narc ~ HP + EP'
+
+mod_sem <- sem(sem_formula, data = narc_1)
+
+summary(mod_sem, rsquare = TRUE)
+```
+
+```{r}
+#| include: false
+.dv_rv <- parameterEstimates(mod_sem) |>
+  filter(op == "~~", lhs == "Narc") |>
+  pull(est)
+
+.dv_rv_sq <- sqrt(.dv_rv)
+```
+
+You can see that the regression coefficients closely match the ones from the regression. We also get an estimate of the residual variance for the DV of `{r} round(.dv_rv, 3)`, which is close to the "Residual standard error" in the regression model, because sqrt(`{r} round(.dv_rv, 3)`) = `{r} round(.dv_rv_sq, 3)`, which is close to `{r} round(sigma(mod_reg), 3)`.
+
+The summary suggests that we have estimated 3 parameters. What are they? Let's use lavaan's `parTable()` function to see.
+
+```{r}
+parTable(mod_sem)
+```
+
+The 'free' column counts the free parameters. You'll note that `Narc ~ HP`, `Narc ~ EP` and `Narc ~~ Narc` are the (population) direct effects and variance that are being estimated. All the variances/covariances for the exogenous variables are just directly calculated from the sample, and so they have no standard errors (= 0).
+
+We can also get confidence intervals using the `parameterEstimates()` function, which also puts the estimates in a table, making them easier to access for reporting.
+
+```{r}
+parameterEstimates(mod_sem)
+```
+
+We can also get standardized estimates. The `std.all` column is the one you want to look at.
+
+```{r}
+parameterEstimates(mod_sem, standardized = TRUE)
+```
+
+![](img/narc_1b.png){fig-align="center"}
+
+### Adding a second DV
+
+Up to this point using SEM doesn't really buy us anything over and above ordinary regression. But the situation changes if we have more than one DV. Let's say that instead of a single measure we had a measure of two types of narcissism: vulnerable narcissism (VN) and grandiose narcissism (GN), which, for the sake of example, let's say are not mutually exclusive (i.e., a person can have a little bit of each).
+
+We could perform two separate regressions, but this has the problem that each regression is performed independently of the other, which only makes sense if we are sure that the two DVs are totally uncorrelated. If they are correlated, then the estimates from this approach will be biased. Here, a SEM approach is useful because it can account for this covariance.
+
+![](img/narc_2.png)
+
+```{r}
+narc_2 <- read_csv("data/narc_2.csv",
+                   col_types = "dddd")
+
+sem_formula2 <- '
+VN ~ HP + EP
+GN ~ HP + EP'
+
+mod_sem2 <- sem(sem_formula2, data = narc_2)
+
+summary(mod_sem2, rsquare = TRUE)
+```
+
+Let's have a look at the model estimates, including standardized coefficients, and add the (raw) coefficients to our path diagram.
+
+```{r}
+parameterEstimates(mod_sem2, standardized = TRUE)
+```
+
+![](img/narc_2b.png)
+
