@@ -11,8 +11,8 @@ book:
     - intro-placeholder.qmd
     - corr-and-reg.qmd
     - multiple-reg.qmd
-    - interactions-placeholder.qmd
-    - mixed-effects-placeholder.qmd
+    - interactions.qmd
+    - mixed-effects.qmd
     - multivariate.qmd
     - path.qmd
 #    - mediation.qmd
