@@ -1,0 +1,2054 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.31">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Statistical Models in Psychology and Neuroscience: A Survey – 5&nbsp; Mixed-effects models</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./multivariate.html" rel="next">
+<link href="./interactions.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="site_libs/quarto-contrib/nutshell-1.0.7/nutshell.js"></script>
+<script src="site_libs/quarto-contrib/nutshell-1.0.7/nutshell_options.js"></script>
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="glossary.css">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./mixed-effects.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Mixed-effects models</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Statistical Models in Psychology and Neuroscience: A Survey</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro-placeholder.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./corr-and-reg.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Correlation and Regression</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./multiple-reg.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Multiple regression</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./interactions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Interactions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mixed-effects.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Mixed-effects models</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./multivariate.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Psychometrics and Multivariate Analysis</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./path.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Path analysis</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mediation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Mediation models</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./glossary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Glossary</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./notation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Notation</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#the-sleepstudy-dataset" id="toc-the-sleepstudy-dataset" class="nav-link active" data-scroll-target="#the-sleepstudy-dataset"><span class="header-section-number">5.1</span> The <code>sleepstudy</code> dataset</a></li>
+  <li><a href="#how-to-model-the-relationship" id="toc-how-to-model-the-relationship" class="nav-link" data-scroll-target="#how-to-model-the-relationship"><span class="header-section-number">5.2</span> How to model the relationship?</a>
+  <ul class="collapse">
+  <li><a href="#complete-pooling" id="toc-complete-pooling" class="nav-link" data-scroll-target="#complete-pooling"><span class="header-section-number">5.2.1</span> Complete pooling: One size fits all</a></li>
+  <li><a href="#no-pooling" id="toc-no-pooling" class="nav-link" data-scroll-target="#no-pooling"><span class="header-section-number">5.2.2</span> No pooling</a></li>
+  <li><a href="#partial-pooling-using-mixed-effects-models" id="toc-partial-pooling-using-mixed-effects-models" class="nav-link" data-scroll-target="#partial-pooling-using-mixed-effects-models"><span class="header-section-number">5.2.3</span> Partial pooling using mixed-effects models</a></li>
+  <li><a href="#the-variance-covariance-matrix" id="toc-the-variance-covariance-matrix" class="nav-link" data-scroll-target="#the-variance-covariance-matrix"><span class="header-section-number">5.2.4</span> The variance-covariance matrix</a></li>
+  </ul></li>
+  <li><a href="#estimating-linear-mixed-effects-models" id="toc-estimating-linear-mixed-effects-models" class="nav-link" data-scroll-target="#estimating-linear-mixed-effects-models"><span class="header-section-number">5.3</span> Estimating linear mixed-effects models</a></li>
+  <li><a href="#interpreting-lmer-output-and-extracting-estimates" id="toc-interpreting-lmer-output-and-extracting-estimates" class="nav-link" data-scroll-target="#interpreting-lmer-output-and-extracting-estimates"><span class="header-section-number">5.4</span> Interpreting <code>lmer()</code> output and extracting estimates</a>
+  <ul class="collapse">
+  <li><a href="#fixed-effects" id="toc-fixed-effects" class="nav-link" data-scroll-target="#fixed-effects"><span class="header-section-number">5.4.1</span> Fixed effects</a></li>
+  <li><a href="#random-effects" id="toc-random-effects" class="nav-link" data-scroll-target="#random-effects"><span class="header-section-number">5.4.2</span> Random effects</a></li>
+  </ul></li>
+  <li><a href="#multi-level-app" id="toc-multi-level-app" class="nav-link" data-scroll-target="#multi-level-app"><span class="header-section-number">5.5</span> Multi-level app</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Mixed-effects models</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="info">
+<p>Some ideas in this chapter come from the textbook <a href="https://xcelab.net/rm/statistical-rethinking/">Statistical Rethinking</a> by <span class="citation" data-cites="McElreath_2020">McElreath (<a href="references.html#ref-McElreath_2020" role="doc-biblioref">2020</a>)</span>, This chapter also borrows extensively from Tristan Mahr’s <a href="https://www.tjmahr.com/plotting-partial-pooling-in-mixed-effects-models/">excellent blog post on partial pooling</a>.</p>
+</div>
+<section id="the-sleepstudy-dataset" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="the-sleepstudy-dataset"><span class="header-section-number">5.1</span> The <code>sleepstudy</code> dataset</h2>
+<p>In this chapter, we’ll be working with some real data from a study looking at the effects of sleep deprivation on psychomotor performance <span class="citation" data-cites="Belenky_et_al_2003">(<a href="references.html#ref-Belenky_et_al_2003" role="doc-biblioref">Belenky et al., 2003</a>)</span>. Data from this study is included as the built-in dataset <code>sleepstudy</code> in the <code>lme4</code> package for R <span class="citation" data-cites="Bates_et_al_2015">(<a href="references.html#ref-Bates_et_al_2015" role="doc-biblioref">Bates et al., 2015</a>)</span>.</p>
+<p>Let’s start by looking at the documentation for the <code>sleepstudy</code> dataset. After loading the <strong><code>lme4</code></strong> package, you can access the documentation by typing <code>?sleepstudy</code> in the console.</p>
+<pre><code>sleepstudy                package:lme4                 R Documentation
+
+Reaction times in a sleep deprivation study
+
+Description:
+
+     The average reaction time per day (in milliseconds) for subjects
+     in a sleep deprivation study.
+
+     Days 0-1 were adaptation and training (T1/T2), day 2 was baseline
+     (B); sleep deprivation started after day 2.
+
+Format:
+
+     A data frame with 180 observations on the following 3 variables.
+
+     ‘Reaction’ Average reaction time (ms)
+
+     ‘Days’ Number of days of sleep deprivation
+
+     ‘Subject’ Subject number on which the observation was made.
+
+Details:
+
+     These data are from the study described in Belenky et al.  (2003),
+     for the most sleep-deprived group (3 hours time-in-bed) and for
+     the first 10 days of the study, up to the recovery period.  The
+     original study analyzed speed (1/(reaction time)) and treated day
+     as a categorical rather than a continuous predictor.
+
+References:
+
+     Gregory Belenky, Nancy J. Wesensten, David R. Thorne, Maria L.
+     Thomas, Helen C. Sing, Daniel P. Redmond, Michael B. Russo and
+     Thomas J. Balkin (2003) Patterns of performance degradation and
+     restoration during sleep restriction and subsequent recovery: a
+     sleep dose-response study. _Journal of Sleep Research_ *12*, 1-12.</code></pre>
+<p>These data meet our definition of multilevel data due to repeated measurements on the same dependent variable (mean RT) for the same participants over ten days. Multilevel data of this type is extremely common in psychology. Unfortunately, most statistics textbooks commonly used in psychology courses don’t sufficiently discuss multilevel data, beyond paired t-tests and repeated-measures ANOVA. The <code>sleepstudy</code> dataset is interesting because it is multilevel but has a continuous predictor, and thus does not fit will with t-test or ANOVA, because both of these approaches are for categorical predictors. There are ways you could make the data fit into one of these frameworks, but not without losing information or possibly violating assumptions.</p>
+<p>It is a shame that psychology students don’t really learn much about analyzing multilevel data. Think about studies you have read recently in psychology or neuroscience. How many of them take a single measurement on the DV from each participant? Very few, if any. Nearly all take multiple measurements, for one or more of the following reasons: (1) the researchers are measuring the same participants across levels of a factor in a within-subject design; (2) they are interested in assessing change over time; or (3) they are measuring responses to multiple stimuli. Multilevel data is so common that multilevel analysis should be taught as the <strong>default</strong> approach in psychology. Learning about multilevel analysis can be challenging, but you already know much of what you need by having learned about correlation and regression. You will see that it is just an extension of simple regression.</p>
+<p>Let’s take a closer look at the <code>sleepstudy</code> data. The dataset contains eighteen participants from the three-hour sleep condition. Each day, over 10 days, participants performed a ten-minute “psychomotor vigilance test” where they had to monitor a display and press a button as quickly as possible each time a stimulus appeared. The dependent measure in the dataset is the participant’s average response time (RT) on the task for that day.</p>
+<p>A good way to start every analysis is to plot the data. <a href="#fig-one-subject" class="quarto-xref">Figure&nbsp;<span>5.1</span></a> shows data for a single subject.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"lme4"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"tidyverse"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>just_308 <span class="ot">&lt;-</span> sleepstudy <span class="sc">|&gt;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Subject <span class="sc">==</span> <span class="st">"308"</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(just_308, <span class="fu">aes</span>(<span class="at">x =</span> Days, <span class="at">y =</span> Reaction)) <span class="sc">+</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">9</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-one-subject" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-one-subject-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="mixed-effects_files/figure-html/fig-one-subject-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-one-subject-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5.1: Data from a single subject in Belenky et al.&nbsp;(2003)
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div id="nte-facet" class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note&nbsp;5.1: Exercise 4.1
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Use ggplot to recreate <a href="#fig-plot-solution" class="quarto-xref">Figure&nbsp;<span>5.2</span></a> below, which shows data for all 18 subjects.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-plot-solution" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-plot-solution-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="mixed-effects_files/figure-html/fig-plot-solution-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-plot-solution-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5.2: Data from Belenky et al.&nbsp;(2003)
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>It looks like RT is increasing with each additional day of sleep deprivation, starting from day 2 and increasing until day 10.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Just above, you were given the code to make a plot for a single participant. Adapt this code to show all of the participants by getting rid of the <code>filter()</code> statement and adding a <em><code>ggplot2</code></em> function that starts with <code>facet_</code>.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Same as above, except you just add one line: <code>facet_wrap(~Subject)</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sleepstudy, <span class="fu">aes</span>(<span class="at">x =</span> Days, <span class="at">y =</span> Reaction)) <span class="sc">+</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">9</span>) <span class="sc">+</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Subject)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="how-to-model-the-relationship" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="how-to-model-the-relationship"><span class="header-section-number">5.2</span> How to model the relationship?</h2>
+<p>We wish to understand the effect of sleep deprivation on respnose time, so we will try to model this relationship. To model the data appropriately, first we need to know more about the study design. This is how <span class="citation" data-cites="Belenky_et_al_2003">Belenky et al. (<a href="references.html#ref-Belenky_et_al_2003" role="doc-biblioref">2003</a>)</span> describe it (p.&nbsp;2):</p>
+<blockquote class="blockquote">
+<p>The first 3 days (T1, T2 and B) were adaptation and training (T1 and T2) and baseline (B) and subjects were required to be in bed from 23:00 to 07:00 h [8 h required time in bed (TIB)]. On the third day (B), baseline measures were taken. Beginning on the fourth day and continuing for a total of 7 days (E1–E7) subjects were in one of four sleep conditions [9 h required TIB (22:00–07:00 h), 7 h required TIB (24:00–07:00 h), 5 h required TIB (02:00–07:00 h), or 3 h required TIB (04:00–07:00 h)], effectively one sleep augmentation condition, and three sleep restriction conditions.</p>
+</blockquote>
+<p>There were seven nights of sleep restriction, with the first night of restriction occurring after the third day. The first two days, coded as <code>0</code>, <code>1</code>, were adaptation and training. The day coded as <code>2</code>, where the baseline measurement was taken, should be the place where we start our analysis. If we include the days <code>0</code> and <code>1</code> in our analysis, this might bias our results, since any changes in performance during the first two days have to do with training, not sleep restriction. Exercise 4.2 shows how to do this. The resulting data is stored in the data frame <code>sleep2</code>, which we will use in the analysis.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exercise 4.2
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Remove from the dataset observations where <code>Days</code> is coded <code>0</code> or <code>1</code>, and then make a new variable <code>days_deprived</code> from the <code>Days</code> variable so that the sequence starts at day 2, with day 2 being re-coded as day 0, day 3 as day 1, day 4 as day 2, etc. This new variable now tracks the number of days of sleep deprivation. Store the new table as <code>sleep2</code>.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>You will need to get rid of observations where <code>Days</code> is less than <code>2</code>, and then create a new variable, <code>days_deprived</code>, which is a transformation of the variable <code>Days</code>.</p>
+<p>You can do this by using two of the following six one-table dplyr verbs on the data: <code>select()</code>, <code>mutate()</code>, <code>group_by()</code>, <code>filter()</code>, <code>arrange()</code>, <code>summarise()</code>.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>sleep2 <span class="ot">&lt;-</span> sleepstudy <span class="sc">|&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Days <span class="sc">&gt;=</span> <span class="dv">2</span>L) <span class="sc">|&gt;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">days_deprived =</span> Days <span class="sc">-</span> <span class="dv">2</span>L)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>It is always a good idea to double check that the code works as intended. First, look at it:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(sleep2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Reaction Days Subject days_deprived
+1 250.8006    2     308             0
+2 321.4398    3     308             1
+3 356.8519    4     308             2
+4 414.6901    5     308             3
+5 382.2038    6     308             4
+6 290.1486    7     308             5</code></pre>
+</div>
+</div>
+<p>And check that <code>Days</code> and <code>days_deprived</code> match up.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>sleep2 <span class="sc">|&gt;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(days_deprived, Days)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  days_deprived Days  n
+1             0    2 18
+2             1    3 18
+3             2    4 18
+4             3    5 18
+5             4    6 18
+6             5    7 18
+7             6    8 18
+8             7    9 18</code></pre>
+</div>
+</div>
+<p>Looks good. Note that the variable <code>n</code> in generated by <code>count()</code> and tells you how many rows there are for each unique combination of <code>Days</code> and <code>days_deprived</code>. In this case, there were 18, one row for each participant.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Now let’s re-plot the data looking at just these eight data points from Day 0 to Day 7. We’ve just copied the code from above, substituting <code>sleep2</code> for <code>sleepstudy</code> and using <code>days_deprived</code> for our <code>x</code> variable.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sleep2, <span class="fu">aes</span>(<span class="at">x =</span> days_deprived, <span class="at">y =</span> Reaction)) <span class="sc">+</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">7</span>) <span class="sc">+</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Subject) <span class="sc">+</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Reaction Time"</span>, <span class="at">x =</span> <span class="st">"Days deprived of sleep (0 = baseline)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-plot-solution2" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-plot-solution2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="mixed-effects_files/figure-html/fig-plot-solution2-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-plot-solution2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5.3: Data from Belenky et al.&nbsp;(2003), showing reaction time at baseline (0) and after each day of sleep deprivation.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Take a moment to think about how me might model the relationship between <code>days_deprived</code> and <code>Reaction</code>. Does reaction time increase or decrease with increasing sleep deprivation? Is the relationship roughly stable or does it change with time?</p>
+<p>With only one exception (subject 335) it looks like reaction time increases with each additional day of sleep deprivation. It looks like we could fit a line to each participant’s data. Recall the general equation for a line is of the form <strong>y = y-intercept + slope <span class="math inline">\(\times\)</span> x</strong>. In regression, the we usually express a linear relationship with the formula</p>
+<p><span class="math display">\[Y_i = \beta_0 + \beta_1 X_i + e_i\]</span></p>
+<p>where <span class="math inline">\(\beta_0\)</span> is the y-intercept and <span class="math inline">\(\beta_1\)</span> is the slope. We estimate these two <a href="./glossary.html#regression-coefficient">:regression coefficients</a> from the data.</p>
+<p>The lines will all differ in intercept (mean RT at day zero, before the sleep deprivation began) and slope (the change in RT with each additional day of sleep deprivation). But should we fit the same line to everyone? Or a totally different line for each subject? Or something somewhere in between?</p>
+<p>Let’s start by considering three different approaches we might take. Following McElreath, we will distinguish these approaches by calling them <a href="#complete-pooling">complete pooling</a>, <a href="#no-pooling">no pooling</a>, and <a href="#partial-pooling">partial pooling</a>.</p>
+<section id="complete-pooling" class="level3" data-number="5.2.1">
+<h3 data-number="5.2.1" class="anchored" data-anchor-id="complete-pooling"><span class="header-section-number">5.2.1</span> Complete pooling: One size fits all</h3>
+<p>The <strong>complete pooling</strong> approach is a “one-size-fits-all” model: it estimates a single intercept and slope for the entire dataset, ignoring the fact that different subjects might vary in their intercepts or slopes. If that sounds like a bad approach, it is; but you know this because you’ve already visualized the data and noted that the pattern for each participant would seem to require different y-intercept and slope values.</p>
+<p>Fitting one line is called the “complete pooling” approach because we pool together data from all subjects to get single estimates for an overall intercept and slope. The GLM for this approach is simply</p>
+<p><span class="math display">\[Y_{sd} = \beta_0 + \beta_1 X_{sd} + e_{sd}\]</span></p>
+<p><span class="math display">\[e_{sd} \sim N\left(0, \sigma^2\right)\]</span></p>
+<p>where <span class="math inline">\(Y_{sd}\)</span> is the mean RT for subject <span class="math inline">\(s\)</span> on day <span class="math inline">\(d\)</span>, <span class="math inline">\(X_{sd}\)</span> is the value of <code>days_deprived</code> associated with that case (0-7), and <span class="math inline">\(e_{sd}\)</span> is the error.</p>
+<p>We would fit such a model in R using the <code>lm()</code> function, e.g.:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>cp_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Reaction <span class="sc">~</span> days_deprived, sleep2)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(cp_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Reaction ~ days_deprived, data = sleep2)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-112.284  -26.732    2.143   27.734  140.453 
+
+Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)    267.967      7.737  34.633  &lt; 2e-16 ***
+days_deprived   11.435      1.850   6.183 6.32e-09 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 50.85 on 142 degrees of freedom
+Multiple R-squared:  0.2121,    Adjusted R-squared:  0.2066 
+F-statistic: 38.23 on 1 and 142 DF,  p-value: 6.316e-09</code></pre>
+</div>
+</div>
+<p>According to this model, the predicted mean response time on Day 0 is about 268 milliseconds, with an increase of about 11 milliseconds per day of deprivation, on average. We can’t trust the standard errors for our regression coefficients, however, because we are assuming that all of the observations are independent (technically, that the residuals are). However, we can be pretty sure this is a bad assumption.</p>
+<p>Let’s add the model predictions to the graph that we created above. We can use <code>geom_abline()</code> to do so, specifying the intercept and slope for the line using the regression coefficients from the model fit, <code>coef(cp_model)</code>, which returns a two-element vector with intercept and slope, respectively.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(cp_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  (Intercept) days_deprived 
+    267.96742      11.43543 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sleep2, <span class="fu">aes</span>(<span class="at">x =</span> days_deprived, <span class="at">y =</span> Reaction)) <span class="sc">+</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">intercept =</span> <span class="fu">coef</span>(cp_model)[<span class="dv">1</span>],</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">slope =</span> <span class="fu">coef</span>(cp_model)[<span class="dv">2</span>],</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">color =</span> <span class="st">'blue'</span>) <span class="sc">+</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">7</span>) <span class="sc">+</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Subject) <span class="sc">+</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Reaction Time"</span>, <span class="at">x =</span> <span class="st">"Days deprived of sleep (0 = baseline)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-cp-model-plot" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-cp-model-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="mixed-effects_files/figure-html/fig-cp-model-plot-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-cp-model-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5.4: Data plotted against predictions from the complete pooling model.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The model fits the data badly. We need a different approach.</p>
+</section>
+<section id="no-pooling" class="level3" data-number="5.2.2">
+<h3 data-number="5.2.2" class="anchored" data-anchor-id="no-pooling"><span class="header-section-number">5.2.2</span> No pooling</h3>
+<p>Pooling all the information to get just one intercept and one slope estimate is inappropriate. Another approach would be to fit separate lines for each participant. This means that the estimates for each participant will be completely uninformed by the estimates for the other participants. In other words, we separately estimate 18 individual intercept/slope pairs.</p>
+<p>This model could be implemented in two ways: (1) by running separate regressions for each participant or (2) by running fixed-effects regression. We’ll do the latter, so that everything is in one big model. We know how to do this already: we add in dummy codes for the <code>Subject</code> factor. We have 18 levels of this factor, so we’d need 17 dummy codes. Fortunately, R saves us from the trouble of creating the 17 variables we would need by hand. All we need to do is include <code>Subject</code> as a predictor in the model, and interact this categorical predictor with <code>days_deprived</code> to allow intercepts and slopes to vary.</p>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Caution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The variable <code>Subject</code> in the <code>sleep2</code> dataset is nominal. We just use numbers as labels to preserve anonymity, without intending to imply that Subject 310 is one point better than Subject 309 and two points better than 308. Make sure that you define it as a factor so that it is not included as a continuous variable!</p>
+<p>We can test whether something is a factor in various ways. One is to use <code>summary()</code> on the table.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>sleep2 <span class="sc">|&gt;</span> <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    Reaction          Days         Subject   days_deprived 
+ Min.   :203.0   Min.   :2.00   308    : 8   Min.   :0.00  
+ 1st Qu.:265.2   1st Qu.:3.75   309    : 8   1st Qu.:1.75  
+ Median :303.2   Median :5.50   310    : 8   Median :3.50  
+ Mean   :308.0   Mean   :5.50   330    : 8   Mean   :3.50  
+ 3rd Qu.:347.7   3rd Qu.:7.25   331    : 8   3rd Qu.:5.25  
+ Max.   :466.4   Max.   :9.00   332    : 8   Max.   :7.00  
+                                (Other):96                 </code></pre>
+</div>
+</div>
+<p>Here you can see that it is not treated as a number because rather than giving you distributional information (means, etc.) it tells you how many observations there are at each level.</p>
+<p>You can also test it directly:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>sleep2 <span class="sc">|&gt;</span> <span class="fu">pull</span>(Subject) <span class="sc">|&gt;</span> <span class="fu">is.factor</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<p>If something is not a factor, you can make it one be re-defining it using the <code>factor()</code> function.</p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>np_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Reaction <span class="sc">~</span> days_deprived <span class="sc">+</span> Subject <span class="sc">+</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>                 days_deprived<span class="sc">:</span>Subject,</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> sleep2)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(np_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Reaction ~ days_deprived + Subject + days_deprived:Subject, 
+    data = sleep2)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-106.521   -8.541    1.143    8.889  128.545 
+
+Coefficients:
+                         Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)              288.2175    16.4772  17.492  &lt; 2e-16 ***
+days_deprived             21.6905     3.9388   5.507 2.49e-07 ***
+Subject309               -87.9262    23.3023  -3.773 0.000264 ***
+Subject310               -62.2856    23.3023  -2.673 0.008685 ** 
+Subject330               -14.9533    23.3023  -0.642 0.522422    
+Subject331                 9.9658    23.3023   0.428 0.669740    
+Subject332                27.8157    23.3023   1.194 0.235215    
+Subject333                -2.7581    23.3023  -0.118 0.906000    
+Subject334               -50.2051    23.3023  -2.155 0.033422 *  
+Subject335               -25.3429    23.3023  -1.088 0.279207    
+Subject337                24.6143    23.3023   1.056 0.293187    
+Subject349               -59.2183    23.3023  -2.541 0.012464 *  
+Subject350               -40.2023    23.3023  -1.725 0.087343 .  
+Subject351               -24.2467    23.3023  -1.041 0.300419    
+Subject352                43.0655    23.3023   1.848 0.067321 .  
+Subject369               -21.5040    23.3023  -0.923 0.358154    
+Subject370               -53.3072    23.3023  -2.288 0.024107 *  
+Subject371               -30.4896    23.3023  -1.308 0.193504    
+Subject372                 2.4772    23.3023   0.106 0.915535    
+days_deprived:Subject309 -17.3334     5.5703  -3.112 0.002380 ** 
+days_deprived:Subject310 -17.7915     5.5703  -3.194 0.001839 ** 
+days_deprived:Subject330 -13.6849     5.5703  -2.457 0.015613 *  
+days_deprived:Subject331 -16.8231     5.5703  -3.020 0.003154 ** 
+days_deprived:Subject332 -19.2947     5.5703  -3.464 0.000765 ***
+days_deprived:Subject333 -10.8151     5.5703  -1.942 0.054796 .  
+days_deprived:Subject334  -3.5745     5.5703  -0.642 0.522423    
+days_deprived:Subject335 -25.8995     5.5703  -4.650 9.47e-06 ***
+days_deprived:Subject337   0.7518     5.5703   0.135 0.892895    
+days_deprived:Subject349  -5.2644     5.5703  -0.945 0.346731    
+days_deprived:Subject350   1.6007     5.5703   0.287 0.774382    
+days_deprived:Subject351 -13.1681     5.5703  -2.364 0.019867 *  
+days_deprived:Subject352 -14.4019     5.5703  -2.585 0.011057 *  
+days_deprived:Subject369  -7.8948     5.5703  -1.417 0.159273    
+days_deprived:Subject370  -1.0495     5.5703  -0.188 0.850912    
+days_deprived:Subject371  -9.3443     5.5703  -1.678 0.096334 .  
+days_deprived:Subject372 -10.6041     5.5703  -1.904 0.059613 .  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 25.53 on 108 degrees of freedom
+Multiple R-squared:  0.849, Adjusted R-squared:  0.8001 
+F-statistic: 17.35 on 35 and 108 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>What this model has done is take one subject to be the baseline (specifically, subject 308), and represent each subject in terms of offsets from that baseline. You saw this already when we talked about <a href="05-interactions-course-notes.html#cont-by-cat">continuous-by-categorical interactions</a>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exercise 4.3
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Answer the questions below about values estimated by the model.</p>
+<ul>
+<li>What is the intercept for subject 308?</li>
+<li>What is the slope for subject 308?</li>
+<li>What is the intercept for subject 335?</li>
+<li>What is the slope for subject 335?</li>
+</ul>
+<!-- 
+r fitb(coef(.np)["(Intercept)"], width = 8, num = TRUE, tol = .001)
+
+r fitb(coef(.np)["days_deprived"], num = TRUE, width = 8, tol = .001)
+
+r fitb(coef(.np)["(Intercept)"] + coef(.np)["Subject335"], width = 8, num = TRUE, tol = .001)
+
+r fitb(coef(.np)["days_deprived"] + coef(.np)["days_deprived:Subject335"], num = TRUE, width = 8, tol = .001)
+-->
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Answers and explanation
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The baseline subject is 308; the default in R is to sort the levels of the factor alphabetically and chooses the first one as the baseline. This means that the intercept and slope for 308 are given by <code>(Intercept)</code> and <code>days_deprived</code> respectively, because all of the other 17 dummy variables will be zero for subject 308.</p>
+<p>All of the regression coefficients for the other subjects are represented as <em>offsets</em> from this baseline subject. If we want to calculate the intercept and slope for a given subject, we just add in the corresponding offsets. So, the answers are</p>
+<ul>
+<li><p>intercept for 308: <u>288.217</u></p></li>
+<li><p>slope for 308: 21.69</p></li>
+<li><p>intercept for 335: <code>(Intercept)</code> + <code>Subject335</code> = 288.217 + -25.343 = <u>262.874</u></p></li>
+<li><p>slope for 335: <code>days_deprived</code> + <code>days_deprived:Subject335</code> = 21.69 + -25.899 = <u>-4.209</u></p></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>In the “no pooling” model, there is no <em>overall</em> population intercept and slope that is being estimated; in this case, <code>(Intercept)</code> and <code>days_deprived</code> are estimates of the intercept and slope for subject 308, which was (arbitrarily) chosen as the baseline subject. To get population estimates, we could introduce a second stage of analysis where we calculate means of the individual intercepts and slopes. Let’s use the model estimates to calculate the intercepts and slopes for each subject.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>all_intercepts <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">coef</span>(np_model)[<span class="st">"(Intercept)"</span>],</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">coef</span>(np_model)[<span class="dv">3</span><span class="sc">:</span><span class="dv">19</span>] <span class="sc">+</span> <span class="fu">coef</span>(np_model)[<span class="st">"(Intercept)"</span>])</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>all_slopes  <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">coef</span>(np_model)[<span class="st">"days_deprived"</span>],</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">coef</span>(np_model)[<span class="dv">20</span><span class="sc">:</span><span class="dv">36</span>] <span class="sc">+</span> <span class="fu">coef</span>(np_model)[<span class="st">"days_deprived"</span>])</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>ids <span class="ot">&lt;-</span> sleep2 <span class="sc">|&gt;</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(Subject) <span class="sc">|&gt;</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">levels</span>()</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="co"># make a tibble with the data extracted above</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>np_coef <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">Subject =</span> <span class="fu">factor</span>(ids),</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>                  <span class="at">intercept =</span> all_intercepts,</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>                  <span class="at">slope =</span> all_slopes)</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>np_coef</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 18 × 3
+   Subject intercept slope
+   &lt;fct&gt;       &lt;dbl&gt; &lt;dbl&gt;
+ 1 308          288. 21.7 
+ 2 309          200.  4.36
+ 3 310          226.  3.90
+ 4 330          273.  8.01
+ 5 331          298.  4.87
+ 6 332          316.  2.40
+ 7 333          285. 10.9 
+ 8 334          238. 18.1 
+ 9 335          263. -4.21
+10 337          313. 22.4 
+11 349          229. 16.4 
+12 350          248. 23.3 
+13 351          264.  8.52
+14 352          331.  7.29
+15 369          267. 13.8 
+16 370          235. 20.6 
+17 371          258. 12.3 
+18 372          291. 11.1 </code></pre>
+</div>
+</div>
+<p>Let’s see how well this model fits our data (<a href="#fig-np-model-fits" class="quarto-xref">Figure&nbsp;<span>5.5</span></a>).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sleep2, <span class="fu">aes</span>(<span class="at">x =</span> days_deprived, <span class="at">y =</span> Reaction)) <span class="sc">+</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">data =</span> np_coef,</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">intercept =</span> intercept,</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>                            <span class="at">slope =</span> slope),</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">color =</span> <span class="st">'blue'</span>) <span class="sc">+</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">7</span>) <span class="sc">+</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Subject) <span class="sc">+</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Reaction Time"</span>, <span class="at">x =</span> <span class="st">"Days deprived of sleep (0 = baseline)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-np-model-fits" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-np-model-fits-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="mixed-effects_files/figure-html/fig-np-model-fits-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-np-model-fits-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5.5: Data plotted against fits from the no-pooling approach.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>This is much better than the complete pooling model. If we want to test the null hypothesis that the fixed slope is zero, we could do so using a one-sample test.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>np_coef <span class="sc">|&gt;</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(slope) <span class="sc">|&gt;</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">t.test</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    One Sample t-test
+
+data:  pull(np_coef, slope)
+t = 6.1971, df = 17, p-value = 9.749e-06
+alternative hypothesis: true mean is not equal to 0
+95 percent confidence interval:
+  7.542244 15.328613
+sample estimates:
+mean of x 
+ 11.43543 </code></pre>
+</div>
+</div>
+<p>This tells us that the mean slope of 11.435 is significantly different from zero, t(17) = 6.197, <span class="math inline">\(p &lt; .001\)</span>.</p>
+</section>
+<section id="partial-pooling-using-mixed-effects-models" class="level3" data-number="5.2.3">
+<h3 data-number="5.2.3" class="anchored" data-anchor-id="partial-pooling-using-mixed-effects-models"><span class="header-section-number">5.2.3</span> Partial pooling using mixed-effects models</h3>
+<p>Neither the complete nor the no-pooling approach is satisfactory. It would be desirable to improve our estimates for individual participants by taking advantage of what we know about the other participants. This will help us better distinguish signal from error for each participant and improve generalization to the population. As the web app below will show, this becomes particularly important when we have unbalanced or missing data.</p>
+<p>In the no-pooling model, we treated <code>Subject</code> as a <a href="./glossary.html#fixed-factor">:fixed factor</a>. Each pair of intercept and slope estimates is determined by that subject’s data alone. However, we are not interested in these 18 subjects in and of themselves; rather, we are interested in them as examples drawn from a larger population of potential subjects. This subjects-as-fixed-effects approach is suboptimal if your goal is to generalize to new participants in the population of interest.</p>
+<p>Partial pooling happens when you treat a factor as a random instead of fixed in your analysis. A <a href="./glossary.html#random-factor">:random factor</a> is a factor whose levels are considered to represent a proper subset of all the levels in the population. Usually, you treat a factor as random when the levels you have in the data are the result of sampling, and you want to generalize beyond those levels. In this case, we have eighteen unique subjects and thus, eighteen levels of the <code>Subject</code> factor, and would like to say something general about effects of sleep deprivation on the population of potential subjects.</p>
+<!-- Just as there are two types of factors---fixed and random---there are two types of effects associated with them -->
+<p>A way to include random factors in your analysis is to use a <a href="./glossary.html#linear-mixed-effects-model">:linear mixed-effects model</a>. When you do this, estimates at each level of the factor (i.e., for each subject) become informed by information at other levels (i.e., for other subjects). Rather than estimating the intercept and slope for each participant without considering the estimates for other subjects, the model estimates values for the population, and pulls the estimates for individual subjects toward those values, a statistical phenomenon known as “shrinkage”.</p>
+<p>The multilevel model is below. It is important that you understand the math and what it means. It looks complicated at first, but there’s really nothing below that you haven’t seen before. We’ll explain everything step by step.</p>
+<p><strong>Level 1:</strong></p>
+<p><span class="math display">\[\begin{equation}
+Y_{sd} = \beta_{0s} + \beta_{1s} X_{sd} + e_{sd}
+\end{equation}\]</span></p>
+<p><strong>Level 2:</strong></p>
+<p><span class="math display">\[\begin{equation}
+\beta_{0s} = \gamma_{0} + S_{0s}
+\end{equation}\]</span></p>
+<p><span class="math display">\[\begin{equation}
+\beta_{1s} = \gamma_{1} + S_{1s}
+\end{equation}\]</span></p>
+<p><em>Variance Components:</em></p>
+<p><span class="math display">\[\begin{equation}
+\langle S_{0s}, S_{1s} \rangle \sim N\left(\langle 0, 0 \rangle, \mathbf{\Sigma}\right)
+\end{equation}\]</span></p>
+<p><span class="math display">\[\begin{equation}
+\mathbf{\Sigma} = \left(\begin{array}{cc}{\tau_{00}}^2 &amp; \rho\tau_{00}\tau_{11} \\
+         \rho\tau_{00}\tau_{11} &amp; {\tau_{11}}^2 \\
+         \end{array}\right)
+\end{equation}\]</span></p>
+<p><span class="math display">\[\begin{equation}
+e_{sd} \sim N\left(0, \sigma^2\right)
+\end{equation}\]</span></p>
+<p>In case you get lost, here’s a table with an explanation for all of the variables in the set of equations above.</p>
+<table class="table">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 10%">
+<col style="width: 65%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(Y_{sd}\)</span></td>
+<td style="text-align: left;">observed</td>
+<td style="text-align: left;">Value of <code>Reaction</code> for subject <span class="math inline">\(s\)</span> on day <span class="math inline">\(d\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(X_{sd}\)</span></td>
+<td style="text-align: left;">observed</td>
+<td style="text-align: left;">Value of <code>days_deprived</code> (0-7) for subject <span class="math inline">\(s\)</span> on day <span class="math inline">\(d\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(\beta_{0s}\)</span></td>
+<td style="text-align: left;">derived</td>
+<td style="text-align: left;">level 1 intercept parameter</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(\beta_{1s}\)</span></td>
+<td style="text-align: left;">derived</td>
+<td style="text-align: left;">level 1 slope parameter</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(e_{sd}\)</span></td>
+<td style="text-align: left;">derived</td>
+<td style="text-align: left;">Error for subject <span class="math inline">\(s\)</span>, day <span class="math inline">\(d\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(\gamma_0\)</span></td>
+<td style="text-align: left;">fixed</td>
+<td style="text-align: left;">Grand intercept (“gamma”)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(\gamma_1\)</span></td>
+<td style="text-align: left;">fixed</td>
+<td style="text-align: left;">Grand slope (“gamma”)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(S_{0s}\)</span></td>
+<td style="text-align: left;">derived</td>
+<td style="text-align: left;">Random intercept (offset) for subject <span class="math inline">\(s\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(S_{1s}\)</span></td>
+<td style="text-align: left;">derived</td>
+<td style="text-align: left;">Random slope (offset) for subject <span class="math inline">\(s\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(\mathbf{\Sigma}\)</span></td>
+<td style="text-align: left;">random</td>
+<td style="text-align: left;">Variance-covariance matrix</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\({\tau_{00}}^2\)</span></td>
+<td style="text-align: left;">random</td>
+<td style="text-align: left;">Variance of random intercepts</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(\rho\)</span></td>
+<td style="text-align: left;">random</td>
+<td style="text-align: left;">Random correlation between intercepts and slopes</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\({\tau_{11}}^2\)</span></td>
+<td style="text-align: left;">random</td>
+<td style="text-align: left;">Variance of random slopes</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(\sigma^2\)</span></td>
+<td style="text-align: left;">random</td>
+<td style="text-align: left;">Error variance</td>
+</tr>
+</tbody>
+</table>
+<p>Note the “Status” column of the table contains values <em>fixed</em>, <em>random</em>, and <em>derived</em>. Although <em>fixed</em> and <em>random</em> are standard terms, <em>derived</em> is not; I have introduced it to help you think about what these different variables mean in the context of the model and to help you distinguish variables that are directly estimated from variables that are not.</p>
+<p>Let’s begin with the Level 1 equation of our model, which represents the general relationship between the predictors and response variable. It captures the functional form of the main relationship between reaction time <span class="math inline">\(Y_{sd}\)</span> and sleep deprivation <span class="math inline">\(X_{sd}\)</span>: a straight line with intercept <span class="math inline">\(\beta_{0s}\)</span> and slope <span class="math inline">\(\beta_{1s}\)</span>. Now <span class="math inline">\(\beta_{0s}\)</span> and <span class="math inline">\(\beta_{1s}\)</span> makes it look like the complete pooling model, where we estimated a single intercept and single slope for the entire dataset; however, we’re not actually estimating these directly. Instead, we’re going to think of <span class="math inline">\(\beta_{0s}\)</span> and <span class="math inline">\(\beta_{1s}\)</span> as derived: they are wholly defined by variables at Level 2 of the model.</p>
+<p>Level 2 of the model, defined by two equations, represents relationships at the participant level. Here, we define the intercept <span class="math inline">\(\beta_{0s}\)</span> in terms of a fixed effect <span class="math inline">\(\gamma_0\)</span> and a <em>random intercept</em> <span class="math inline">\(S_{0s}\)</span>; likewise, we define the slope <span class="math inline">\(\beta_{1s}\)</span> in terms of a fixed slope <span class="math inline">\(\gamma_1\)</span> and a <em>random slope</em> <span class="math inline">\(S_{1s}\)</span>.</p>
+<p>The final equations represent the <em>Variance Components</em> of the model. We’ll get into this more in detail below.</p>
+<p>Let’s substitute the Level 2 equations into Level 1 to see the advantages of representing things in the multilevel way.</p>
+<p><span class="math display">\[\begin{equation}
+Y_{sd} = \gamma_{0} + S_{0s} + \left(\gamma_{1} + S_{1s}\right) X_{sd} + e_{sd}
+\end{equation}\]</span></p>
+<p>While this “combined” formula syntax is easy enough to understand in this particular case, the multilevel form more clearly allows us to see the functional form of the model: a straight line. We could easily change the functional form to, for instance, capture non-linear trends:</p>
+<p><span class="math display">\[Y_{sd} = \beta_{0s} + \beta_{1s} X_{sd} + \beta_{2s} X_{sd}^2 + e_{sd}\]</span></p>
+<p>This functional form gets obscured in the combined syntax. The multilevel syntax also makes it easy to see which terms go with the intercept and which terms go with the slope. Also, as designs get more compilicated—for example, if we were to assign participants to different experimental conditions, thus introducing a further predictors at Level 2—the combined equations get harder and harder to parse and reason about.</p>
+<p>Fixed effect parameters like <span class="math inline">\(\gamma_0\)</span> and <span class="math inline">\(\gamma_1\)</span> are estimated from the data, and reflect stable properties of the population. In this example, <span class="math inline">\(\gamma_0\)</span> is the population intercept and <span class="math inline">\(\gamma_1\)</span> is the population slope. You can think of these <strong>fixed-effects parameters</strong> as representing the <strong>average intercept and slope</strong> in the population. These are “fixed” in the sense that we assume that they reflect the true underlying values in the population; they are not assumed to vary from sample to sample. These fixed effects parameters are often of prime theoretical interest; we want to measure them and their standard errors in a manner that is as unbiased and precise as the data allow. In experimental settings they are often the targets of hypothesis tests.</p>
+<p>Random effects like <span class="math inline">\(S_{0i}\)</span> and <span class="math inline">\(S_{1i}\)</span> allow intercepts and slopes (respectively) to vary over subjects. These random effects are <em>offsets</em>: deviations from the population ‘grand mean’ values. Some subjects will just be slower responders than others, such that they will have a higher intercept (mean RT) on day 0 than the population’s estimated value of <span class="math inline">\(\hat{\gamma_0}\)</span>. These slower-than-average subjects will have positive <span class="math inline">\(S_{0i}\)</span> values; faster-than-average subjects will have negative <span class="math inline">\(S_{0i}\)</span> values. Likewise, some subjects will show stronger effects of sleep deprivation (steeper slope) than the estimated population effect, <span class="math inline">\(\hat{\gamma_1}\)</span>, which implies a positive offset <span class="math inline">\(S_{1s}\)</span>, while others may show weaker effects or close to none at all (negative offset).</p>
+<p>Each participant can be represented as a vector pair <span class="math inline">\(\langle S_{0i}, S_{1i} \rangle\)</span>. If the subjects in our sample comprised the entire population, we would be justified in treating them as fixed and estimating their values, as in the “no-pooling” approach above. This is not the case here. In recognition of the fact they are sampled, we are going to treat subjects as a random factor rather than a fixed factor. Instead of estimating the values for the subjects we happened to pick, we will estimate <strong>the covariance matrix that represents the bivariate distribution from which these pairs of values are drawn</strong>. By doing this, we allow the subjects in the sample to inform us about characteristics of the population.</p>
+</section>
+<section id="the-variance-covariance-matrix" class="level3" data-number="5.2.4">
+<h3 data-number="5.2.4" class="anchored" data-anchor-id="the-variance-covariance-matrix"><span class="header-section-number">5.2.4</span> The variance-covariance matrix</h3>
+<p><span class="math display">\[\begin{equation}
+\langle S_{0s}, S_{1s} \rangle \sim N\left(\langle 0, 0 \rangle, \mathbf{\Sigma}\right)
+\end{equation}\]</span></p>
+<p><span class="math display">\[\begin{equation}
+\mathbf{\Sigma} = \left(\begin{array}{cc}{\tau_{00}}^2 &amp; \rho\tau_{00}\tau_{11} \\
+         \rho\tau_{00}\tau_{11} &amp; {\tau_{11}}^2 \\
+         \end{array}\right)
+\end{equation}\]</span></p>
+<p>Equations in the <em>Variance Components</em> characterize our estimates of variability. The first equation states our assumption that the random intercept / random slope pairs <span class="math inline">\(\langle S_{0s}, S_{1s} \rangle\)</span> are drawn from a bivariate normal distribution centered at the origin <span class="math inline">\(\langle 0, 0 \rangle\)</span> with variance-covariance matrix <span class="math inline">\(\mathbf{\Sigma}\)</span>.</p>
+<p>The variance-covariance matrix is key: it determines the probability of drawing random effect pairs <span class="math inline">\(\langle S_{0s}, S_{1s} \rangle\)</span> from the population. You have seen these before, in the <a href="./corr-and-reg.html">chapter on correlation and regression</a>. The covariance matrix is always a square matrix (equal numbers of columns and rows). On the main diagonal (upper left and bottom right cells) it has random effect variances <span class="math inline">\({\tau_{00}}^2\)</span> and <span class="math inline">\({\tau_{11}}^2\)</span>. <span class="math inline">\({\tau_{00}}^2\)</span> is the random intercept variance, which captures how much subjects vary in their mean response time on Day 0, before any sleep deprivation. <span class="math inline">\({\tau_{11}}^2\)</span> is the random slope variance, which captures how much subjects vary in their susceptibility to the effects of sleep deprivation.</p>
+<p>The cells in the off-diagonal contain covariances, but this information is represented redundantly in the matrix; the lower left element is identical to the upper right element; both capture the covariance between random intercepts and slopes, as expressed by <span class="math inline">\(\rho\tau_{00}\tau_{11}\)</span>. In this equation <span class="math inline">\(\rho\)</span> is the correlation between the intercept and slope. So, all the information in the matrix can be captured by just three parameters: <span class="math inline">\(\tau_{00}\)</span>, <span class="math inline">\(\tau_{11}\)</span>, and <span class="math inline">\(\rho\)</span>.</p>
+</section>
+</section>
+<section id="estimating-linear-mixed-effects-models" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="estimating-linear-mixed-effects-models"><span class="header-section-number">5.3</span> Estimating linear mixed-effects models</h2>
+<p>To estimate parameters, we are going to use the <code>lmer()</code> function of the lme4 package (Bates, Mächler, Bolker, &amp; Walker, 2015). The basic syntax of <code>lmer()</code> is</p>
+<pre><code>lmer(formula, data, ...)</code></pre>
+<p>where <code>formula</code> expresses the structure of the underlying model in a compact format and <code>data</code> is the data frame where the variables mentioned in the formula can be found.</p>
+<p>The general format of the model formula for N fixed effects (<code>fix</code>) and K random effects (<code>ran</code>) is</p>
+<p><code>DV ~ fix1 + fix2 + ... + fixN + (ran1 + ran2 + ... + ranK | random_factor1)</code></p>
+<p>Interactions between factors A and B can be specified using either <code>A * B</code> (interaction and main effects) or <code>A:B</code> (just the interaction).</p>
+<p>A key difference from standard R model syntax is the presence of a random effect term, which is enclosed in parentheses, e.g., <code>(ran1 + ran2 + ... + ranK | random_factor)</code>. Each bracketed expression represents random effects associated with a single random factor. You can have more than one random effects term in a single formula, as we will see when we talk about crossed random factors. You should think of the random effects terms as providing <code>lmer()</code> with <strong>instructions on how to construct variance-covariance matrices</strong>.</p>
+<p>On the left side of the bar <code>|</code> you put the effects you want to allow to vary over the levels of the random factor named on the right side. Usually, the right-side variable is one whose values uniquely identify individual subjects (e.g., <code>subject_id</code>).</p>
+<p>Consider the following possible model formulas for the <code>sleep2</code> data and the variance-covariance matrices they construct.</p>
+<table class="table">
+<colgroup>
+<col style="width: 3%">
+<col style="width: 38%">
+<col style="width: 57%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>model</th>
+<th>syntax</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>random intercepts only</td>
+<td><code>Reaction ~ days_deprived + (1 | Subject)</code></td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>random intercepts and slopes</td>
+<td><code>Reaction ~ days_deprived + (1 + days_deprived | Subject)</code></td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>model 2 alternate syntax</td>
+<td><code>Reaction ~ days_deprived + (days_deprived | Subject)</code></td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>random slopes only</td>
+<td><code>Reaction ~ days_deprived + (0 + days_deprived | Subject)</code></td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>model 2 + zero-covariances</td>
+<td><code>Reaction ~ days_deprived + (days_deprived || Subject)</code></td>
+</tr>
+</tbody>
+</table>
+<p><em>Model 1:</em></p>
+<p><span class="math display">\[\begin{equation*}
+  \mathbf{\Sigma} = \left(
+  \begin{array}{cc}
+    {\tau_{00}}^2 &amp; 0 \\
+                0 &amp; 0 \\
+  \end{array}\right)
+\end{equation*}\]</span></p>
+<p><em>Models 2 and 3:</em></p>
+<p><span class="math display">\[\begin{equation*}
+  \mathbf{\Sigma} = \left(
+  \begin{array}{cc}
+             {\tau_{00}}^2 &amp; \rho\tau_{00}\tau_{11} \\
+    \rho\tau_{00}\tau_{11} &amp;          {\tau_{11}}^2 \\
+  \end{array}\right)
+\end{equation*}\]</span></p>
+<p><em>Model 4:</em></p>
+<p><span class="math display">\[\begin{equation*}
+  \mathbf{\Sigma} = \left(
+  \begin{array}{cc}
+    0 &amp;             0 \\
+    0 &amp; {\tau_{11}}^2 \\
+  \end{array}\right)
+\end{equation*}\]</span></p>
+<p><em>Model 5:</em></p>
+<p><span class="math display">\[\begin{equation*}
+  \mathbf{\Sigma} = \left(
+  \begin{array}{cc}
+    {\tau_{00}}^2 &amp;             0 \\
+                0 &amp; {\tau_{11}}^2 \\
+  \end{array}\right)
+\end{equation*}\]</span></p>
+<p>The most reasonable model for these data is Model 2, so we’ll stick with that.</p>
+<p>Let’s fit the model, storing the result in object <code>pp_mod</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>pp_mod <span class="ot">&lt;-</span> <span class="fu">lmer</span>(Reaction <span class="sc">~</span> days_deprived <span class="sc">+</span> (days_deprived <span class="sc">|</span> Subject),</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> sleep2)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pp_mod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Linear mixed model fit by REML ['lmerMod']
+Formula: Reaction ~ days_deprived + (days_deprived | Subject)
+   Data: sleep2
+
+REML criterion at convergence: 1404.1
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-4.0157 -0.3541  0.0069  0.4681  5.0732 
+
+Random effects:
+ Groups   Name          Variance Std.Dev. Corr
+ Subject  (Intercept)   958.35   30.957       
+          days_deprived  45.78    6.766   0.18
+ Residual               651.60   25.526       
+Number of obs: 144, groups:  Subject, 18
+
+Fixed effects:
+              Estimate Std. Error t value
+(Intercept)    267.967      8.266  32.418
+days_deprived   11.435      1.845   6.197
+
+Correlation of Fixed Effects:
+            (Intr)
+days_deprvd -0.062</code></pre>
+</div>
+</div>
+<p>Before discussing how to interpret the output, let’s first plot the data against our model predictions. We can get model predictions using the <code>predict()</code> function (see <code>?predict.merMod</code> for information about use with mixed-effects models).</p>
+<p>First, create a new data frame with predictor values for <code>Subject</code> and <code>days_deprived</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>newdata <span class="ot">&lt;-</span> <span class="fu">crossing</span>(</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Subject =</span> sleep2 <span class="sc">|&gt;</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pull</span>(Subject) <span class="sc">|&gt;</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">levels</span>() <span class="sc">|&gt;</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">factor</span>(),</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">days_deprived =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">7</span>)</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(newdata, <span class="dv">17</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 17 × 2
+   Subject days_deprived
+   &lt;fct&gt;           &lt;int&gt;
+ 1 308                 0
+ 2 308                 1
+ 3 308                 2
+ 4 308                 3
+ 5 308                 4
+ 6 308                 5
+ 7 308                 6
+ 8 308                 7
+ 9 309                 0
+10 309                 1
+11 309                 2
+12 309                 3
+13 309                 4
+14 309                 5
+15 309                 6
+16 309                 7
+17 310                 0</code></pre>
+</div>
+</div>
+<p>Then, run this through <code>predict()</code>. Typically we will add the prediction in as a new variable in the data frame of new data, giving it the same name as our DV (<code>Reaction</code>).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>newdata2 <span class="ot">&lt;-</span> newdata <span class="sc">|&gt;</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Reaction =</span> <span class="fu">predict</span>(pp_mod, newdata))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now we are ready to plot.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sleep2, <span class="fu">aes</span>(<span class="at">x =</span> days_deprived, <span class="at">y =</span> Reaction)) <span class="sc">+</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> newdata2,</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">color =</span> <span class="st">'blue'</span>) <span class="sc">+</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">7</span>) <span class="sc">+</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Subject) <span class="sc">+</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Reaction Time"</span>, <span class="at">x =</span> <span class="st">"Days deprived of sleep (0 = baseline)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-pp-plot" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-pp-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="mixed-effects_files/figure-html/fig-pp-plot-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pp-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5.6: Data plotted against predictions from a partial pooling approach.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="interpreting-lmer-output-and-extracting-estimates" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="interpreting-lmer-output-and-extracting-estimates"><span class="header-section-number">5.4</span> Interpreting <code>lmer()</code> output and extracting estimates</h2>
+<p>The call to <code>lmer()</code> returns a fitted model object of class “lmerMod”. To find out more about the <code>lmerMod</code> class, which is in turn a specialized version of the <code>merMod</code> class, see <code>?lmerMod-class</code>.</p>
+<section id="fixed-effects" class="level3" data-number="5.4.1">
+<h3 data-number="5.4.1" class="anchored" data-anchor-id="fixed-effects"><span class="header-section-number">5.4.1</span> Fixed effects</h3>
+<p>The section of the output called <code>Fixed effects:</code> should look familiar; it is similar to what you would see in the output for a simple linear model fit by <code>lm()</code>.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>Fixed effects:
+              Estimate Std. Error t value
+(Intercept)    267.967      8.266  32.418
+days_deprived   11.435      1.845   6.197</code></pre>
+</div>
+</div>
+<p>This indicates that the estimated mean reaction time for participants at Day 0 was about 268 milliseconds, with each day of sleep deprivation adding an additional 11 milliseconds to the response time, on average.</p>
+<p>If we need to get the fixed effects from the model, we can extract them using <code>fixef()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fixef</span>(pp_mod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  (Intercept) days_deprived 
+    267.96742      11.43543 </code></pre>
+</div>
+</div>
+<p>The standard errors give us estimates of the variability for these parameters due to sampling error. You could use these to calculate the <span class="math inline">\(t\)</span>-values or derive confidence intervals. Extract them using <code>vcov(pp_mod)</code> which gives a variance-covariance matrix (<em>not</em> the one associated with the random effects), pull out the diagonal using <code>diag()</code> and then take the square root using <code>sqrt()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">vcov</span>(pp_mod)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  (Intercept) days_deprived 
+     8.265896      1.845293 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># OR, equivalently using pipes:</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="co"># vcov(pp_mod) |&gt; diag() |&gt; sqrt()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Note that these <span class="math inline">\(t\)</span> values do not appear with <span class="math inline">\(p\)</span> values, as is customary in simpler modeling frameworks. There are multiple approaches for getting <span class="math inline">\(p\)</span> values from mixed-effects models, with advantages and disadvantages to each; see <span class="citation" data-cites="Luke_2017">Luke (<a href="references.html#ref-Luke_2017" role="doc-biblioref">2017</a>)</span> for a survey of options. The <span class="math inline">\(t\)</span> values do not appear with degrees of freedom, because the degrees of freedom in a mixed-effects model are not well-defined. Often people will treat them as Wald <span class="math inline">\(z\)</span> values, i.e., as observations from the standard normal distribution. Because the <span class="math inline">\(t\)</span> distribution asymptotes the standard normal distribution as the number of observations goes to infinity, this “t-as-z” practice is legitimate if you have a large enough set of observations.</p>
+<p>To calculate the Wald <span class="math inline">\(z\)</span> values, just divide the fixed effect estimate by its standard error:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>tvals <span class="ot">&lt;-</span> <span class="fu">fixef</span>(pp_mod) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">vcov</span>(pp_mod)))</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>tvals</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  (Intercept) days_deprived 
+    32.418437      6.197082 </code></pre>
+</div>
+</div>
+<p>You can get the associated <span class="math inline">\(p\)</span>-values using the following formula:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="fu">abs</span>(tvals)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  (Intercept) days_deprived 
+  0.00000e+00   5.75197e-10 </code></pre>
+</div>
+</div>
+<p>This gives us strong evidence against the null hypothesis <span class="math inline">\(H_0: \gamma_1 = 0\)</span>. Sleep deprivation does appear to increase response time.</p>
+<p>You can get confidence intervals for the estimates using <code>confint()</code> (this technique uses the <em>parametric bootstrap</em>). <code>confint()</code> is a generic function, so to get help on this function, use <code>?confint.merMod</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(pp_mod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Computing profile confidence intervals ...</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                    2.5 %      97.5 %
+.sig01         19.0979934  46.3366599
+.sig02         -0.4051073   0.8058951
+.sig03          4.0079284  10.2487351
+.sigma         22.4666029  29.3494509
+(Intercept)   251.3443396 284.5904989
+days_deprived   7.7245247  15.1463328</code></pre>
+</div>
+</div>
+</section>
+<section id="random-effects" class="level3" data-number="5.4.2">
+<h3 data-number="5.4.2" class="anchored" data-anchor-id="random-effects"><span class="header-section-number">5.4.2</span> Random effects</h3>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>Random effects:
+ Groups   Name          Variance Std.Dev. Corr
+ Subject  (Intercept)   958.35   30.957       
+          days_deprived  45.78    6.766   0.18
+ Residual               651.60   25.526       
+Number of obs: 144, groups:  Subject, 18</code></pre>
+</div>
+</div>
+<p>The random effects part of the <code>summary()</code> output is less familiar. What you find here is a table with information about the variance components: the variance-covariance matrix (or matrices, if you have multiple random factors) and the residual variance.</p>
+<p>Let’s start with the <code>Residual</code> line. This tells us that the residual variance, <span class="math inline">\(\sigma^2\)</span>, was estimated at about 651.6. The value in the next column, 25.526, is just the standard deviation, <span class="math inline">\(\sigma\)</span>, which is the square root of the variance.</p>
+<p>We extract the residual standard deviation using the <code>sigma()</code> function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sigma</span>(pp_mod) <span class="co"># residual</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 25.5264</code></pre>
+</div>
+</div>
+<p>The two lines above the <code>Residual</code> line give us information about the variance-covariance matrix for the <code>Subject</code> random factor.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code> Groups   Name          Variance Std.Dev. Corr
+ Subject  (Intercept)   958.35   30.957       
+          days_deprived  45.78    6.766   0.18</code></pre>
+</div>
+</div>
+<p>The values in the <code>Variance</code> column gives us the main diagonal of the matrix, and the <code>Std.Dev.</code> values are just the square roots of these values. The <code>Corr</code> column tells us the correlation between the intercept and slope.</p>
+<p>We can extract these values from the fitted object <code>pp_mod</code> using the <code>VarCorr()</code> function. This returns a named list, with one element for each random factor. We have <code>Subject</code> as our only random factor, so the list will just be of length 1.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># variance-covariance matrix for random factor Subject</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="fu">VarCorr</span>(pp_mod)[[<span class="st">"Subject"</span>]] <span class="co"># equivalently: VarCorr(pp_mod)[[1]]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>              (Intercept) days_deprived
+(Intercept)      958.3517      37.20460
+days_deprived     37.2046      45.77766
+attr(,"stddev")
+  (Intercept) days_deprived 
+    30.957255      6.765919 
+attr(,"correlation")
+              (Intercept) days_deprived
+(Intercept)     1.0000000     0.1776263
+days_deprived   0.1776263     1.0000000</code></pre>
+</div>
+</div>
+<p>The first few lines are a printout of the variance covariance matrix. You can see the variances in the main diagonal. We can get these with:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">diag</span>(<span class="fu">VarCorr</span>(pp_mod)[[<span class="st">"Subject"</span>]]) <span class="co"># just the variances</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  (Intercept) days_deprived 
+    958.35165      45.77766 </code></pre>
+</div>
+</div>
+<p>We can get the correlation between the intecepts and slopes in two ways. First, by extracting the <code>"correlation"</code> attribute and then pulling out the element in row 1 column 2 (<code>[1, 2]</code>):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(<span class="fu">VarCorr</span>(pp_mod)[[<span class="st">"Subject"</span>]], <span class="st">"correlation"</span>)[<span class="dv">1</span>, <span class="dv">2</span>] <span class="co"># the correlation</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.1776263</code></pre>
+</div>
+</div>
+<p>Or we can directly compute the value from the variance-covariance matrix itself.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># directly compute correlation from variance-covariance matrix</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>mx <span class="ot">&lt;-</span> <span class="fu">VarCorr</span>(pp_mod)[[<span class="st">"Subject"</span>]]</span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a><span class="do">## if cov = rho * t00 * t11, then</span></span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a><span class="do">## rho = cov / (t00 * t11).</span></span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>mx[<span class="dv">1</span>, <span class="dv">2</span>] <span class="sc">/</span> (<span class="fu">sqrt</span>(mx[<span class="dv">1</span>, <span class="dv">1</span>]) <span class="sc">*</span> <span class="fu">sqrt</span>(mx[<span class="dv">2</span>, <span class="dv">2</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.1776263</code></pre>
+</div>
+</div>
+<p>We can pull out the estimated random effects (BLUPS) using <code>ranef()</code>. Like <code>VarCorr()</code> , the result is a named list, with each element corresponding to a single random factor.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ranef</span>(pp_mod)[[<span class="st">"Subject"</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    (Intercept) days_deprived
+308  24.4992891     8.6020000
+309 -59.3723102    -8.1277534
+310 -39.4762764    -7.4292365
+330   1.3500428    -2.3845976
+331  18.4576169    -3.7477340
+332  30.5270040    -4.8936899
+333  13.3682027     0.2888639
+334 -18.1583020     3.8436686
+335 -16.9737887   -12.0702333
+337  44.5850842    10.1760837
+349 -26.6839022     2.1946699
+350  -5.9657957     8.1758613
+351  -5.5710355    -2.3718494
+352  46.6347253    -0.5616377
+369   0.9616395     1.7385130
+370 -18.5216778     5.6317534
+371  -7.3431320     0.2729282
+372  17.6826159     0.6623897</code></pre>
+</div>
+</div>
+<p>There are other extractor functions that are useful. See <code>?merMod-class</code> for details.</p>
+<p>We can get fitted values from the model using <code>fitted()</code> and residuals using <code>residuals()</code>. (These functions take into account “the conditional modes of the random effects”, i.e., the BLUPS).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(sleep2,</span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">fit =</span> <span class="fu">fitted</span>(pp_mod),</span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">resid =</span> <span class="fu">residuals</span>(pp_mod)) <span class="sc">%&gt;%</span></span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Subject) <span class="sc">%&gt;%</span></span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">10</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="at">n =</span> <span class="sc">+</span><span class="cn">Inf</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 18 × 6
+# Groups:   Subject [18]
+   Reaction  Days Subject days_deprived   fit  resid
+      &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;           &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+ 1     251.     2 308                 0  292. -41.7 
+ 2     203.     2 309                 0  209.  -5.62
+ 3     234.     2 310                 0  228.   5.83
+ 4     284.     2 330                 0  269.  14.5 
+ 5     302.     2 331                 0  286.  15.4 
+ 6     273.     2 332                 0  298. -25.5 
+ 7     277.     2 333                 0  281.  -4.57
+ 8     243.     2 334                 0  250.  -6.44
+ 9     254.     2 335                 0  251.   3.50
+10     292.     2 337                 0  313. -20.9 
+11     239.     2 349                 0  241.  -2.36
+12     256.     2 350                 0  262.  -5.80
+13     270.     2 351                 0  262.   7.50
+14     327.     2 352                 0  315.  12.3 
+15     257.     2 369                 0  269. -11.7 
+16     239.     2 370                 0  249. -10.5 
+17     278.     2 371                 0  261.  17.3 
+18     298.     2 372                 0  286.  11.9 </code></pre>
+</div>
+</div>
+<p>Finally, we can get predictions for new data using <code>predict()</code>, as we did above. Below we use <code>predict()</code> to imagine what might have happened had we continued our study for three extra days.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="do">## create the table with new predictor values</span></span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>ndat <span class="ot">&lt;-</span> <span class="fu">crossing</span>(<span class="at">Subject =</span> sleep2 <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Subject) <span class="sc">%&gt;%</span> <span class="fu">levels</span>() <span class="sc">%&gt;%</span> <span class="fu">factor</span>(),</span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">days_deprived =</span> <span class="dv">8</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Reaction =</span> <span class="fu">predict</span>(pp_mod, <span class="at">newdata =</span> .))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sleep2, <span class="fu">aes</span>(<span class="at">x =</span> days_deprived, <span class="at">y =</span> Reaction)) <span class="sc">+</span></span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> <span class="fu">bind_rows</span>(newdata2, ndat),</span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">color =</span> <span class="st">'blue'</span>) <span class="sc">+</span></span>
+<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">+</span></span>
+<span id="cb63-6"><a href="#cb63-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Subject) <span class="sc">+</span></span>
+<span id="cb63-7"><a href="#cb63-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Reaction Time"</span>, <span class="at">x =</span> <span class="st">"Days deprived of sleep (0 = baseline)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-extrap-plot" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-extrap-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="mixed-effects_files/figure-html/fig-extrap-plot-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-extrap-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5.7: Data against model with extrapolation.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="multi-level-app" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="multi-level-app"><span class="header-section-number">5.5</span> Multi-level app</h2>
+<p><a href="https://talklab.psy.gla.ac.uk/app/multilevel-site/" target="_blank">Try out the multi-level web app</a> to sharpen your understanding of the three different approaches to multi-level modeling.</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
+<div id="ref-Bates_et_al_2015" class="csl-entry" role="listitem">
+Bates, D., Maechler, M., Bolker, B., &amp; Walker, S. (2015). Fitting linear mixed-effects models using lme4. <em><span>Journal of Statistical Software</span></em>, <em>67</em>, 1–48.
+</div>
+<div id="ref-Belenky_et_al_2003" class="csl-entry" role="listitem">
+Belenky, G., Wesensten, N. J., Thorne, D. R., Thomas, M. L., Sing, H. C., Redmond, D. P., Russo, M. B., &amp; Balkin, T. J. (2003). Patterns of performance degradation and restoration during sleep restriction and subsequent recovery: A sleep dose-response study. <em><span>Journal of Sleep Research</span></em>, <em>12</em>(1), 1–12.
+</div>
+<div id="ref-Luke_2017" class="csl-entry" role="listitem">
+Luke, S. G. (2017). Evaluating significance in linear mixed-effects models in r. <em><span>Behavior Research Methods</span></em>, <em>49</em>, 1494–1502.
+</div>
+<div id="ref-McElreath_2020" class="csl-entry" role="listitem">
+McElreath, R. (2020). <em><span class="nocase">Statistical Rethinking: A Bayesian course with examples in R and STAN</span></em>. CRC Press.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./interactions.html" class="pagination-link" aria-label="Interactions">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Interactions</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./multivariate.html" class="pagination-link" aria-label="Psychometrics and Multivariate Analysis">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Psychometrics and Multivariate Analysis</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

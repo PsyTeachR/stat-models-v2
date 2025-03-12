@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Dale J. Barr">
-<meta name="dcterms.date" content="2024-12-24">
 
-<title>Statistical Models in Psychology and Neuroscience: A Survey</title>
+<title>Statistical Models in Psychology and Neuroscience: A Survey – 7&nbsp; Path analysis</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,7 +20,61 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -32,7 +84,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./intro-placeholder.html" rel="next">
+<link href="./mediation.html" rel="next">
+<link href="./multivariate.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -87,7 +140,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Preface</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./path.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Path analysis</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -117,7 +170,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Preface</span></a>
   </div>
 </li>
@@ -159,7 +212,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./path.html" class="sidebar-item-text sidebar-link">
+  <a href="./path.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Path analysis</span></span></a>
   </div>
 </li>
@@ -197,15 +250,11 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#preface" id="toc-preface" class="nav-link active" data-scroll-target="#preface">Preface</a>
+  <li><a href="#sem-software-lavaan" id="toc-sem-software-lavaan" class="nav-link active" data-scroll-target="#sem-software-lavaan"><span class="header-section-number">7.1</span> SEM software: lavaan</a></li>
+  <li><a href="#example-sem-vs-regression" id="toc-example-sem-vs-regression" class="nav-link" data-scroll-target="#example-sem-vs-regression"><span class="header-section-number">7.2</span> Example: SEM vs regression</a>
   <ul class="collapse">
-  <li><a href="#about-this-book" id="toc-about-this-book" class="nav-link" data-scroll-target="#about-this-book">About this book</a>
-  <ul class="collapse">
-  <li><a href="#how-to-use-this-book" id="toc-how-to-use-this-book" class="nav-link" data-scroll-target="#how-to-use-this-book">How to use this book</a></li>
-  <li><a href="#how-to-cite-this-book" id="toc-how-to-cite-this-book" class="nav-link" data-scroll-target="#how-to-cite-this-book">How to cite this book</a></li>
-  <li><a href="#free-to-re-use-and-remix" id="toc-free-to-re-use-and-remix" class="nav-link" data-scroll-target="#free-to-re-use-and-remix">Free to re-use and remix!</a></li>
-  <li><a href="#how-this-book-was-made" id="toc-how-this-book-was-made" class="nav-link" data-scroll-target="#how-this-book-was-made">How this book was made</a></li>
-  </ul></li>
+  <li><a href="#single-outcome-data" id="toc-single-outcome-data" class="nav-link" data-scroll-target="#single-outcome-data"><span class="header-section-number">7.2.1</span> single outcome data</a></li>
+  <li><a href="#adding-a-second-dv" id="toc-adding-a-second-dv" class="nav-link" data-scroll-target="#adding-a-second-dv"><span class="header-section-number">7.2.2</span> Adding a second DV</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -215,26 +264,14 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Statistical Models in Psychology and Neuroscience: A Survey</h1>
+<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Path analysis</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Dale J. Barr </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">December 24, 2024</p>
-    </div>
-  </div>
   
     
   </div>
@@ -244,44 +281,350 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="preface" class="level1 unnumbered">
-<h1 class="unnumbered">Preface</h1>
-<p>This course offers a survey of common approaches to statistical modeling found in psychology and neuroscience, with three key goals in mind: flexibility, generalizability, and reproducibility. We focus on analytical techniques that are <strong>flexible</strong>, in the sense that they can be adapted to different types of study designs with different types of data. We seek to structure analyses to support claims that are <strong>generalizable</strong> to the larger population of people (and possibly stimuli) from which our sample was drawn. Finally, we aim to analyse data in ways that are <strong>reproducible</strong> by writing plain text scripts in R. In this way, the full set of procedures have been documented in an unambiguous way to enable others (including our future selves!) to easily reproduce our analysis from the raw data to the results and perhaps even up to generating the research report.</p>
-<p>This textbook accompanies a one-semester survey course whose aim is to introduce students to the most common analytical approaches in the field. But psychology and neuroscience are broad research areas with many different traditions and approaches, reflecting the complexity of the subject matter. Fortunately, all of these approaches are built on the foundation of linear regression. My hope is to provide a solid foundation in regression so that you know enough to go further on your own with any technique you are interested in. Be under no illusion that we give adequate treatment to techniques introduced in this textbook beyond multiple regression. For each approach, I provide guidance for learning more at the end of the corresponding chapter.</p>
-<p>The textbook focuses on the practical implementation of concepts introduced in lectures of my course. The textbook itself does not provide much conceptual discussion. Nevertheless, it may still be useful for people who already understand these concepts but are looking to learn their implementation in R statistical programming.</p>
-<section id="about-this-book" class="level2">
-<h2 class="anchored" data-anchor-id="about-this-book">About this book</h2>
-<p>The material in this course forms the basis for a one-semester course for third-year undergradautes taught by <a href="">Dale Barr</a> at the <a href="https://www.psy.gla.ac.uk">University of Glasgow School of Psychology and Neuroscience</a>. It is part of the <a href="https://psyteachr.github.io">PsyTeachR series of course materials</a> developed by University of Glasgow Psychology staff.</p>
-<p>This textbook is meant to be <strong>interactive</strong>. Each chapter contains embedded exercises as well as web applications to help students better understand the content. The interactive content will only work if you access this material through a web browser. Printing out the material is not recommended.</p>
-<!--
-If you want to access the textbook without an internet connection or have a local version to keep in case this site changes or moves, you can [download a version for offline use](offline-textbook.zip). Just extract the files from the ZIP archive, go to the `docs` subdirectory, and open the file `index.html` using a web browser.
--->
-<p>The main tool that we will be using is the <a href="https://r-project.org">statistical programming environment R</a>. To follow along with the code in this textbook you will need R version 4.2.0 or later. It is also recommended that you install the add-on packages <code>tidyverse</code>, <code>lme4</code>, <code>psych</code>, <code>corrr</code>, and <code>lavaan</code>.</p>
-<p>For anyone starting out with R, you will need to choose an <a href="glossary.html#IDE">:Integrated Development Environment</a>. For beginners, the <a href="https://posit.co/download/rstudio-desktop/">RStudio Desktop</a> is a good choice.</p>
-<section id="how-to-use-this-book" class="level3">
-<h3 class="anchored" data-anchor-id="how-to-use-this-book">How to use this book</h3>
-<p>This book has ‘dark’ and ‘light’ modes that you can toggle between to suit your reading preferences. Look for the toggle switch next to where the book title is displayed in your browser.</p>
-<p>When discussing statistical modeling, some use of technical terminology is unavoidable. This book contains a <a href="./glossary.html">glossary</a> where you can find definitions of common terms. I have used the <a href="https://ncase.me/nutshell/">Nutshell</a> web tool which allows you to “expand” definitions to appear within the body of the web page, to avoid flipping back and forth between the main text and the glossary. Whereever you see an underlined term that has two dots to the top left of it, like this term—<a href="./glossary.html#Nutshell">:Nutshell</a>—you can click on the term to expand the definition (try it!).</p>
-</section>
-<section id="how-to-cite-this-book" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="how-to-cite-this-book">How to cite this book</h3>
-<p>Barr, Dale J. (2024). <em>Statistical models in psychology and neuroscience: A survey</em>. Version 0.9.0. Retrieved from <a href="https://psyteachr.github.io/stat-models-v2" class="uri">https://psyteachr.github.io/stat-models-v2</a>.</p>
-<!-- 
-## Found an issue? {-}
+<section id="sem-software-lavaan" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="sem-software-lavaan"><span class="header-section-number">7.1</span> SEM software: lavaan</h2>
+<p>For estimating structural equation models in R we will use the <a href="https://www.lavaan.ugent.be/"><code>lavaan</code></a> add-on package <span class="citation" data-cites="Rosseel_2012">(<a href="references.html#ref-Rosseel_2012" role="doc-biblioref">Rosseel, 2012</a>)</span> for R. You can install it by typing <code>install.packages("lavaan")</code> in your R console window.</p>
+<p>The main workhorse function for lavaan is called, simply, <code>lavaan()</code>. This is a powerful function that lets you specify a wide array of models. You can see all the options by looking at the help page (<code>?lavaan::lavaan</code>):</p>
+<pre><code>lavaan                 package:lavaan                  R Documentation
 
-If you find errors or typos, have questions or suggestions, please file an issue at <https://github.com/psyteachr/stat-models-v1/issues>. Thanks!
--->
+Fit a Latent Variable Model
+
+Description:
+
+     Fit a latent variable model.
+
+Usage:
+
+     lavaan(model = NULL, data = NULL, ordered = NULL,
+            sampling.weights   = NULL,
+            sample.cov = NULL, sample.mean = NULL, sample.th = NULL,
+            sample.nobs = NULL,
+            group = NULL, cluster = NULL, constraints = "", 
+            WLS.V = NULL, NACOV = NULL, ov.order = "model",
+            slotOptions = NULL, slotParTable = NULL, slotSampleStats = NULL,
+            slotData = NULL, slotModel = NULL, slotCache = NULL,
+            sloth1 = NULL,
+            ...)</code></pre>
+<p>The <code>...</code> in the function syntax suggests there are more options than are listed, and the help page says “See <code>lavOptions</code> for a complete list.” And if you type <code>lavOptions()</code> you will see there are 113 additional options! This can be quite overwhelming for the novice user.</p>
+<p>Fortunately, lavaan provides two ‘convenience’ functions that hide away some of this complexity and that automatically choose sensible defaults. These functions are:</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>function</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>sem()</code></td>
+<td>Fit a structural equation model</td>
+</tr>
+<tr class="even">
+<td><code>cfa()</code></td>
+<td>Fit a confirmatory factor analysis</td>
+</tr>
+</tbody>
+</table>
+<p>In what follows, we’ll be using <code>sem()</code> to fit a path model. The function documentation indicates what options of lavaan are set to by default (see <code>?lavOptions</code> for further information).</p>
+<pre><code>     The ‘sem’ function is a wrapper for the more general lavaan
+     function, but setting the following default options: ‘int.ov.free
+     = TRUE’, ‘int.lv.free = FALSE’, ‘auto.fix.first = TRUE’ (unless
+     ‘std.lv = TRUE’), ‘auto.fix.single = TRUE’, ‘auto.var = TRUE’,
+     ‘auto.cov.lv.x = TRUE’, ‘auto.efa = TRUE’, ‘auto.th = TRUE’,
+     ‘auto.delta = TRUE’, and ‘auto.cov.y = TRUE’.</code></pre>
+<p>Many of these options are only relevant for models including latent variables, which our path models will not include. Thus, when using path analyses, these are the defaults you should keep in mind.</p>
+<table class="table">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 75%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>option setting</th>
+<th>effect</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>int.ov.free=TRUE</code></td>
+<td>intercepts of observed variables are not fixed to zero</td>
+</tr>
+<tr class="even">
+<td><code>auto.var=TRUE</code></td>
+<td>residual variances for observed variables are set free</td>
+</tr>
+<tr class="odd">
+<td><code>auto.cov.y=TRUE</code></td>
+<td>covariances of endogenous variables are modeled and set free</td>
+</tr>
+</tbody>
+</table>
 </section>
-<section id="free-to-re-use-and-remix" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="free-to-re-use-and-remix">Free to re-use and remix!</h3>
-<p>You are free to re-use and modify the material in this textbook for your own purposes with the stipulation that you cite the original work. Please note additional terms of the <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons CC-BY-SA 4.0 license</a> governing re-use of this material.</p>
+<section id="example-sem-vs-regression" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="example-sem-vs-regression"><span class="header-section-number">7.2</span> Example: SEM vs regression</h2>
+<p>We will begin our practical introduction to path analysis with an example that represents a simple extension from ordinary regression modeling—namely, a situation where you have multiple response variables.</p>
+<p>Let’s assume we’re interested in the social determinants of <a href="https://en.wikipedia.org/wiki/Narcissistic_personality_disorder">narcisissm</a> and we have given a (subclinical) population a narcissism questionnaire (scale goes from 1-100).</p>
+<p>To follow along, download the following files. NB: These files contain simulated (i.e., not real) data, so don’t draw any conclusions about narcissism from the analyses.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>file</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="data/narc_1.csv"><code>narc_1.csv</code></a></td>
+<td>narcisissm data, 1 outcome variable</td>
+</tr>
+<tr class="even">
+<td><a href="data/narc_2.csv"><code>narc_2.csv</code></a></td>
+<td>narcisissm data, 2 outcome variables</td>
+</tr>
+</tbody>
+</table>
+<section id="single-outcome-data" class="level3" data-number="7.2.1">
+<h3 data-number="7.2.1" class="anchored" data-anchor-id="single-outcome-data"><span class="header-section-number">7.2.1</span> single outcome data</h3>
+<p>We might have the following theory of narcisissm, where parenting style (specifically, the degree of “helicopter” parenting where parents smother their child with attention) and economic privilege jointly determine the level of adult narcissism.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/narc_1.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p>Here, the SEM framework wouldn’t buy us anything because we can fit this model using basic regression.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"tidyverse"</span>) <span class="co"># for read_csv</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"lavaan"</span>)    <span class="co"># for SEM; we'll need these functions later</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>This is lavaan 0.6-19
+lavaan is FREE software! Please report any bugs.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>narc_1 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/narc_1.csv"</span>, <span class="at">col_types =</span> <span class="st">"ddd"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>mod_reg <span class="ot">&lt;-</span> <span class="fu">lm</span>(Narc <span class="sc">~</span> HP <span class="sc">+</span> EP, <span class="at">data =</span> narc_1)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod_reg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Narc ~ HP + EP, data = narc_1)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-18.6504  -4.5028  -0.3351   4.4134  18.0993 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 42.62670    6.48476   6.573 4.31e-10 ***
+HP           0.18531    0.06704   2.764  0.00625 ** 
+EP           0.33032    0.12922   2.556  0.01133 *  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 7.149 on 197 degrees of freedom
+Multiple R-squared:  0.07027,   Adjusted R-squared:  0.06083 
+F-statistic: 7.445 on 2 and 197 DF,  p-value: 0.0007642</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>sem_formula <span class="ot">&lt;-</span> <span class="st">'Narc ~ HP + EP'</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>mod_sem <span class="ot">&lt;-</span> <span class="fu">sem</span>(sem_formula, <span class="at">data =</span> narc_1)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod_sem, <span class="at">rsquare =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>lavaan 0.6-19 ended normally after 1 iteration
+
+  Estimator                                         ML
+  Optimization method                           NLMINB
+  Number of model parameters                         3
+
+  Number of observations                           200
+
+Model Test User Model:
+                                                      
+  Test statistic                                 0.000
+  Degrees of freedom                                 0
+
+Parameter Estimates:
+
+  Standard errors                             Standard
+  Information                                 Expected
+  Information saturated (h1) model          Structured
+
+Regressions:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+  Narc ~                                              
+    HP                0.185    0.067    2.785    0.005
+    EP                0.330    0.128    2.576    0.010
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+   .Narc             50.345    5.034   10.000    0.000
+
+R-Square:
+                   Estimate
+    Narc              0.070</code></pre>
+</div>
+</div>
+<p>You can see that the regression coefficients closely match the ones from the regression. We also get an estimate of the residual variance for the DV of 50.345, which is close to the “Residual standard error” in the regression model, because sqrt(50.345) = 7.095, which is close to 7.149.</p>
+<p>The summary suggests that we have estimated 3 parameters. What are they? Let’s use lavaan’s <code>parTable()</code> function to see.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">parTable</span>(mod_sem)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  id  lhs op  rhs user block group free ustart exo label plabel  start    est
+1  1 Narc  ~   HP    1     1     1    1     NA   0         .p1.  0.185  0.185
+2  2 Narc  ~   EP    1     1     1    2     NA   0         .p2.  0.330  0.330
+3  3 Narc ~~ Narc    0     1     1    3     NA   0         .p3. 50.345 50.345
+4  4   HP ~~   HP    0     1     1    0     NA   1         .p4. 56.991 56.991
+5  5   HP ~~   EP    0     1     1    0     NA   1         .p5.  1.423  1.423
+6  6   EP ~~   EP    0     1     1    0     NA   1         .p6. 15.341 15.341
+     se
+1 0.067
+2 0.128
+3 5.034
+4 0.000
+5 0.000
+6 0.000</code></pre>
+</div>
+</div>
+<p>The ‘free’ column counts the free parameters. You’ll note that <code>Narc ~ HP</code>, <code>Narc ~ EP</code> and <code>Narc ~~ Narc</code> are the (population) direct effects and variance that are being estimated. All the variances/covariances for the exogenous variables are just directly calculated from the sample, and so they have no standard errors (= 0).</p>
+<p>We can also get confidence intervals using the <code>parameterEstimates()</code> function, which also puts the estimates in a table, making them easier to access for reporting.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">parameterEstimates</span>(mod_sem)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   lhs op  rhs    est    se      z pvalue ci.lower ci.upper
+1 Narc  ~   HP  0.185 0.067  2.785  0.005    0.055    0.316
+2 Narc  ~   EP  0.330 0.128  2.576  0.010    0.079    0.582
+3 Narc ~~ Narc 50.345 5.034 10.000  0.000   40.477   60.212
+4   HP ~~   HP 56.991 0.000     NA     NA   56.991   56.991
+5   HP ~~   EP  1.423 0.000     NA     NA    1.423    1.423
+6   EP ~~   EP 15.341 0.000     NA     NA   15.341   15.341</code></pre>
+</div>
+</div>
+<p>We can also get standardized estimates. The <code>std.all</code> column is the one you want to look at.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">parameterEstimates</span>(mod_sem, <span class="at">standardized =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   lhs op  rhs    est    se      z pvalue ci.lower ci.upper std.lv std.all
+1 Narc  ~   HP  0.185 0.067  2.785  0.005    0.055    0.316  0.185   0.190
+2 Narc  ~   EP  0.330 0.128  2.576  0.010    0.079    0.582  0.330   0.176
+3 Narc ~~ Narc 50.345 5.034 10.000  0.000   40.477   60.212 50.345   0.930
+4   HP ~~   HP 56.991 0.000     NA     NA   56.991   56.991 56.991   1.000
+5   HP ~~   EP  1.423 0.000     NA     NA    1.423    1.423  1.423   0.048
+6   EP ~~   EP 15.341 0.000     NA     NA   15.341   15.341 15.341   1.000
+  std.nox
+1   0.025
+2   0.045
+3   0.930
+4  56.991
+5   1.423
+6  15.341</code></pre>
+</div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/narc_1b.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
 </section>
-<section id="how-this-book-was-made" class="level3">
-<h3 class="anchored" data-anchor-id="how-this-book-was-made">How this book was made</h3>
-<p>This book was authored using the Quarto publishing system. To learn more about Quarto books visit <a href="https://quarto.org/docs/books" class="uri">https://quarto.org/docs/books</a>.</p>
+<section id="adding-a-second-dv" class="level3" data-number="7.2.2">
+<h3 data-number="7.2.2" class="anchored" data-anchor-id="adding-a-second-dv"><span class="header-section-number">7.2.2</span> Adding a second DV</h3>
+<p>Up to this point using SEM doesn’t really buy us anything over and above ordinary regression. But the situation changes if we have more than one DV. Let’s say that instead of a single measure we had a measure of two types of narcissism: vulnerable narcissism (VN) and grandiose narcissism (GN), which, for the sake of example, let’s say are not mutually exclusive (i.e., a person can have a little bit of each).</p>
+<p>We could perform two separate regressions, but this has the problem that each regression is performed independently of the other, which only makes sense if we are sure that the two DVs are totally uncorrelated. If they are correlated, then the estimates from this approach will be biased. Here, a SEM approach is useful because it can account for this covariance.</p>
+<p><img src="img/narc_2.png" class="img-fluid"></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>narc_2 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/narc_2.csv"</span>,</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">col_types =</span> <span class="st">"dddd"</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>sem_formula2 <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="st">VN ~ HP + EP</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="st">GN ~ HP + EP'</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>mod_sem2 <span class="ot">&lt;-</span> <span class="fu">sem</span>(sem_formula2, <span class="at">data =</span> narc_2)</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod_sem2, <span class="at">rsquare =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>lavaan 0.6-19 ended normally after 9 iterations
+
+  Estimator                                         ML
+  Optimization method                           NLMINB
+  Number of model parameters                         7
+
+  Number of observations                           200
+
+Model Test User Model:
+                                                      
+  Test statistic                                 0.000
+  Degrees of freedom                                 0
+
+Parameter Estimates:
+
+  Standard errors                             Standard
+  Information                                 Expected
+  Information saturated (h1) model          Structured
+
+Regressions:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+  VN ~                                                
+    HP                0.131    0.030    4.351    0.000
+    EP               -0.193    0.058   -3.315    0.001
+  GN ~                                                
+    HP                0.145    0.039    3.754    0.000
+    EP               -0.014    0.074   -0.190    0.849
+
+Covariances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+ .VN ~~                                               
+   .GN                0.994    0.941    1.056    0.291
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+   .VN               10.375    1.037   10.000    0.000
+   .GN               16.975    1.698   10.000    0.000
+
+R-Square:
+                   Estimate
+    VN                0.125
+    GN                0.066</code></pre>
+</div>
+</div>
+<p>Let’s have a look at the model estimates, including standardized coefficients, and add the (raw) coefficients to our path diagram.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">parameterEstimates</span>(mod_sem2, <span class="at">standardized =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   lhs op rhs    est    se      z pvalue ci.lower ci.upper std.lv std.all
+1   VN  ~  HP  0.131 0.030  4.351  0.000    0.072    0.191  0.131   0.288
+2   VN  ~  EP -0.193 0.058 -3.315  0.001   -0.307   -0.079 -0.193  -0.219
+3   GN  ~  HP  0.145 0.039  3.754  0.000    0.069    0.221  0.145   0.257
+4   GN  ~  EP -0.014 0.074 -0.190  0.849   -0.160    0.132 -0.014  -0.013
+5   VN ~~  VN 10.375 1.037 10.000  0.000    8.341   12.408 10.375   0.875
+6   GN ~~  GN 16.975 1.698 10.000  0.000   13.648   20.302 16.975   0.934
+7   VN ~~  GN  0.994 0.941  1.056  0.291   -0.850    2.838  0.994   0.075
+8   HP ~~  HP 56.991 0.000     NA     NA   56.991   56.991 56.991   1.000
+9   HP ~~  EP  1.423 0.000     NA     NA    1.423    1.423  1.423   0.048
+10  EP ~~  EP 15.341 0.000     NA     NA   15.341   15.341 15.341   1.000
+   std.nox
+1    0.038
+2   -0.056
+3    0.034
+4   -0.003
+5    0.875
+6    0.934
+7    0.075
+8   56.991
+9    1.423
+10  15.341</code></pre>
+</div>
+</div>
+<p><img src="img/narc_2b.png" class="img-fluid"></p>
 
 
-</section>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
+<div id="ref-Rosseel_2012" class="csl-entry" role="listitem">
+Rosseel, Y. (2012). Lavaan: An r package for structural equation modeling. <em>Journal of Statistical Software</em>, <em>48</em>(2), 1–36. <a href="https://doi.org/10.18637/jss.v048.i02">https://doi.org/10.18637/jss.v048.i02</a>
+</div>
+</div>
 </section>
 </section>
 
@@ -852,10 +1195,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./multivariate.html" class="pagination-link" aria-label="Psychometrics and Multivariate Analysis">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Psychometrics and Multivariate Analysis</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./intro-placeholder.html" class="pagination-link" aria-label="Introduction">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./mediation.html" class="pagination-link" aria-label="Mediation models">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Mediation models</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
