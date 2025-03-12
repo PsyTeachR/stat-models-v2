@@ -1,0 +1,218 @@
+# Mediation models
+
+For this chapter we'll go through the steps to estimate a mediation model, including calculation of direct and indirect effects (see lecture for definitions).
+
+The basic structure of a mediation model is as shown in @fig-mediation below.
+
+![A basic three-variable mediation structure](img/mediation.png){#fig-mediation width="50%" fig-align="center"}
+
+In this example, we are interested in the effect on productivity of having people work on-site in an office (in-person working, or IP) versus at home. Let's say that we have surveyed 1,000 firms and calculate the proportion of employees located at the main worksite (`IP`) and obtained a measure of each firm's productivity (`PR`). [Download](data/workplace.csv) the (simulated; not real) data if you want to follow along.
+
+```{r}
+#| label: setup-data
+#| include: false
+options(tidyverse.quiet=TRUE)
+library("tidyverse")
+set.seed(1451)
+
+.pstr <- function(pval) {
+  if (pval < .001) {
+    "p < .001"
+  } else if (pval > .999) {
+    "p > .999"
+  } else {
+    sprintf("p = %0.3f", pval)
+  }
+}
+
+.b_a <- 21.8
+.b_b <- .7
+
+## X
+.prop_inperson <- rnorm(1000, .5, sd = .11)
+
+## mediation
+.org_knowledge <- 65 + .b_a * .prop_inperson +
+  rnorm(1000, sd = 10)
+
+.productivity <- 25 + .b_b * .org_knowledge +
+  rnorm(1000, sd = 10)
+
+.dat <- data.frame(IP = round(.prop_inperson, 5),
+                   OI = round(.org_knowledge, 3),
+                   PR = round(.productivity, 3))
+
+write_csv(.dat, "data/workplace.csv")
+```
+
+```{r}
+#| label: import
+#| message: false
+#| echo: true
+## first load in the data
+library("tidyverse")
+library("lavaan")
+
+wpdat <- read_csv("data/workplace.csv", col_types = "ddd")
+
+wpdat
+```
+
+To begin, let's look at the unmediated association between in-person working and productivity. We can do this with just a very simple regression model.
+
+```{r}
+#| label: unmediated
+mod_unmediated <- lm(PR ~ IP, data = wpdat)
+summary(mod_unmediated)
+```
+
+```{r}
+#| label: secret
+#| echo: false
+.slp <- round(coef(mod_unmediated)[2], 3)
+```
+
+From this model, we can see that the higher the proportion of in-person workers, the higher the productivity (with productivity measured on a scale 1-100). The coefficient of `{r} .slp` means that if we increase the proportion of workers on-site by .3, productivity would go up by about `{r} round(.3 * .slp, 3)` points.
+
+Let's assume that you have a theory about why in-person working is important for productivity—namely, that in-person interaction is critical for the development of "organizational intelligence" (OI), which might be thought of as the extent to which a typical worker understands the various roles and practices of the organization, allowing them to see how their own efforts fit into the whole and thus to work more fluidly with others as a team.
+
+So to test this, we'd want to know whether (1) the causal path $IP \rightarrow OI \rightarrow PR$ is statistically significant, and (2) what proportion of the total effect of $IP$ on $PR$ is explained by this mechanism versus other remaining (unmeasured) variables that account for the relationship. We may also want to know (3) whether the statistically significant direct effect of IP on PR 'survives' after controlling for the mediated effect via OI.
+
+The mediated effect $IP \rightarrow OI \rightarrow PR$ can be calculated as the product $a \times b$ where $a$ and $b$ are the path coefficients shown in @fig-mediation. This tells you how much of a unit change in IP is transmitted to PR through OI.
+
+The total effect is then $ab + c'$, where $c'$ is the effect on PR or IP *after controlling for the mediated effect of IP on PR through OI.
+
+## Fitting mediation models
+
+Let's take a look at how to fit the model and estimate these effects in `lavaan`.
+
+We can specify the model one of two ways, either as two or three regression equations. Both models will be equivalent, but using two equations (one for each endogenous variable) is the more typical approach.
+
+```{r}
+library("lavaan")
+
+mod_med_2 <- "
+# path a
+OI ~ IP
+# paths b and c'
+PR ~ OI + IP"
+
+mod_fit_2 <- sem(mod_med_2, data = wpdat)
+```
+
+We can specify all the paths individually, just to check that the model is the same.
+
+```{r}
+mod_med_3 <- "
+# direct effect (path c')
+PR ~ IP
+# path a
+OI ~ IP
+# path b
+PR ~ OI"
+
+mod_fit_3 <- sem(mod_med_3, data = wpdat)
+
+parameterEstimates(mod_fit_3) |> arrange(op, lhs, rhs)
+```
+
+If we compare to the parameter estimates for the 2 equation syntax, we can see that they are identical.
+
+```{r}
+parameterEstimates(mod_fit_2) |> arrange(op, lhs, rhs)
+```
+
+Let's look at the model output, including $R^2$ and standardized estimates.
+
+```{r}
+summary(mod_fit_2, standardized=TRUE, rsquare=TRUE)
+```
+
+```{r}
+#| label: secret-rsquare
+#| include: false
+.PR_r2 <- parameterEstimates(mod_fit_2, standardized=TRUE, rsquare=TRUE) |>
+  filter(op == "r2", rhs == "PR") |>
+  pull(est)
+
+.OI_r2 <- parameterEstimates(mod_fit_2, standardized=TRUE, rsquare=TRUE) |>
+  filter(op == "r2", rhs == "OI") |>
+  pull(est)
+
+.pval_cprime <- parameterEstimates(mod_fit_2, standardized=TRUE, rsquare=TRUE) |>
+  filter(op == "~", lhs == "PR", rhs == "IP") |>
+  pull(pvalue)
+```
+
+Our model is just-identified ($df = 0$), meaning that the model fit is perfect and we have no additional degrees of freedom for considering measures of model fit. We can also see that our model gives us an $R^2$ of `{r} round(.PR_r2, 3)` for the endogenous variable PR, which means that it accounts for about `{r} sprintf("%0.1f%%", 100 * .PR_r2)` of the variation in productivity. We can also see that the effect of in-person work only accounts for about `{r} sprintf("%0.1f%%", 100 * .OI_r2)` of the variation in organizational knowledge, indicating that there is much more to learn about how such knowledge develops. Finally, we can see from the output that the direct effect $c'$ (`PR ~ IP`; $p = `{r} sprintf("%0.3f", .pval_cprime) |> sub("\\.", "\\\\.", x = _)`$) is not significant in this model (it did not 'survive' controlling for the mediation). We should be careful not to accept the null hypothesis, however; we would have to perform a more stringent analysis such as an [equivalence test](https://doi.org/10.1177/2515245918770963) before doing so.
+
+## Calculating indirect effects
+
+What's missing from the output above are calculations of the indirect effect, the total effect, and the proportion of the total effect explained by the indirect effect. We could compute these from the output using simple arithmetic, but then we would lack information about their standard errors.
+
+To get these values we need to update the model syntax and include calculations by using the `x := ...` operator, which you can think of as variable `x` "is calculated as" (whatever is on the right hand side). Using this syntax you can do arbitrary calculations and get statistical information in the output.
+
+However, to perform such calculations we first need to be able to give model parameters predictable names. Up to now, when we specified a regression model in lavaan we've followed the standard R model syntax, where the regression coefficients are omitted. 
+
+However, we can also use a lavaan-specific syntax where we give the coefficients names. So, `y ~ x` would be the same as `y ~ b1 * x`. This will tell lavaan to give the coefficient for `x` the name `b1` rather than just choosing some default name. This allows us to refer to it again later. We're limited in our names to using alphanumeric characters (e.g., A-Z and 0-9). So we can't legally call something `c'` but we can call it `cprime`.
+
+```{r}
+#| label: update-model-syntax
+
+mod_med_names <- "
+# path a
+OI ~ a * IP
+# paths b and c'
+PR ~ b * OI + cprime * IP
+"
+
+mod_fit_names <- sem(mod_med_names, data = wpdat)
+parameterEstimates(mod_fit_names)
+```
+
+Now we can expand the syntax further to compute or mediation statistics.
+
+```{r}
+mod_med_stats <- "
+# regression equations
+OI ~ a * IP
+PR ~ b * OI + cprime * IP
+
+# compute mediation stats; indir = indirect effect
+indir := a * b
+total := indir + cprime
+prop := indir / total
+"
+
+mod_fit_stats <- sem(mod_med_stats, data = wpdat)
+parameterEstimates(mod_fit_stats)
+```
+
+Now we get statistics for the computed values in the output. Note that the $z$ statistic in the output is our test statistics. For the indirect effect, this is known as the Sobel statistic. This test assumes normality, but assumption is unlikely to hold when we are looking at the distribution of an estimator calculated as a product. So, a better method to use for getting standard errors is [bootstrapping](https://en.wikipedia.org/wiki/Bootstrapping_(statistics)), which we can specify in the call to `sem()` using the argument `se="boot"`. Let's re-fit the model. This will take longer due to the bootstrapping.
+
+```{r}
+#| cache: true
+mod_fit_boot <- sem(mod_med_stats, data = wpdat, se = "boot")
+```
+
+We got a warning about non-convergence when re-fitting the model to the bootstrapped data. This can happen sometimes. The default number of bootstrap samples is 1,000, so we don't have to worry too much about losing data for 19 of them. But if there had been more than 19 instances, we might want to increase the number of bootstrap samples (see `?lavOptions` for information).
+
+```{r}
+parameterEstimates(mod_fit_boot)
+```
+
+```{r}
+#| label: secret-final
+#| echo: false
+.pb <- parameterEstimates(mod_fit_boot) |>
+  filter(label == "indir")
+
+.prop <- parameterEstimates(mod_fit_boot) |>
+  filter(label == "prop") |>
+  pull(est)
+
+.pz <- .pb |> pull(z)
+.pp <- .pb |> pull(pvalue)
+```
+
+From the output we can see that our estimated mediation effect is `{r} .pb |> pull(est) |> round(3)`, which is statistically significant, $`{r} sprintf("z = %0.3f", .pz) |> sub("\\.", "\\\\.", x= _)`$, $`{r} .pstr(.pp) |> sub("\\.", "\\\\.", x = _)`$. We can also see that the mediation effect accounts for about `{r} sprintf("%0.1f%%", 100 * .prop)` of the total effect.
