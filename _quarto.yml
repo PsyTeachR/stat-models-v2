@@ -19,7 +19,7 @@ book:
     - cfa.qmd
     - references.qmd
     - glossary.qmd
-    - notation.qmd
+#    - notation.qmd
 
 bibliography: references.bib
 csl: apa.csl
