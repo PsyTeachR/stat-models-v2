@@ -15,9 +15,8 @@ book:
     - mixed-effects.qmd
     - multivariate.qmd
     - path.qmd
-#    - mediation.qmd
-#    - cfa.qmd
-#    - sem.qmd
+    - mediation.qmd
+    - cfa.qmd
     - references.qmd
     - glossary.qmd
     - notation.qmd
