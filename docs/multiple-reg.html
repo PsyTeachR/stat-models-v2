@@ -253,6 +253,12 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./cfa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Confirmatory factor analysis</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./references.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">References</span></a>
   </div>
@@ -761,18 +767,18 @@ Don’t represent levels of a categorical variable with numbers!
 <span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>fake_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 10 × 2
-         Y group
-     &lt;dbl&gt; &lt;chr&gt;
- 1  0.145  A    
- 2 -0.0212 A    
- 3 -0.462  A    
- 4  0.140  A    
- 5  0.715  A    
- 6  1.50   B    
- 7 -0.791  B    
- 8  1.20   B    
- 9 -0.436  B    
-10 -0.694  B    </code></pre>
+        Y group
+    &lt;dbl&gt; &lt;chr&gt;
+ 1 -2.41  A    
+ 2  0.994 A    
+ 3  1.16  A    
+ 4 -1.73  A    
+ 5 -0.264 A    
+ 6  0.975 B    
+ 7 -0.905 B    
+ 8 -0.392 B    
+ 9  0.735 B    
+10  1.66  B    </code></pre>
 </div>
 </div>
 <p>Now let’s add a new variable, <code>group_d</code>, which is the dummy coded group variable. We will use the <code>dplyr::if_else()</code> function to define the new column.</p>
@@ -783,18 +789,18 @@ Don’t represent levels of a categorical variable with numbers!
 <span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>fake_data2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 10 × 3
-         Y group group_d
-     &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt;
- 1  0.145  A           0
- 2 -0.0212 A           0
- 3 -0.462  A           0
- 4  0.140  A           0
- 5  0.715  A           0
- 6  1.50   B           1
- 7 -0.791  B           1
- 8  1.20   B           1
- 9 -0.436  B           1
-10 -0.694  B           1</code></pre>
+        Y group group_d
+    &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt;
+ 1 -2.41  A           0
+ 2  0.994 A           0
+ 3  1.16  A           0
+ 4 -1.73  A           0
+ 5 -0.264 A           0
+ 6  0.975 B           1
+ 7 -0.905 B           1
+ 8 -0.392 B           1
+ 9  0.735 B           1
+10  1.66  B           1</code></pre>
 </div>
 </div>
 <p>Now we just run it as a regular regression model.</p>
@@ -806,17 +812,17 @@ Call:
 lm(formula = Y ~ group_d, data = fake_data2)
 
 Residuals:
-     Min       1Q   Median       3Q      Max 
--0.94700 -0.58576 -0.04399  0.46942  1.34136 
+    Min      1Q  Median      3Q     Max 
+-1.9583 -1.1590  0.2528  1.0718  1.6083 
 
 Coefficients:
             Estimate Std. Error t value Pr(&gt;|t|)
-(Intercept)  0.10336    0.37349   0.277    0.789
-group_d      0.05266    0.52819   0.100    0.923
+(Intercept)  -0.4489     0.6024  -0.745    0.477
+group_d       0.8628     0.8519   1.013    0.341
 
-Residual standard error: 0.8351 on 8 degrees of freedom
-Multiple R-squared:  0.001241,  Adjusted R-squared:  -0.1236 
-F-statistic: 0.009941 on 1 and 8 DF,  p-value: 0.923</code></pre>
+Residual standard error: 1.347 on 8 degrees of freedom
+Multiple R-squared:  0.1136,    Adjusted R-squared:  0.002839 
+F-statistic: 1.026 on 1 and 8 DF,  p-value: 0.3408</code></pre>
 </div>
 </div>
 <p>Let’s reverse the coding. We get the same result, just the sign is different.</p>
@@ -831,17 +837,17 @@ Call:
 lm(formula = Y ~ group_d, data = fake_data3)
 
 Residuals:
-     Min       1Q   Median       3Q      Max 
--0.94700 -0.58576 -0.04399  0.46942  1.34136 
+    Min      1Q  Median      3Q     Max 
+-1.9583 -1.1590  0.2528  1.0718  1.6083 
 
 Coefficients:
             Estimate Std. Error t value Pr(&gt;|t|)
-(Intercept)  0.15603    0.37349   0.418    0.687
-group_d     -0.05266    0.52819  -0.100    0.923
+(Intercept)   0.4139     0.6024   0.687    0.511
+group_d      -0.8628     0.8519  -1.013    0.341
 
-Residual standard error: 0.8351 on 8 degrees of freedom
-Multiple R-squared:  0.001241,  Adjusted R-squared:  -0.1236 
-F-statistic: 0.009941 on 1 and 8 DF,  p-value: 0.923</code></pre>
+Residual standard error: 1.347 on 8 degrees of freedom
+Multiple R-squared:  0.1136,    Adjusted R-squared:  0.002839 
+F-statistic: 1.026 on 1 and 8 DF,  p-value: 0.3408</code></pre>
 </div>
 </div>
 <p>The interpretation of the intercept is the estimated mean for the group coded as zero. You can see by plugging in zero for X in the prediction formula below. Thus, <span class="math inline">\(\beta_1\)</span> can be interpreted as the difference between the mean for the baseline group and the group coded as 1.</p>
@@ -856,17 +862,17 @@ Call:
 lm(formula = Y ~ group, data = fake_data)
 
 Residuals:
-     Min       1Q   Median       3Q      Max 
--0.94700 -0.58576 -0.04399  0.46942  1.34136 
+    Min      1Q  Median      3Q     Max 
+-1.9583 -1.1590  0.2528  1.0718  1.6083 
 
 Coefficients:
             Estimate Std. Error t value Pr(&gt;|t|)
-(Intercept)  0.10336    0.37349   0.277    0.789
-groupB       0.05266    0.52819   0.100    0.923
+(Intercept)  -0.4489     0.6024  -0.745    0.477
+groupB        0.8628     0.8519   1.013    0.341
 
-Residual standard error: 0.8351 on 8 degrees of freedom
-Multiple R-squared:  0.001241,  Adjusted R-squared:  -0.1236 
-F-statistic: 0.009941 on 1 and 8 DF,  p-value: 0.923</code></pre>
+Residual standard error: 1.347 on 8 degrees of freedom
+Multiple R-squared:  0.1136,    Adjusted R-squared:  0.002839 
+F-statistic: 1.026 on 1 and 8 DF,  p-value: 0.3408</code></pre>
 </div>
 </div>
 <p>The <code>lm()</code> function examines <code>group</code> and figures out the unique levels of the variable, which in this case are <code>A</code> and <code>B</code>. It then chooses as baseline the level that comes first alphabetically, and encodes the contrast between the other level (<code>B</code>) and the baseline level (<code>A</code>). (In the case where <code>group</code> has been defined as a factor, the baseline level is the first element of <code>levels(fake_data$group)</code>).</p>
@@ -888,26 +894,26 @@ F-statistic: 0.009941 on 1 and 8 DF,  p-value: 0.923</code></pre>
 <pre><code># A tibble: 20 × 2
    season bodyweight_kg
    &lt;chr&gt;          &lt;dbl&gt;
- 1 winter         102. 
- 2 winter         105. 
- 3 winter         107. 
- 4 winter         102. 
- 5 winter         109. 
- 6 spring         102. 
- 7 spring          96.9
- 8 spring          99.9
+ 1 winter         106. 
+ 2 winter         109. 
+ 3 winter         108. 
+ 4 winter         104. 
+ 5 winter         103. 
+ 6 spring         103. 
+ 7 spring         103. 
+ 8 spring         101. 
  9 spring         103. 
-10 spring         105. 
+10 spring         101. 
 11 summer         102. 
-12 summer         102. 
-13 summer         106. 
-14 summer         107. 
-15 summer         105. 
-16 fall            99.5
-17 fall           103. 
-18 fall           102. 
-19 fall           105. 
-20 fall           101. </code></pre>
+12 summer          97.0
+13 summer          99.8
+14 summer         101. 
+15 summer         107. 
+16 fall           101. 
+17 fall           108. 
+18 fall           103. 
+19 fall           103. 
+20 fall           104. </code></pre>
 </div>
 </div>
 <p>Now let’s add three predictors to code the variable <code>season</code>. Try it out and see if you can figure out how it works.</p>
@@ -923,26 +929,26 @@ F-statistic: 0.009941 on 1 and 8 DF,  p-value: 0.923</code></pre>
 <pre><code># A tibble: 20 × 5
    season bodyweight_kg spring_v_winter summer_v_winter fall_v_winter
    &lt;chr&gt;          &lt;dbl&gt;           &lt;dbl&gt;           &lt;dbl&gt;         &lt;dbl&gt;
- 1 winter         102.                0               0             0
- 2 winter         105.                0               0             0
- 3 winter         107.                0               0             0
- 4 winter         102.                0               0             0
- 5 winter         109.                0               0             0
- 6 spring         102.                1               0             0
- 7 spring          96.9               1               0             0
- 8 spring          99.9               1               0             0
+ 1 winter         106.                0               0             0
+ 2 winter         109.                0               0             0
+ 3 winter         108.                0               0             0
+ 4 winter         104.                0               0             0
+ 5 winter         103.                0               0             0
+ 6 spring         103.                1               0             0
+ 7 spring         103.                1               0             0
+ 8 spring         101.                1               0             0
  9 spring         103.                1               0             0
-10 spring         105.                1               0             0
+10 spring         101.                1               0             0
 11 summer         102.                0               1             0
-12 summer         102.                0               1             0
-13 summer         106.                0               1             0
-14 summer         107.                0               1             0
-15 summer         105.                0               1             0
-16 fall            99.5               0               0             1
-17 fall           103.                0               0             1
-18 fall           102.                0               0             1
-19 fall           105.                0               0             1
-20 fall           101.                0               0             1</code></pre>
+12 summer          97.0               0               1             0
+13 summer          99.8               0               1             0
+14 summer         101.                0               1             0
+15 summer         107.                0               1             0
+16 fall           101.                0               0             1
+17 fall           108.                0               0             1
+18 fall           103.                0               0             1
+19 fall           103.                0               0             1
+20 fall           104.                0               0             1</code></pre>
 </div>
 </div>
 <div class="callout callout-style-default callout-caution callout-titled">
@@ -976,7 +982,7 @@ lm(formula = bodyweight_kg ~ spring_v_winter + summer_v_winter +
 
 Coefficients:
     (Intercept)  spring_v_winter  summer_v_winter    fall_v_winter  
-        104.633           -3.471               NA           -2.435  </code></pre>
+       103.6301          -1.3507               NA           0.3242  </code></pre>
 </div>
 </div>
 <p>What happened? Let’s look at the data to find out. We will use <code>distinct</code> to find the distinct combinations of our original variable <code>season</code> with the three variables we created (see <code>?dplyr::distinct</code> for details).</p>
@@ -1017,20 +1023,20 @@ lm(formula = bodyweight_kg ~ season, data = season_wt)
 
 Residuals:
     Min      1Q  Median      3Q     Max 
--4.2607 -2.6274  0.3037  1.8606  3.9984 
+-4.3783 -1.4978 -0.2445  1.0055  5.3232 
 
 Coefficients:
              Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)   102.197      1.186  86.198   &lt;2e-16 ***
-seasonspring   -1.036      1.677  -0.618    0.545    
-seasonsummer    2.224      1.677   1.326    0.203    
-seasonwinter    2.646      1.677   1.578    0.134    
+(Intercept)   103.954      1.130  92.033   &lt;2e-16 ***
+seasonspring   -1.675      1.597  -1.049    0.310    
+seasonsummer   -2.528      1.597  -1.583    0.133    
+seasonwinter    1.880      1.597   1.177    0.256    
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 2.651 on 16 degrees of freedom
-Multiple R-squared:  0.2936,    Adjusted R-squared:  0.1612 
-F-statistic: 2.217 on 3 and 16 DF,  p-value: 0.1257</code></pre>
+Residual standard error: 2.526 on 16 degrees of freedom
+Multiple R-squared:  0.358, Adjusted R-squared:  0.2376 
+F-statistic: 2.974 on 3 and 16 DF,  p-value: 0.063</code></pre>
 </div>
 </div>
 <p>Here, R implicitly creates three dummy variables to code the four levels of <code>season</code>, called <code>seasonspring</code>, <code>seasonsummer</code> and <code>seasonwinter</code>. The unmentioned season, <code>fall</code>, has been chosen as baseline because it comes earliest in the alphabet. These three predictors have the following values:</p>
@@ -1056,9 +1062,11 @@ F-statistic: 2.217 on 3 and 16 DF,  p-value: 0.1257</code></pre>
 <span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>my_anova <span class="ot">&lt;-</span> <span class="fu">aov</span>(bodyweight_kg <span class="sc">~</span> season, season_wt3)</span>
 <span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(my_anova)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>            Df Sum Sq Mean Sq F value Pr(&gt;F)
-season       3  46.74  15.580   2.217  0.126
-Residuals   16 112.45   7.028               </code></pre>
+<pre><code>            Df Sum Sq Mean Sq F value Pr(&gt;F)  
+season       3  56.91  18.969   2.974  0.063 .
+Residuals   16 102.07   6.379                 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
 <p>OK, now can we replicate that result using the regression model below?</p>
@@ -1075,20 +1083,20 @@ lm(formula = bodyweight_kg ~ spring_v_winter + summer_v_winter +
 
 Residuals:
     Min      1Q  Median      3Q     Max 
--4.2607 -2.6274  0.3037  1.8606  3.9984 
+-4.3783 -1.4978 -0.2445  1.0055  5.3232 
 
 Coefficients:
                 Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)      104.844      1.186  88.430   &lt;2e-16 ***
-spring_v_winter   -3.683      1.677  -2.196   0.0432 *  
-summer_v_winter   -0.422      1.677  -0.252   0.8045    
-fall_v_winter     -2.646      1.677  -1.578   0.1341    
+(Intercept)      105.834      1.130  93.697   &lt;2e-16 ***
+spring_v_winter   -3.555      1.597  -2.225   0.0408 *  
+summer_v_winter   -4.408      1.597  -2.759   0.0140 *  
+fall_v_winter     -1.880      1.597  -1.177   0.2565    
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 2.651 on 16 degrees of freedom
-Multiple R-squared:  0.2936,    Adjusted R-squared:  0.1612 
-F-statistic: 2.217 on 3 and 16 DF,  p-value: 0.1257</code></pre>
+Residual standard error: 2.526 on 16 degrees of freedom
+Multiple R-squared:  0.358, Adjusted R-squared:  0.2376 
+F-statistic: 2.974 on 3 and 16 DF,  p-value: 0.063</code></pre>
 </div>
 </div>
 <p>Note that the <span class="math inline">\(F\)</span> values and <span class="math inline">\(p\)</span> values are identical for the two methods!</p>
